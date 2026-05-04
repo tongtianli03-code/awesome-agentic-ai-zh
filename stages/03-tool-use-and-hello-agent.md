@@ -91,7 +91,8 @@ jupyter notebook customer_service_agent.ipynb
 |---|---|
 | Maintainer | Arun Shankar (Google ML) |
 | Language | Python |
-| License | MIT |
+| License | Apache-2.0 |
+| Last update | ⚠️ May 2025 (slowing) |
 | Recommendation | ⭐⭐⭐⭐ |
 
 **What it teaches**: ReAct pattern variations and implementations, optimized for Gemini.
@@ -107,7 +108,8 @@ jupyter notebook customer_service_agent.ipynb
 | Maintainer | Matt Ambrogi |
 | Language | Python |
 | License | MIT |
-| Recommendation | ⭐⭐⭐⭐ |
+| Last update | ⚠️ Stale (Jan 2024) — kept as educational toy reference |
+| Recommendation | ⭐⭐⭐ |
 
 **What it teaches**: Minimal ReAct agent implementation. Ultra-stripped-down (~150 lines) for learning.
 
@@ -161,7 +163,7 @@ git clone -b learn_version https://github.com/jjyaoao/HelloAgents
 |---|---|
 | Maintainer | QuantaLogic |
 | Language | Python |
-| License | MIT |
+| License | Apache-2.0 |
 | Recommendation | ⭐⭐⭐ |
 
 **What it teaches**: ReAct agent that generates Python code instead of JSON tool calls. Different design choice — agent writes code as actions.
@@ -176,7 +178,7 @@ git clone -b learn_version https://github.com/jjyaoao/HelloAgents
 |---|---|
 | Maintainer | Hugging Face |
 | Language | Python |
-| Stars | ★ 16k+ |
+| Stars | ★ 27k+ |
 | License | Apache 2.0 |
 | Recommendation | ⭐⭐⭐⭐ |
 

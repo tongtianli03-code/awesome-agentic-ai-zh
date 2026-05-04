@@ -65,7 +65,7 @@ After this stage you will be able to extend Claude Code, write your own MCP serv
 |---|---|
 | Maintainer | Anthropic (official) |
 | Language | TypeScript / Python |
-| Stars | ★ 81k+ |
+| Stars | ★ 85k+ |
 | License | MIT |
 | Recommendation | ⭐⭐⭐⭐⭐ |
 
@@ -330,7 +330,7 @@ A larger, battle-tested marketplace. Read its packaging structure.
 | Recommendation | ⭐⭐⭐ |
 |---|---|
 
-**What it teaches**: 135 agents, 35 curated skills, 42 commands, 176+ plugins, 20 hooks, 15 rules, 7 templates, 14 MCP configs, 26 companion apps. Massive catalog.
+**What it teaches**: One of the largest community catalogs of Claude Code agents, skills, hooks, and templates. Wide breadth across many use cases.
 
 **Best for**: After Hello-3, browse for ecosystem awareness.
 

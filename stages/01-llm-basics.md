@@ -58,7 +58,7 @@ Calculate the actual dollar cost of running 1000 inferences for your hello-world
 |---|---|
 | Maintainer | Anthropic (official) |
 | Language | Python |
-| Stars | ★ 12k+ |
+| Stars | ★ 42k+ |
 | License | MIT |
 | Recommendation | ⭐⭐⭐⭐⭐ |
 
@@ -84,7 +84,7 @@ jupyter notebook guide.ipynb
 |---|---|
 | Maintainer | OpenAI (official) |
 | Language | Python / Jupyter |
-| Stars | ★ 60k+ |
+| Stars | ★ 73k+ |
 | License | MIT |
 | Recommendation | ⭐⭐⭐⭐⭐ |
 
@@ -119,6 +119,7 @@ jupyter notebook guide.ipynb
 | Maintainer | datawhalechina (Chinese ML community) |
 | Language | 中文 (zh-CN) |
 | Stars | ★ 23k+ |
+| Last update | ⚠️ Borderline (Jun 2025) |
 | License | Custom (CC BY-NC-SA) |
 | Recommendation | ⭐⭐⭐⭐ |
 
@@ -152,8 +153,8 @@ jupyter notebook guide.ipynb
 | Field | Value |
 |---|---|
 | Maintainer | Andrej Karpathy |
-| Status | Course outline (in progress) |
-| Recommendation | ⭐⭐⭐ |
+| Status | ⚠️ Archived (last update Aug 2024); outline only — never built out |
+| Recommendation | ⭐⭐ |
 
 **What it teaches**: Build a "Storyteller AI LLM" from scratch. Karpathy's signature pedagogical depth.
 

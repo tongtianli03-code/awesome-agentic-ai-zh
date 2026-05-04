@@ -43,14 +43,8 @@ Brainstorming, planning, and decision-making skills.
 
 ### MCP Servers Useful for Knowledge Workers
 
-#### [Slack MCP server](https://github.com/modelcontextprotocol/servers/tree/main/src/slack) ⭐⭐⭐⭐
-Connect Slack to Claude — search, post, summarize.
-
-#### [Gmail MCP server](https://github.com/modelcontextprotocol/servers) (in registry) ⭐⭐⭐
-Email triage and drafting.
-
-#### [Google Drive / Calendar MCP servers](https://github.com/modelcontextprotocol/servers) ⭐⭐⭐
-Read documents, schedule meetings.
+#### Communication MCP servers ⭐⭐⭐⭐
+Slack / Gmail / Discord etc. The original Anthropic-hosted reference servers were reorganized in 2025; community-maintained servers now live in [**punkpeye/awesome-mcp-servers**](https://github.com/punkpeye/awesome-mcp-servers#communication) and [**wong2/awesome-mcp-servers**](https://github.com/wong2/awesome-mcp-servers). Browse those lists for current Slack / Gmail / Drive / Calendar MCP servers.
 
 ---
 

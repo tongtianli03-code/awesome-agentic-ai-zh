@@ -2,11 +2,10 @@
 
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 [![Status](https://img.shields.io/badge/status-WIP%20%C2%B7%20Phase%201-orange)](#roadmap)
-[![Lang](https://img.shields.io/badge/lang-EN%20%2F%20%E7%B9%81%E4%B8%AD-red)](README.zh-TW.md)
 
-> A bilingual (English / 繁體中文) learning roadmap for agentic AI — from your first LLM API call to shipping multi-agent production systems. **Structured as a 7-stage path, not a flat list**, with curated projects, hello-world demos, and required reading at every stage.
-
-[繁體中文版本](README.zh-TW.md)
+> A learning roadmap for agentic AI — from your first LLM API call to shipping multi-agent production systems. **Structured as a 7-stage path, not a flat list**, with curated projects, hello-world demos, and required reading at every stage.
+>
+> Written in English with curated Chinese-language entry points where they exist. A full Traditional Chinese (繁體中文) companion is Phase 2 work — see [ROADMAP](#roadmap).
 
 ---
 
@@ -39,7 +38,7 @@ Stage 6  Memory · RAG · Advanced (vector DBs · long-term memory)         2 �
 Stage 7  Multi-Agent · Production (orchestration · eval · deploy · SDK)  2-4 週
 ```
 
-**Total main path: 14-19 weeks** (5-8 hr/week part-time)
+**Total main path: 14-19 weeks minimum, ~5-6 months realistic** at 5-8 hr/week part-time. The lower bound assumes you skip Stage 0 and don't get stuck on framework installs.
 
 After main path, choose a specialized branch:
 - 🔬 [For Researchers](branches/for-researcher.md)
@@ -102,7 +101,7 @@ Recommendation stars (⭐ to ⭐⭐⭐⭐⭐):
 
 This repo doesn't try to replace flat awesome lists. Use them when you already know what to look for:
 
-- [**hesreallyhim/awesome-claude-code**](https://github.com/hesreallyhim/awesome-claude-code) — comprehensive Claude Code resources (currently restructuring)
+- [**hesreallyhim/awesome-claude-code**](https://github.com/hesreallyhim/awesome-claude-code) — broad Claude Code resources catalog (currently restructuring)
 - [**wong2/awesome-mcp-servers**](https://github.com/wong2/awesome-mcp-servers) — flat MCP server catalog
 - [**punkpeye/awesome-mcp-servers**](https://github.com/punkpeye/awesome-mcp-servers) — alternative MCP list
 - [**travisvn/awesome-claude-skills**](https://github.com/travisvn/awesome-claude-skills) — Claude Skills catalog
@@ -110,6 +109,10 @@ This repo doesn't try to replace flat awesome lists. Use them when you already k
 - [**datawhalechina/hello-agents**](https://github.com/datawhalechina/hello-agents) — Datawhale Chinese tutorial (zh-CN)
 
 ---
+
+## Note on self-citation
+
+About a sixth of the curated projects (~12 entries) are repos maintained by this catalog's author (`WenyuChiou/...`). They're included as concrete pattern examples (e.g., multi-plugin marketplace pattern, single-skill pattern, multi-agent orchestration). Each one's notes section explains what *pattern* it teaches. If a non-self repo teaches the same pattern more cleanly, please open a PR — see CONTRIBUTING.md.
 
 ## Contributing
 

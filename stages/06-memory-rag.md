@@ -29,7 +29,7 @@ Agents that don't remember past interactions are not useful. RAG (Retrieval-Augm
 
 ### [LlamaIndex](https://github.com/run-llama/llama_index)
 
-| Stars | ★ 36k+ |
+| Stars | ★ 49k+ |
 |---|---|
 | Recommendation | ⭐⭐⭐⭐⭐ |
 
@@ -41,8 +41,9 @@ Agents that don't remember past interactions are not useful. RAG (Retrieval-Augm
 
 ### [Chroma](https://github.com/chroma-core/chroma)
 
-| Stars | ★ 18k+ |
+| Stars | ★ 27k+ |
 |---|---|
+| License | Apache-2.0 |
 | Recommendation | ⭐⭐⭐⭐⭐ |
 
 **What it teaches**: Open-source embedding database. Run locally, no infrastructure setup.
@@ -62,7 +63,7 @@ results = collection.query(query_texts=["query"], n_results=1)
 
 ### [Qdrant](https://github.com/qdrant/qdrant)
 
-| Stars | ★ 21k+ |
+| Stars | ★ 31k+ |
 |---|---|
 | Recommendation | ⭐⭐⭐⭐ |
 
@@ -74,7 +75,7 @@ results = collection.query(query_texts=["query"], n_results=1)
 
 ### [Weaviate](https://github.com/weaviate/weaviate)
 
-| Stars | ★ 12k+ |
+| Stars | ★ 16k+ |
 |---|---|
 | Recommendation | ⭐⭐⭐⭐ |
 
@@ -86,7 +87,7 @@ results = collection.query(query_texts=["query"], n_results=1)
 
 ### [pgvector](https://github.com/pgvector/pgvector)
 
-| Stars | ★ 14k+ |
+| Stars | ★ 21k+ |
 |---|---|
 | Recommendation | ⭐⭐⭐⭐ |
 
@@ -106,7 +107,7 @@ results = collection.query(query_texts=["query"], n_results=1)
 
 ### [mem0ai/mem0](https://github.com/mem0ai/mem0)
 
-| Stars | ★ 30k+ |
+| Stars | ★ 54k+ |
 |---|---|
 | Recommendation | ⭐⭐⭐⭐ |
 
@@ -118,7 +119,7 @@ results = collection.query(query_texts=["query"], n_results=1)
 
 ### [Letta (formerly MemGPT)](https://github.com/letta-ai/letta)
 
-| Stars | ★ 17k+ |
+| Stars | ★ 22k+ |
 |---|---|
 | Recommendation | ⭐⭐⭐⭐ |
 
@@ -128,11 +129,13 @@ results = collection.query(query_texts=["query"], n_results=1)
 
 ---
 
-### [llama-index — Contextual Retrieval](https://github.com/run-llama/llama_index/tree/main/llama-index-packs/llama-index-packs-contextual-retrieval)
+### [Anthropic — Contextual Retrieval cookbook](https://platform.claude.com/cookbook/capabilities-contextual-embeddings-guide)
 
-**What it teaches**: Anthropic's contextual retrieval implementation in LlamaIndex.
+**What it teaches**: Anthropic's contextual retrieval technique with prompt caching, end-to-end example.
 
-**Best for**: After basic RAG, upgrade to contextual retrieval for better recall.
+**Best for**: After basic RAG, upgrade to contextual retrieval for better recall on long documents.
+
+**Notes**: Anthropic renamed `anthropic-cookbook` → `claude-cookbooks` in 2025. The hosted notebook above is the canonical reference; raw GitHub paths may shift.
 
 ---
 

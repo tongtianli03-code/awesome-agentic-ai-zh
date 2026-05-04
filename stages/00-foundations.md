@@ -35,7 +35,7 @@ If you can't, work through this stage. Don't skip — every later stage assumes 
 - **datawhalechina/learn-python (zh-CN)** — Chinese-language Python intro
 
 ### Git
-- [**Pro Git book**](https://git-scm.com/book/en/v2) — free, comprehensive
+- [**Pro Git book**](https://git-scm.com/book/en/v2) — free, full-length reference
 - [**Atlassian Git Tutorials**](https://www.atlassian.com/git/tutorials) — workflow-focused
 - [**Oh Shit, Git!?!**](https://ohshitgit.com/) — when things go wrong
 

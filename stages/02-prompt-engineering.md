@@ -52,7 +52,7 @@ Take a vague prompt, refine it 5 times. Track the iterations. Notice what change
 | License | MIT |
 | Recommendation | ⭐⭐⭐⭐⭐ |
 
-**What it teaches**: Comprehensive prompt engineering from basics to advanced (CoT, ToT, ReAct, RAG). Academic-flavored but practical.
+**What it teaches**: End-to-end prompt engineering from basics to advanced (CoT, ToT, ReAct, RAG). Academic-flavored but practical.
 
 **Best for**: Reference. Skim once, return when you need a specific technique.
 

@@ -63,7 +63,7 @@ A project worth listing must have:
 - **English is canonical**. Translation goes EN → 繁中.
 - **繁中 (Traditional Chinese), not 簡中**. If you submit zh-CN we'll ask you to convert.
 - **Natural translation**, not word-for-word. Technical terms can stay in English where natural ("使用 LangGraph 建 multi-agent 系統").
-- See [resources/style-guide.md](resources/style-guide.md) for terminology consistency.
+- Terminology consistency rules will live in `resources/style-guide.md` (Phase 2 work).
 
 ## Process
 

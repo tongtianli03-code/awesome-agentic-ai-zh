@@ -19,6 +19,8 @@ You should already:
 - Have built ReAct from scratch (Hello-3)
 - Be comfortable with async Python (frameworks lean on async)
 
+⚠️ **Memory primer (peek ahead if needed)**: Some framework features rely on memory concepts — LangGraph uses checkpointing (state persistence), CrewAI passes task results between agents (lightweight memory). [Stage 6 — Memory & RAG](06-memory-rag.md) covers these properly. You don't need to read it first, but if a framework feature feels mysterious, that's where the answer is.
+
 ## 📚 Required Reading
 
 1. [**Anthropic — Building Effective Agents**](https://www.anthropic.com/engineering/building-effective-agents) — when to use frameworks vs raw API
@@ -48,7 +50,7 @@ Use LangGraph to build a workflow with branching logic and human-in-the-loop che
 |---|---|
 | Maintainer | LangChain Inc. |
 | Language | Python / TypeScript |
-| Stars | ★ 14k+ |
+| Stars | ★ 31k+ |
 | License | MIT |
 | Recommendation | ⭐⭐⭐⭐⭐ |
 
@@ -56,7 +58,7 @@ Use LangGraph to build a workflow with branching logic and human-in-the-loop che
 
 **Best for**: Production multi-agent systems where you need audit trails and rollback. Enterprise-grade.
 
-**Notes**: LangGraph surpassed CrewAI in stars during early 2026, driven by enterprise adoption. Steeper learning curve than CrewAI but pays off for production. Pair with LangSmith for observability.
+**Notes**: Strong enterprise adoption since 2025 (audit trails, replay-friendly graph model). Steeper learning curve than CrewAI but pays off for production. Pair with LangSmith for observability.
 
 **Run it**:
 ```bash
@@ -72,7 +74,7 @@ pip install langgraph langchain-anthropic
 |---|---|
 | Maintainer | CrewAI Inc. |
 | Language | Python |
-| Stars | ★ 30k+ |
+| Stars | ★ 50k+ |
 | License | MIT |
 | Recommendation | ⭐⭐⭐⭐ |
 
@@ -90,8 +92,8 @@ pip install langgraph langchain-anthropic
 |---|---|
 | Maintainer | Microsoft Research |
 | Language | Python |
-| Stars | ★ 35k+ |
-| License | MIT |
+| Stars | ★ 57k+ |
+| License | CC-BY-4.0 (note: license is for documentation; code released separately) |
 | Recommendation | ⭐⭐⭐⭐ |
 
 **What it teaches**: Conversational multi-agent teams. Agents interact through multi-turn conversations. Strong group-chat coordination patterns.
@@ -108,7 +110,7 @@ pip install langgraph langchain-anthropic
 |---|---|
 | Maintainer | Hugging Face |
 | Language | Python |
-| Stars | ★ 16k+ |
+| Stars | ★ 27k+ |
 | License | Apache 2.0 |
 | Recommendation | ⭐⭐⭐⭐ |
 
@@ -143,7 +145,7 @@ pip install langgraph langchain-anthropic
 |---|---|
 | Maintainer | LlamaIndex |
 | Language | Python |
-| Stars | ★ 36k+ |
+| Stars | ★ 49k+ |
 | License | MIT |
 | Recommendation | ⭐⭐⭐ |
 
@@ -195,7 +197,7 @@ pip install langgraph langchain-anthropic
 |---|---|
 | Maintainer | LangChain Inc. |
 | Language | Python / TypeScript |
-| Stars | ★ 100k+ |
+| Stars | ★ 135k+ |
 | License | MIT |
 | Recommendation | ⭐⭐⭐ |
 

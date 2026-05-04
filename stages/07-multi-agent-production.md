@@ -64,7 +64,7 @@ Already cited in Stage 4. For production with audit trails, checkpointing, and h
 
 #### [promptfoo/promptfoo](https://github.com/promptfoo/promptfoo)
 
-| Stars | ★ 8k+ |
+| Stars | ★ 20k+ |
 |---|---|
 | License | MIT |
 | Recommendation | ⭐⭐⭐⭐⭐ |
@@ -84,8 +84,9 @@ npx promptfoo eval
 
 #### [EleutherAI/lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness)
 
-| Stars | ★ 9k+ |
+| Stars | ★ 12k+ |
 |---|---|
+| License | MIT |
 | Recommendation | ⭐⭐⭐⭐ |
 
 **What it teaches**: Academic-grade eval framework with hundreds of standardized benchmarks (MMLU, HellaSwag, GSM8K).
@@ -96,7 +97,7 @@ npx promptfoo eval
 
 #### [openai/evals](https://github.com/openai/evals)
 
-| Stars | ★ 16k+ |
+| Stars | ★ 18k+ |
 |---|---|
 | Recommendation | ⭐⭐⭐⭐ |
 
@@ -110,7 +111,7 @@ npx promptfoo eval
 
 #### [langfuse/langfuse](https://github.com/langfuse/langfuse)
 
-| Stars | ★ 10k+ |
+| Stars | ★ 26k+ |
 |---|---|
 | License | MIT (open source) + paid cloud |
 | Recommendation | ⭐⭐⭐⭐⭐ |
@@ -131,9 +132,9 @@ npx promptfoo eval
 
 #### [Helicone](https://github.com/Helicone/helicone)
 
-| Stars | ★ 4k+ |
+| Stars | ★ 5k+ |
 |---|---|
-| License | MIT (open source) + paid cloud |
+| License | Apache 2.0 (open source) + paid cloud |
 | Recommendation | ⭐⭐⭐⭐ |
 
 **What it teaches**: LLM observability via proxy — drop-in replacement for OpenAI/Anthropic clients, gets you logging + caching.
@@ -184,8 +185,9 @@ Already cited. Specifically the `prompt_caching.ipynb`, `tool_use/`, and `multim
 
 #### [BentoML/BentoML](https://github.com/bentoml/BentoML)
 
-| Stars | ★ 7k+ |
+| Stars | ★ 8k+ |
 |---|---|
+| License | Apache 2.0 |
 | Recommendation | ⭐⭐⭐⭐ |
 
 **What it teaches**: Serve any ML/LLM model as a production API. Docker + serving framework.
@@ -204,8 +206,9 @@ Already cited. Specifically the `prompt_caching.ipynb`, `tool_use/`, and `multim
 
 #### [vLLM](https://github.com/vllm-project/vllm)
 
-| Stars | ★ 30k+ |
+| Stars | ★ 79k+ |
 |---|---|
+| License | Apache 2.0 |
 | Recommendation | ⭐⭐⭐⭐ |
 
 **What it teaches**: High-throughput LLM serving. Run open-source models in production.
