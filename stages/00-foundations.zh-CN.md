@@ -38,7 +38,7 @@
 ### Python
 - [**Python Crash Course**](https://github.com/ehmatthes/pcc_3e) — 书 + 练习（书要付费，练习免费）
 - [**Real Python tutorials**](https://realpython.com/) — 高品质免费文章
-- [**Corey Schafer YouTube**](https://www.youtube.com/c/Coreyms) — 影片教学，从基础到进阶，讲解清楚
+- [**Corey Schafer YouTube**](https://www.youtube.com/c/Coreyms) — 视频教学，从基础到进阶，讲解清楚
 - [**Boot.dev**](https://www.boot.dev/) — 互动式 Python 课程（部分免费）
 - [**runoob.com Python 教程**](https://www.runoob.com/python3/python3-tutorial.html) — 中文 Python 入门参考
 
