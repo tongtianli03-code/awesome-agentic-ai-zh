@@ -39,6 +39,8 @@
 - [ ] [`hesreallyhim/awesome-claude-code`](https://github.com/hesreallyhim/awesome-claude-code) — 開 PR（learning resources）
 - [ ] [`travisvn/awesome-claude-skills`](https://github.com/travisvn/awesome-claude-skills) — 開 PR（learning resources）
 
+> 📡 **Channel partner outreach**：完整 outreach 計畫（8 個目標 × 3 種 pitch 變體 + 1-2 sends/day pacing）跟追蹤 matrix 在 [`.github/channel-partners.md`](channel-partners.md)。各 target 的 pitch 草稿在 [`.github/outreach/<slug>.md`](outreach/)。
+
 ### 寫 launch 文章
 
 - [ ] **Threads 短版**（2-3 則）— 重點：134 個 project、跨 stage walkthrough、誠實時程
