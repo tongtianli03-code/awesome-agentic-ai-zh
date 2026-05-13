@@ -71,6 +71,8 @@ for label, system in SYSTEM_PROMPTS.items():
 print(f"\n✅ Exercise 1 passed — same question, three different personas / formats / tones")
 ```
 
+> 🦙 **Ollama equivalent**: Anthropic uses a `system=` parameter; OpenAI-compatible SDKs (including Ollama) put system in the first message: `messages=[{"role": "system", "content": ...}, {"role": "user", "content": ...}]`. Everything else is identical.
+
 </details>
 
 ### Exercise 2: Few-Shot
@@ -146,6 +148,8 @@ print(f"\n✅ Exercise 2 passed — 0-shot {c0}/{n}, 3-shot {c3}/{n}")
 assert c3 >= c0, f"expected 3-shot ≥ 0-shot, got {c3} < {c0}"
 ```
 
+> 🦙 **Ollama equivalent**: few-shot prompts typically lift small models (gemma3:4b) by an even **larger** margin — smaller models depend more on examples for calibration. SDK swap matches Exercise 1 Path B.
+
 </details>
 
 ### Exercise 3: CoT
@@ -209,6 +213,8 @@ correct = sum(1 for a in (ans_a, ans_b, ans_c) if a == ANSWER)
 print(f"\n✅ Exercise 3 passed — {correct}/3 correct")
 ```
 
+> 🦙 **Ollama equivalent**: CoT is **essential** for small models like gemma3:4b — without step-by-step they fail this almost completely. Use this exercise to measure how strongly each model depends on CoT.
+
 </details>
 
 ### Exercise 4: Iterative Refinement
@@ -250,6 +256,8 @@ for label, prompt in PROMPTS.items():
 print(f"\n✅ Exercise 4 passed — you've experienced 5 prompt refinement dimensions in action")
 print("💡 The 5 dimensions: (1) target audience (2) format (3) length (4) example demand (5) banned words")
 ```
+
+> 🦙 **Ollama equivalent**: running 5 refine iterations on gemma3:4b is especially instructive — you'll watch "v1 vague" struggle to produce anything useful and "v5 +bans" show the biggest jump. Small models are highly sensitive to prompt quality, which makes them an excellent sparring partner for prompt engineering.
 
 </details>
 

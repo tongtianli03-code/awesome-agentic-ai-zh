@@ -36,10 +36,10 @@ If not — go back to Stage 0 first.
 ## 🛠 Hands-on Exercises (do them, not just read)
 
 ### Exercise 1: LLM API (hello world)
-Five-line Python script that calls Claude API and prints the response.
+Five-line Python script that calls an LLM and prints the response. **Pick a path**: A uses the Claude API (needs key, ~$0.001/run); B uses local Ollama (free, offline). See [`examples/README.en.md`](../examples/README.en.md#practicing-without-an-api-key--three-paths).
 
 <details>
-<summary>📋 <b>Starter code</b> (copy to <code>practice_1.py</code> and run <code>python practice_1.py</code>)</summary>
+<summary>📋 <b>Starter code — Path A (Anthropic API)</b> (copy to <code>practice_1.py</code> and run <code>python practice_1.py</code>)</summary>
 
 ```python
 # Requires: pip install anthropic
@@ -74,6 +74,44 @@ Response: I'm Claude, an AI assistant made by Anthropic...
 usage: Usage(input_tokens=14, output_tokens=38, ...)
 ✅ Exercise 1 passed — Anthropic API is reachable from your machine
 ```
+
+</details>
+
+<details>
+<summary>📋 <b>Starter code — Path B (local Ollama gemma3:4b)</b> (copy to <code>practice_1_ollama.py</code>)</summary>
+
+```python
+# Requires: pip install openai      (we reuse the OpenAI-compatible SDK)
+# Pre-req: ollama pull gemma3:4b && ollama serve
+import sys
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
+from openai import OpenAI
+
+client = OpenAI(
+    base_url="http://localhost:11434/v1",
+    api_key="ollama",  # Ollama doesn't check this — anything works
+)
+
+r = client.chat.completions.create(
+    model="gemma3:4b",   # swap to qwen2.5:3b / llama3.2:3b if preferred
+    max_tokens=100,
+    messages=[{"role": "user", "content": "Introduce yourself in one sentence."}],
+)
+
+# === Self-check ===
+text = r.choices[0].message.content
+print("Response:", text)
+print("usage:", r.usage)
+
+assert r.choices[0].finish_reason in ("stop", "length"), f"unexpected finish_reason: {r.choices[0].finish_reason}"
+assert len(text) > 0, "response should not be empty"
+assert r.usage.completion_tokens > 0, "output token count should be > 0"
+print("✅ Exercise 1 passed — local Ollama gemma3:4b answered for $0")
+```
+
+**How slow?** Gemma 4B on CPU: ~5-30 s/answer; on GPU (RTX 3060+): <2 s. For speed use `gemma3:1b`; for quality use `qwen2.5:14b` / `llama3.3:8b` (needs 8 GB+ VRAM).
 
 </details>
 
@@ -119,6 +157,8 @@ for label, prompt in PROMPTS.items():
 print("\n✅ Exercise 2 passed — observed how temperature affects output token variance")
 print("💡 Chinese prompts typically use MORE input tokens (one Chinese character ≈ 2 tokens)")
 ```
+
+> 🦙 **Ollama equivalent**: swap `client.messages.create(...)` for the OpenAI-compatible `client.chat.completions.create(...)`; replace `msg.usage.output_tokens` with `r.usage.completion_tokens`. Full Path B pattern: see Exercise 1.
 
 </details>
 
@@ -173,6 +213,8 @@ assert cost_1000 > 0, "cost should be > 0"
 assert cost_1000 < 10, f"1000 haiku hello-worlds should not exceed $10, got ${cost_1000:.4f}"
 print(f"\n✅ Exercise 3 passed — you can now compute real cost from usage + pricing")
 ```
+
+> 🦙 **Ollama equivalent**: local models have no pricing — `cost_1000 = 0` — but you can log latency instead (`time.time() - t0`). Pricing matters in Stage 7 production work; for the Ollama path you can skip this exercise or track "kWh of your electricity bill".
 
 </details>
 

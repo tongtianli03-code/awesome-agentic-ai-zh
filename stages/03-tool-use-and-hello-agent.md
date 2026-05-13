@@ -91,6 +91,8 @@ ToolUseBlock(id='toolu_...', input={'city': '台北'}, name='get_weather', type=
 
 **沒 API key 也能練習**：把 `client.messages.create(...)` 改包一個 `unittest.mock.MagicMock`、回傳固定 `tool_use` block；assert 邏輯一樣 work。完整 mock 範例見 [`examples/stage-3/03-react-from-scratch/test.py`](../examples/stage-3/03-react-from-scratch/test.py)。
 
+> 🦙 **想用本機 Ollama 跑 tool use**：模型選 `qwen2.5:3b`（支援 OpenAI function-calling 格式）；SDK 用 `openai`、`base_url="http://localhost:11434/v1"`；tools schema 包一層 `{"type": "function", "function": {...}}`；response 從 `r.choices[0].message.tool_calls[0].function.name` 拿。完整 Ollama 對照 starter 見 [`examples/stage-3/03-react-from-scratch/starter_ollama.py`](../examples/stage-3/03-react-from-scratch/starter_ollama.py)（pilot、其他練習可套用同 pattern）。
+
 </details>
 
 ### 練習 2：多工具選擇

@@ -92,6 +92,8 @@ ToolUseBlock(id='toolu_...', input={'city': 'Taipei'}, name='get_weather', type=
 
 **No API key handy?** Wrap `client.messages.create(...)` in a `unittest.mock.MagicMock` that returns a canned `tool_use` block; the asserts still work. Full mock pattern: [`examples/stage-3/03-react-from-scratch/test.py`](../examples/stage-3/03-react-from-scratch/test.py).
 
+> 🦙 **Local Ollama for tool use**: pick the `qwen2.5:3b` model (supports OpenAI function-calling format); use the `openai` SDK with `base_url="http://localhost:11434/v1"`; wrap each tool schema in `{"type": "function", "function": {...}}`; read the call back from `r.choices[0].message.tool_calls[0].function.name`. Full Ollama starter: [`examples/stage-3/03-react-from-scratch/starter_ollama.py`](../examples/stage-3/03-react-from-scratch/starter_ollama.py) (pilot — other exercises follow the same pattern).
+
 </details>
 
 ### Exercise 2: Multi-Tool Selection

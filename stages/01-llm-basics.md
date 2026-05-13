@@ -35,10 +35,10 @@
 ## 🛠 動手練習（必做練習，不是看過就好）
 
 ### 練習 1：LLM API（hello world）
-五行 Python 呼叫 Claude API 並印出回應。
+五行 Python 呼叫 LLM 並印出回應。**兩條路選一**：A 用 Claude API（需 key、$0.001/run）、B 用本機 Ollama（免費、offline）。詳見 [`examples/README.md`](../examples/README.md#沒-api-key-也能練習嗎兩條路徑)。
 
 <details>
-<summary>📋 <b>起手碼</b>（複製到 <code>practice_1.py</code>、<code>python practice_1.py</code> 就跑）</summary>
+<summary>📋 <b>起手碼 — Path A（Anthropic API）</b>（複製到 <code>practice_1.py</code>、<code>python practice_1.py</code> 就跑）</summary>
 
 ```python
 # 需要：pip install anthropic
@@ -73,6 +73,51 @@ print("✅ 練習 1 通過 — 你已成功打通 Anthropic API")
 usage: Usage(input_tokens=18, output_tokens=42, ...)
 ✅ 練習 1 通過 — 你已成功打通 Anthropic API
 ```
+
+</details>
+
+<details>
+<summary>📋 <b>起手碼 — Path B（本機 Ollama gemma3:4b）</b>（複製到 <code>practice_1_ollama.py</code>）</summary>
+
+```python
+# 需要：pip install openai      (用 OpenAI-compatible SDK)
+# 前置：ollama pull gemma3:4b && ollama serve
+import sys
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
+from openai import OpenAI
+
+client = OpenAI(
+    base_url="http://localhost:11434/v1",
+    api_key="ollama",  # Ollama 不檢查、隨便填
+)
+
+r = client.chat.completions.create(
+    model="gemma3:4b",   # 換成 qwen2.5:3b / llama3.2:3b 也可
+    max_tokens=100,
+    messages=[{"role": "user", "content": "用一句話自我介紹。"}],
+)
+
+# === 自我驗證 ===
+text = r.choices[0].message.content
+print("回應：", text)
+print("usage:", r.usage)
+
+assert r.choices[0].finish_reason in ("stop", "length"), f"非預期 finish_reason: {r.choices[0].finish_reason}"
+assert len(text) > 0, "回應不應為空"
+assert r.usage.completion_tokens > 0, "output token 應 > 0"
+print("✅ 練習 1 通過 — Ollama gemma3:4b 已能本機回應、$0/次")
+```
+
+**預期輸出**（樣本、本機 model 答案更隨意）：
+```
+回應：嗨！我是 Gemma、一個由 Google 訓練的開源語言模型...
+usage: CompletionUsage(completion_tokens=35, prompt_tokens=12, total_tokens=47)
+✅ 練習 1 通過 — Ollama gemma3:4b 已能本機回應、$0/次
+```
+
+**慢嗎？** Gemma 4B 在 CPU 上約 5-30s/答案、有 GPU（RTX 3060+）<2s。要更快用 `gemma3:1b`、要更聰明改 `qwen2.5:14b` / `llama3.3:8b`（需 8GB+ VRAM）。
 
 </details>
 
@@ -119,6 +164,8 @@ for label, prompt in PROMPTS.items():
 print("\n✅ 練習 2 通過 — 觀察到 temperature 對 output token 的 variance")
 print("💡 中文 prompt 通常 input tokens 比 English 多 (中文一個字常 = 2 tokens)")
 ```
+
+> 🦙 **Ollama 對照**：把 `client.messages.create(...)` 換成 OpenAI-compatible 的 `client.chat.completions.create(...)`、`msg.usage.output_tokens` 換 `r.usage.completion_tokens`。完整 Path B 範式見練習 1。
 
 **預期輸出**（樣本）：
 ```
@@ -186,6 +233,8 @@ assert cost_1000 > 0, "成本應 > 0"
 assert cost_1000 < 10, f"1000 次 haiku hello world 不應該 > $10、實際 ${cost_1000:.4f}"
 print(f"\n✅ 練習 3 通過 — 你已能用 usage + pricing 算實際成本")
 ```
+
+> 🦙 **Ollama 對照**：本機 model 沒有計價、`cost_1000 = 0`、但可以印 latency 對照（`time.time() - t0`）。Pricing 概念在 Stage 7 接 production 才會重要、Ollama path 這題跳過或改算「自家電費」。
 
 **預期輸出**（樣本、實際 $ 依模型計價而定）：
 ```

@@ -58,11 +58,41 @@ if hasattr(sys.stdout, "reconfigure"):
 
 否則 Windows reader 在 PowerShell / cmd 跑會炸 `UnicodeEncodeError: 'cp950' codec can't encode character '✅'`。
 
-## 沒 API key 也能練習嗎？
+## 沒 API key 也能練習嗎？兩條路徑
 
-可以的兩條路：
-1. **Ollama 本機跑**：每個有 Ollama 替代版本的 starter 會有 `starter_ollama.py` 對照
-2. **Mock 模式**：所有 `test.py` 都用 `unittest.mock` 不打 API、reader 可以先看程式邏輯通過再決定要不要花錢跑真實 API
+每個練習都同時提供：
+
+### Path A（默認）— Anthropic API
+- 預設 `starter.py` / inline `<details>` 用 Claude（`claude-haiku-4-5`，最便宜）
+- 需 `ANTHROPIC_API_KEY`、跑一輪約 $0.001
+- 想換 Sonnet 改 `MODEL` 環境變數或 starter 內一行
+- 適合：已訂 Claude、想用主流 agent stack 走完整個 learning path
+
+### Path B（無 API、Ollama 本機）
+- 對照 `starter_ollama.py`（folder）或第二個 inline `<details>` 區塊（短練習）
+- 需 [Ollama](https://ollama.com)、按 stage 不同 pull 不同 model：
+  - **Stage 1 + 2**（純 chat / prompt eng）：`ollama pull gemma3:4b`（3.3 GB、CPU 也跑得動）
+  - **Stage 3+**（tool use / agent）：`ollama pull qwen2.5:3b`（1.9 GB、tool-use 支援穩定）
+- 全程 $0、offline、隱私敏感資料 OK
+- 適合：沒 Anthropic 帳號、人在中國大陸、想 offline 練、想試本地 LLM 邊界
+
+### Path C（驗邏輯、不打 API）
+- 所有 `test.py` 都用 `unittest.mock`、reader 跑 `python test.py` 看程式邏輯有沒有寫對
+- 跟 Path A / B 互補：先 mock 驗邏輯、再 real call 確認
+
+### 三條路的 Trade-off
+
+| 維度 | A Anthropic | B Ollama | C Mock |
+|---|---|---|---|
+| Cost / call | ~$0.001 | $0 | $0 |
+| 需要 | API key | Ollama installed + GPU 偏好 | 無 |
+| 答案品質 | 高 | 中（4B model） | 預設、看不出真實品質 |
+| 速度 | ~1-3s/call | 5-30s/call（無 GPU） | <0.1s |
+| Offline | ❌ | ✅ | ✅ |
+| Stage 3+ tool use | ✅ | ✅（qwen2.5 / llama3.2）| ✅ |
+| 適合 | 主流學完整 path | 隱私 / 中國大陸 / 無 key | 程式邏輯驗證 |
+
+→ **建議搭配**：先 C 驗邏輯（不花錢）、再 B 本機跑（看 model 行為）、最後 A 看高品質答案（如預算允許）。
 
 ## 對應 stage 索引
 

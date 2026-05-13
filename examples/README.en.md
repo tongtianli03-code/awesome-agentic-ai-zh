@@ -58,11 +58,41 @@ if hasattr(sys.stdout, "reconfigure"):
 
 Without it, Windows readers running in PowerShell / cmd hit `UnicodeEncodeError: 'cp950' codec can't encode character '✅'`.
 
-## Can I practice without an API key?
+## Practicing without an API key — three paths
 
-Two options:
-1. **Run Ollama locally** — examples that have an Ollama alternative ship a `starter_ollama.py` companion
-2. **Mock mode** — every `test.py` uses `unittest.mock` and never hits the real API, so you can validate code logic for free before deciding whether to spend on a real run
+Every exercise ships in three forms:
+
+### Path A (default) — Anthropic API
+- Default `starter.py` / inline `<details>` uses Claude (`claude-haiku-4-5`, the cheapest tier)
+- Requires `ANTHROPIC_API_KEY`; ~$0.001 per run
+- Switch to Sonnet via `MODEL` env var or by editing one line
+- Best for: Claude subscribers who want to follow the mainstream agent stack
+
+### Path B (no API, local Ollama)
+- Companion `starter_ollama.py` (folder) or a second inline `<details>` block (short exercises)
+- Requires [Ollama](https://ollama.com); pull a model based on the stage:
+  - **Stage 1 + 2** (plain chat / prompt eng): `ollama pull gemma3:4b` (3.3 GB; CPU-friendly)
+  - **Stage 3+** (tool use / agent): `ollama pull qwen2.5:3b` (1.9 GB; reliable tool-use support)
+- $0, offline, fine for privacy-sensitive data
+- Best for: no Anthropic account, China mainland users, offline practice, exploring local-LLM limits
+
+### Path C (verify logic, no API call)
+- Every `test.py` uses `unittest.mock`; reader runs `python test.py` to validate logic
+- Complements A / B — mock first, then real call
+
+### Trade-offs
+
+| Dimension | A Anthropic | B Ollama | C Mock |
+|---|---|---|---|
+| Cost per call | ~$0.001 | $0 | $0 |
+| Requires | API key | Ollama install + ideally GPU | nothing |
+| Answer quality | High | Medium (4B model) | canned, not representative |
+| Speed | ~1-3 s/call | 5-30 s/call (no GPU) | <0.1 s |
+| Offline | ❌ | ✅ | ✅ |
+| Stage 3+ tool use | ✅ | ✅ (qwen2.5 / llama3.2) | ✅ |
+| Best for | mainstream full path | privacy / China / no key | logic verification |
+
+→ **Recommended combo**: C first (validate logic, no cost), then B (see real model behaviour locally), then A (high-quality answer if budget allows).
 
 ## Index by stage
 

@@ -70,6 +70,8 @@ for label, system in SYSTEM_PROMPTS.items():
 print(f"\n✅ 练习 1 通过 — 同一个问题、3 种人格 / 格式 / 语气")
 ```
 
+> 🦙 **Ollama 对照**：Anthropic 用 `system=` 参数；OpenAI 兼容 SDK（含 Ollama）把 system 放在 messages 第一笔：`messages=[{"role": "system", "content": ...}, {"role": "user", "content": ...}]`。其余相同。
+
 </details>
 
 ### 练习 2：Few-Shot
@@ -144,6 +146,8 @@ print(f"\n✅ 练习 2 通过 — 0-shot {c0}/{n}、3-shot {c3}/{n}")
 assert c3 >= c0, f"预期 3-shot 不比 0-shot 差、实际 {c3} < {c0}"
 ```
 
+> 🦙 **Ollama 对照**：Few-shot 对小 model（gemma3:4b）改善幅度通常**更大**——小 model 更需要 example 来校准。改 SDK 跟练习 1 Path B 一样。
+
 </details>
 
 ### 练习 3：CoT
@@ -206,6 +210,8 @@ correct = sum(1 for a in (ans_a, ans_b, ans_c) if a == ANSWER)
 print(f"\n✅ 练习 3 通过 — {correct}/3 答对")
 ```
 
+> 🦙 **Ollama 对照**：CoT 对 gemma3:4b 等小 model **必要**——没 step-by-step 几乎答不对。可以拿这题实验大 model 跟小 model 对 CoT 的依赖程度。
+
 </details>
 
 ### 练习 4：Iterative Refinement
@@ -246,6 +252,8 @@ for label, prompt in PROMPTS.items():
 print(f"\n✅ 练习 4 通过 — 你已实际感受 prompt 5 个维度的影响")
 print("💡 5 个 refine 维度：(1) 目标读者 (2) 格式 (3) 长度 (4) 范例要求 (5) 禁忌词")
 ```
+
+> 🦙 **Ollama 对照**：用 gemma3:4b 跑 5 轮 refine 特别有教学价值——你会看到「v1 模糊」几乎答不出有用内容、「v5 加禁忌」品质跳幅最大。小 model 对 prompt 质量 sensitivity 高，是练 prompt engineering 的好沙包。
 
 </details>
 
