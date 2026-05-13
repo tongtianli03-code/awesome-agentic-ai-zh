@@ -7,8 +7,74 @@
 > 💡 用語密集（agent / tool use / function calling / ReAct / structured output⋯）→ 翻 [`resources/glossary.md` §2](../resources/glossary.md#2-agent--工具使用)。
 > 🗺️ **進 Track A（CLI Power User）還是 Track B（Agent Builder）前**，先看 [`resources/agent-paradigms.md`](../resources/agent-paradigms.md) — 5 種 agent 型態的全景圖，幫你選軌。
 
-> 📋 **本章組成**：學習目標 → 進入條件 → 必修閱讀 →〔可選 · 概念地圖〕→ 動手練習（含反思迴圈練習 7）→ 精選 Projects → 自我檢查  
+> 📋 **本章組成**：〔開場框景：AI/LLM/Agent 三者關係〕→ 學習目標 → 進入條件 → 必修閱讀 →〔可選 · 概念地圖〕→ 動手練習（含反思迴圈練習 7）→ 精選 Projects → 自我檢查  
 > 🔑 **關鍵名詞**：見 [`resources/glossary.md` §2](../resources/glossary.md#2-agent--工具使用)
+
+## 🤖 開始前：AI / LLM / Agent — 三者怎麼分？
+
+> **本節是「開場框景」（由大到小 pedagogy）**：先把學習者腦中的 mental hierarchy 建好，再進 §學習目標、§練習。這節只做**簡短說明 + 對照**，深度入門讀物已經是中英文圈各自的 canonical reference（見下方資源）。**不是重寫 hello-agents Ch1。**
+
+### 一張階層圖先建立認知
+
+```
+AI（整個領域 / 一個學科）
+ └── ML（其中一個方法：用資料學）
+      └── DL（其中一種：神經網路）
+           └── LLM（特定一種：文字 in、文字 out 的大型神經網路）
+                └── Agent（用 LLM 當大腦的「系統」：LLM + 工具 + 迴圈）
+```
+
+→ **「Agent」不是「比 LLM 更厲害的模型」，是「以 LLM 為其中一個元件的 system」**。Cursor / Claude Code / Hermes Agent 內部都還是同一批 LLM（Claude / GPT / Gemini）—— 差別是怎麼把 LLM 包進工具呼叫迴圈裡。
+
+### 三行對照（最快版）
+
+| 詞 | 是什麼 | 你給它什麼、它回什麼 | 例子 |
+|---|---|---|---|
+| **AI** | 整個學科 | 太抽象、不能直接「用」 | ML、DL、LLM、RL 都是 AI 子領域 |
+| **LLM** | 把文字映射到文字的單一模型 | 給 prompt → 回字 | GPT-5、Claude、Llama 3、Qwen |
+| **Agent** | LLM + 工具 + loop 的**系統** | 給任務 → 自己跑多步驟達成 | Cursor、Claude Code、Hermes Agent |
+
+**一句 punchline**：LLM 是個會說話的腦袋；agent 是大腦 + 手腳 + 完整工作流程的 worker。
+
+### Agent 的 3 個**最小必要**部件（這就是 agent vs LLM 的核心差別）
+
+| 部件 | 角色 | 在哪學 |
+|---|---|---|
+| 🧠 **LLM**（brain） | 推理 / 決策 / 自然語言 | Stage 1 已學 |
+| 🔧 **Tools**（hands） | 對世界做事（call API、跑 code、查資料） | **本 stage** |
+| 🔁 **Loop**（heartbeat） | 想 → 做 → 看結果 → 再想（ReAct） | **本 stage 練習 3** |
+
+→ **這 3 個合在一起就是 agent 的最低定義**。沒有 tools / loop，那只是「LLM + 你寫 retry」，不算 agent。
+
+> 💡 **延伸組件**（agent 變強的方式、但**不是「是不是 agent」的判準**）：
+> - **記憶 / RAG**（agent 能跨對話記住東西）→ **Stage 6** 完整教
+> - **反思 / self-critique**（agent 看自己答案、發現問題、回頭改）→ **本 stage §練習 7** + Reflexion paper
+> - **Production harness**（telemetry / safety / retry / orchestration）→ **Stage 5 §5.6**
+>
+> 這些都是 advanced pattern——Stage 3 教最小可行 agent、後面 stage 教怎麼變強。
+
+### 📚 深度入門資源（中英文 / 影片優先）
+
+**🀄 中文**：
+1. [**李宏毅 — 生成式 AI 導論（台大課程、YouTube 公開）**](https://www.youtube.com/@HungyiLeeNTU) ⭐⭐⭐ — 中文圈最高品質的 AI / LLM / agent 學術級導論。每年更新、每集 30-60 分鐘、台大授課。找「**生成式 AI 導論**」/「**Generative AI**」/「**AI Agent**」相關集數
+2. [**datawhalechina/hello-agents** Ch1「初識智能體」](https://github.com/datawhalechina/hello-agents) ⭐ — 文字版最完整中文 agent 導論
+3. [**datawhalechina/hello-agents** Ch2「智能體發展史」](https://github.com/datawhalechina/hello-agents) — BabyAGI → AutoGPT → Claude Code 演化脈絡
+4. [**liyupi/ai-guide**](https://github.com/liyupi/ai-guide) — 中文圈最大 AI 概念入門資源庫
+5. [**3Blue1Brown 中文配音版**](https://www.youtube.com/@3Blue1BrownCN) — LLM / Transformer 視覺化解說（中文配音）
+
+**🇺🇸 English**：
+1. [**Andrej Karpathy — "Intro to Large Language Models"**](https://www.youtube.com/watch?v=zjkBMFhNj_g) ⭐⭐⭐（1hr）— LLM 從零開始 visual intro（ex-OpenAI / ex-Tesla AI Director、英文圈最重視的 LLM 入門影片）
+2. [**Andrej Karpathy — "Let's build GPT from scratch"**](https://www.youtube.com/watch?v=kCc8FmEb1nY) ⭐⭐（2hr）— 想看 LLM 內部到代碼級的人
+3. [**3Blue1Brown — "But what is a Transformer?"**](https://www.youtube.com/watch?v=wjZofJX0v4M) ⭐⭐⭐ — visual 解釋 LLM，英文圈最被推薦的視覺化教材
+4. [**DeepLearning.AI — Andrew Ng's Short Courses**](https://www.deeplearning.ai/short-courses/) — 1-2 小時 short course，Andrew Ng 監修。"AI Agents in LangGraph" / "Multi AI Agent Systems with crewAI" / "Functions, Tools and Agents with LangChain"
+5. [**Lilian Weng — "LLM Powered Autonomous Agents"**](https://lilianweng.github.io/posts/2023-06-23-agent/) ⭐⭐⭐ — canonical 1-page agent anatomy（Planning / Memory / Tool use / Action）、英文圈被引用最多的 agent 解剖文
+6. [**Anthropic — "Building Effective Agents"**](https://www.anthropic.com/research/building-effective-agents) ⭐ — Anthropic 觀點：何時該用 agent、何時 workflow 就夠
+7. [**Simon Willison — "Agent definitions"**](https://simonwillison.net/2025/Mar/19/agents/) — agent 定義的歷史爭議 + working definition
+8. [**Chip Huyen — "Agents"**](https://huyenchip.com/2025/01/07/agents.html) — practitioner 視角，full chapter 級深度
+
+> 💡 **推薦學習路徑**：先看 1-2 個影片（中：李宏毅、英：Karpathy / 3Blue1Brown）建立 visual mental model → 再讀 1-2 個 blog（Lilian Weng / Anthropic）拿到 working definition → 再回本 stage 動手練習。**不必全部看完**，這是 reference library 不是 reading list。
+
+---
 
 這是整個學習路線最關鍵的一站。**你建過一個 agent 才算真懂 agent**——本 stage 的基礎練習建議至少實際手寫一次、再依需求往 [hello-agents](https://github.com/datawhalechina/hello-agents) 或本 stage 精選 projects 找深度教材。
 
