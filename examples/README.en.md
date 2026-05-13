@@ -125,6 +125,55 @@ Install: `ollama pull <model>` + `ollama serve`. Hardware tuning details: [resou
 
 Subscription alternative: Claude Pro $20/month (includes Sonnet usage); Claude Max $100/month (includes Opus). Details: [resources/cli-agents-guide.en.md](../resources/cli-agents-guide.en.md).
 
+### Cloud LLM Chinese / open-source alternatives (region limits / budget / Chinese-language scenarios)
+
+> Can't or don't want to use Anthropic? These APIs are **all OpenAI-compatible** — change `base_url` and model name to run the same exercises.
+
+| Provider | Main model | $/1M input | $/1M output | OpenAI-compat? | Key selling point |
+|---|---|---|---|---|---|
+| **DeepSeek** ⭐ | `deepseek-chat` (V3) | $0.27 | $1.10 | ✅ | Cheapest cloud (4× cheaper than haiku $1/$5); strong CN & EN; free web at `chat.deepseek.com` |
+| DeepSeek R1 | `deepseek-reasoner` | $0.55 | $2.19 | ✅ | Reasoning model (o1-class), still 1/30 the price of OpenAI o1 |
+| **Moonshot Kimi** | `kimi-k2-turbo-preview` | $5-10 | $15-30 | ✅ | **1M-token context** (key selling point); good for large files / long conversations. Free web at `kimi.com` |
+| **Qwen (Alibaba)** | `qwen-max` / `qwen-turbo` | $0.50-1.50 | $1.50-6 | ✅ (DashScope) | Native Chinese; **same models also run locally via Ollama** (cloud + local both work) |
+| **GLM (ZhipuAI)** | `glm-4.5` / `glm-4-plus` | $0.30-2 | $1.50-9 | ✅ | China-native, has free tier. Free web `chatglm.cn` |
+| **NVIDIA NIM** | Llama / Mistral / DeepSeek / Qwen etc. hosted | free tier 1000 credits | (same) | ✅ | **Hosts 10+ open models**; new accounts get credits; no local GPU needed. `build.nvidia.com` |
+
+**API endpoints (OpenAI SDK usage)**:
+
+```python
+# DeepSeek
+client = OpenAI(api_key=os.environ["DEEPSEEK_API_KEY"], base_url="https://api.deepseek.com/v1")
+r = client.chat.completions.create(model="deepseek-chat", messages=[...])
+
+# Moonshot Kimi (China endpoint; international uses .ai)
+client = OpenAI(api_key=os.environ["MOONSHOT_API_KEY"], base_url="https://api.moonshot.cn/v1")
+r = client.chat.completions.create(model="kimi-k2-turbo-preview", messages=[...])
+
+# Qwen (Alibaba DashScope)
+client = OpenAI(api_key=os.environ["DASHSCOPE_API_KEY"],
+                base_url="https://dashscope.aliyuncs.com/compatible-mode/v1")
+r = client.chat.completions.create(model="qwen-turbo", messages=[...])
+
+# GLM (ZhipuAI)
+client = OpenAI(api_key=os.environ["ZHIPUAI_API_KEY"], base_url="https://open.bigmodel.cn/api/paas/v4")
+r = client.chat.completions.create(model="glm-4.5-flash", messages=[...])
+
+# NVIDIA NIM (hosted open-source)
+client = OpenAI(api_key=os.environ["NVIDIA_API_KEY"], base_url="https://integrate.api.nvidia.com/v1")
+r = client.chat.completions.create(model="meta/llama-3.3-70b-instruct", messages=[...])
+```
+
+**How to pick**:
+
+| Scenario | Pick | Why |
+|---|---|---|
+| Mainland China, no cloud access | Ollama local / DeepSeek API | Local is free; DeepSeek has an in-China endpoint |
+| Tight budget (< $1/month) | DeepSeek API | 4× cheaper than haiku; quality close |
+| Large files / long-doc RAG | Moonshot Kimi | 1M-token context |
+| Chinese-native task (classical Chinese, CN search) | Qwen / GLM | Higher Chinese training corpus ratio |
+| Want to try 10+ open models without GPU | NVIDIA NIM | One key, play with Llama / Mixtral / Qwen / DeepSeek |
+| Production agent (tool use) | Anthropic Claude (canonical) | This repo's Path B default; tool calling most reliable |
+
 ### Budget estimate (completing all 54 exercises across Stage 1-7)
 
 | Learning path | Total time | Total cost | Best for |

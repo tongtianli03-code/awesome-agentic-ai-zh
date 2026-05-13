@@ -125,6 +125,55 @@ if hasattr(sys.stdout, "reconfigure"):
 
 订阅替代：Claude Pro $20/月含 Sonnet 用量、Claude Max $100/月含 Opus。详细看 [resources/cli-agents-guide.zh-Hans.md](../resources/cli-agents-guide.zh-Hans.md)。
 
+### Cloud LLM 中国 / 开源 alternatives（地区限制 / 预算敏感 / 中文场景）
+
+> 不能 / 不想用 Anthropic？这些 API **都 OpenAI-compatible**、改 `base_url` 跟 model name 就能跑本 repo 同一份练习。
+
+| Provider | 主 model | 每 1M input | 每 1M output | OpenAI-compat? | 主卖点 |
+|---|---|---|---|---|---|
+| **DeepSeek** ⭐ | `deepseek-chat` (V3) | $0.27 | $1.10 | ✅ | 最便宜 cloud（比 haiku $1/$5 还便宜 4 倍）、中英文俱佳、含免费 web `chat.deepseek.com` |
+| DeepSeek R1 | `deepseek-reasoner` | $0.55 | $2.19 | ✅ | 推理模型（o1 级）、价格仍只是 OpenAI o1 的 1/30 |
+| **Moonshot Kimi** | `kimi-k2-turbo-preview` | $5-10 | $15-30 | ✅ | **1M token context**（卖点）、适合大档案 / 长对话。web 版 `kimi.com` 免费 |
+| **通义千问 Qwen** | `qwen-max` / `qwen-turbo` | $0.50-1.50 | $1.50-6 | ✅（DashScope）| 中文 native、**同 model 也能 Ollama 本机跑**（cloud + local 两条路径都通） |
+| **智谱 GLM** | `glm-4.5` / `glm-4-plus` | $0.30-2 | $1.50-9 | ✅ | 中国 native、有 free tier。web `chatglm.cn` 免费 |
+| **NVIDIA NIM** | Llama / Mistral / DeepSeek / Qwen 等 hosted | free tier 1000 credits | (同) | ✅ | **托管 10+ open model**、新账号送 credits、不必本机 GPU。`build.nvidia.com` |
+
+**API endpoints（OpenAI SDK 接法）**：
+
+```python
+# DeepSeek
+client = OpenAI(api_key=os.environ["DEEPSEEK_API_KEY"], base_url="https://api.deepseek.com/v1")
+r = client.chat.completions.create(model="deepseek-chat", messages=[...])
+
+# Moonshot Kimi（中国 endpoint；海外用 .ai 结尾）
+client = OpenAI(api_key=os.environ["MOONSHOT_API_KEY"], base_url="https://api.moonshot.cn/v1")
+r = client.chat.completions.create(model="kimi-k2-turbo-preview", messages=[...])
+
+# 通义千问 Qwen（Alibaba DashScope）
+client = OpenAI(api_key=os.environ["DASHSCOPE_API_KEY"],
+                base_url="https://dashscope.aliyuncs.com/compatible-mode/v1")
+r = client.chat.completions.create(model="qwen-turbo", messages=[...])
+
+# 智谱 GLM
+client = OpenAI(api_key=os.environ["ZHIPUAI_API_KEY"], base_url="https://open.bigmodel.cn/api/paas/v4")
+r = client.chat.completions.create(model="glm-4.5-flash", messages=[...])
+
+# NVIDIA NIM（hosted open-source）
+client = OpenAI(api_key=os.environ["NVIDIA_API_KEY"], base_url="https://integrate.api.nvidia.com/v1")
+r = client.chat.completions.create(model="meta/llama-3.3-70b-instruct", messages=[...])
+```
+
+**怎么挑**：
+
+| 情境 | 选 | 理由 |
+|---|---|---|
+| 中国大陆、无 cloud 访问 | Ollama 本机 / DeepSeek API | 本机免费；DeepSeek 在中国有 endpoint |
+| 预算极敏感（< $1/月） | DeepSeek API | 比 haiku 便宜 4 倍、品质接近 |
+| 大档案 / 长文档 RAG | Moonshot Kimi | 1M token context 卖点 |
+| 中文 native task（古文、中文搜索）| Qwen / GLM | 训练语料中文占比高 |
+| 想试 10+ open model 没 GPU | NVIDIA NIM | 一个 key 玩 Llama / Mixtral / Qwen / DeepSeek |
+| Production agent（agent / tool use）| Anthropic Claude（canonical）| 本 repo Path B 默认、tool calling 最稳 |
+
 ### 预算估算（跑完 Stage 1-7 全 54 练习）
 
 | 学习路径 | 总时间 | 总成本 | 适合谁 |
