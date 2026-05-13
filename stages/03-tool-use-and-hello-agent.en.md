@@ -38,17 +38,81 @@ You should already:
 ### Exercise 1: Function Calling (single tool, single call)
 Give Claude one tool (a fake weather API) and one question ("Is it raining in Taipei?"). Watch Claude call the tool, get the result, and answer.
 
+<details>
+<summary>📋 <b>Starter code</b> (copy to <code>practice_1.py</code> and run <code>python practice_1.py</code>)</summary>
+
+```python
+# Requires: pip install anthropic
+# Env: export ANTHROPIC_API_KEY=sk-ant-...
+import anthropic
+
+client = anthropic.Anthropic()
+
+# Step 1: Define tool schema — write descriptions the LLM can read at a glance.
+weather_tool = {
+    "name": "get_weather",
+    "description": "Look up the current weather (sunny/rainy/cloudy) for a city. Returns a short string.",
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "city": {"type": "string", "description": "City name (e.g. 'Taipei')"},
+        },
+        "required": ["city"],
+    },
+}
+
+# Step 2: Ask the question; let Claude decide whether to call the tool.
+resp = client.messages.create(
+    model="claude-haiku-4-5",  # Use haiku to save money; switch to claude-sonnet-4-5 for smarter answers.
+    max_tokens=512,
+    tools=[weather_tool],
+    messages=[{"role": "user", "content": "Is it raining in Taipei right now?"}],
+)
+
+# === Self-check ===
+print("stop_reason:", resp.stop_reason)
+for block in resp.content:
+    print(block)
+
+assert resp.stop_reason == "tool_use", "Expected the LLM to call a tool (not answer directly)."
+tool_calls = [b for b in resp.content if b.type == "tool_use"]
+assert len(tool_calls) >= 1, "Expected at least one tool_use block."
+assert tool_calls[0].name == "get_weather", f"Expected get_weather, got {tool_calls[0].name}."
+assert tool_calls[0].input.get("city"), "Expected the city argument to be filled in."
+print("✅ Exercise 1 passed — Claude picked get_weather with a city argument.")
+```
+
+**Expected output** (first 3 lines):
+```
+stop_reason: tool_use
+TextBlock(text='Let me check...', type='text')
+ToolUseBlock(id='toolu_...', input={'city': 'Taipei'}, name='get_weather', type='tool_use')
+✅ Exercise 1 passed — Claude picked get_weather with a city argument.
+```
+
+**No API key handy?** Wrap `client.messages.create(...)` in a `unittest.mock.MagicMock` that returns a canned `tool_use` block; the asserts still work. Full mock pattern: [`examples/stage-3/03-react-from-scratch/test.py`](../examples/stage-3/03-react-from-scratch/test.py).
+
+</details>
+
 ### Exercise 2: Multi-Tool Selection
 Give Claude three tools (search, calculator, calendar) and a task. Watch Claude select the right tool. Notice when Claude makes the wrong choice.
+
+→ **Full runnable version** → [`examples/stage-3/02-multi-tool-selection/`](../examples/stage-3/02-multi-tool-selection/)
 
 ### Exercise 3: ReAct from Scratch (no framework)
 Implement the Thought → Action → Observation loop in 50-80 lines of Python. No LangChain, no LangGraph. Just `while not done: thought; action; observation; ...`.
 
+→ **Full runnable version** → [`examples/stage-3/03-react-from-scratch/`](../examples/stage-3/03-react-from-scratch/) (includes mock-based test.py so you can validate the logic without spending API credits)
+
 ### Exercise 4: Multi-Step Reasoning Task
 A task that requires 3-5 tool calls in sequence. E.g., "Find the population of Taipei, then divide by the population of New York, and convert the ratio to percent." Each step uses a different tool.
 
+→ **Full runnable version** → [`examples/stage-3/04-multi-step-reasoning/`](../examples/stage-3/04-multi-step-reasoning/)
+
 ### Exercise 5: Error Handling
 Make a tool fail (network error, invalid input). Watch how the agent recovers (or doesn't). Add retry logic.
+
+→ **Full runnable version** → [`examples/stage-3/05-error-handling/`](../examples/stage-3/05-error-handling/)
 
 ### Exercise 6: Function schema design (fix a bad schema)
 **Start with a deliberately bad schema** — vague `description` ("processes data"), all params typed as `string`, no required/optional split, missing `enum` where it should exist. Watch the LLM pick the wrong tool / pass wrong args. Then fix it piece by piece:
@@ -58,6 +122,8 @@ Make a tool fail (network error, invalid input). Watch how the agent recovers (o
 - Make errors recoverable: return `{"error": "...", "retry_hint": "..."}` so the LLM can retry intelligently
 
 > 💡 Detailed cheatsheet: [`resources/schema-design-cheatsheet.en.md`](../resources/schema-design-cheatsheet.en.md) — 5 golden rules + 5 common anti-patterns.
+
+→ **Full runnable version** → [`examples/stage-3/06-schema-design/`](../examples/stage-3/06-schema-design/) (includes bad-schema vs good-schema side-by-side)
 
 ## 🎯 Curated Projects
 
