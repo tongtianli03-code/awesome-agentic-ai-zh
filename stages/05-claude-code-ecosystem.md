@@ -69,6 +69,29 @@
 
 ## 5.2 — MCP（Model Context Protocol）⭐ 基礎
 
+### MCP 是什麼（先定位）
+
+**MCP = 「**讓 LLM 用任何外部工具 / 資料**」的開放協定**。在 MCP 之前每個 LLM 廠商都得自己定義 tool 規格、每個工具供應商都得為每個 LLM 寫一份接法。MCP 把這層**標準化**——寫一次 MCP server、Claude / Codex / Cursor / 任何支援 MCP 的 host 都能用。
+
+**MCP 三個抽象**：
+
+| 抽象 | 是什麼 | 範例 |
+|---|---|---|
+| **Tools** | LLM 可以呼叫的 function | `read_file(path)` / `query_db(sql)` / `send_slack(channel, msg)` |
+| **Resources** | LLM 可以讀的資料源 | `file:///path/file.md` / `postgres://db/users` |
+| **Prompts** | server 預定義的 prompt 樣板 | 一份「review code」的 prompt template |
+
+**多數 MCP server 主要用 Tools 抽象**——Resources 跟 Prompts 用得少。
+
+**MCP vs Tool Use vs Skill vs Plugin**：
+
+- **Tool Use**（Stage 3）：你 in-process 寫的 function 給 LLM 呼叫
+- **MCP**（**本節**）：把 tool 標準化成 server / client 協定、跨 host / 跨 LLM 可用
+- **Skill**（5.3）：行為層 — 教 Claude「**遇到 X 用哪個 MCP tool**」
+- **Plugin**（5.4）：把 MCP + Skill + 其他打包散佈
+
+→ **核心區分**：MCP 是「**能力**」（讓 LLM 能做什麼）、Skill 是「**行為**」（什麼時候用什麼能力）。
+
 ### 學習目標
 - 解釋 MCP 的三個抽象（Tools、Resources、Prompts）
 - 把現成的 MCP server 接上 Claude Desktop 或 Claude Code
@@ -85,114 +108,20 @@
 - **練習：MCP server** — 寫一個 Python MCP server，提供一個 tool（例如「換算溫度」）。從 Claude Code 連過去。**step-by-step 怎麼做** → [`resources/cookbook.md` §2](../resources/cookbook.md#2-寫你的第一個-mcp-server)
 - **練習：MCP in production** — 在同一個 Claude session 裡同時連 2-3 個 MCP server，看它們互相搭配。
 
-### 精選 Projects
+### 精選 Projects（spec / SDK / 範本參考）
 
-> 💡 **找日常工具的 MCP（Notion / Obsidian / Excel / Postgres / Playwright / Figma 等）？**
-> 看 [`resources/mcp-skills-catalog.md`](../resources/mcp-skills-catalog.md)——按 14 個分類整理 62 個常用 MCP server / Skill，每個都附 stars / license / 適合誰。下面這節保留的是「**寫自己 MCP server 時的 reference**」性質的官方 server / SDK。
+> 💡 **找日常工具的 MCP（Notion / Obsidian / Excel / Postgres / Playwright / Figma 等）？**  
+> 看 [`resources/mcp-skills-catalog.md`](../resources/mcp-skills-catalog.md)——按 14 個分類整理 62 個常用 MCP server / Skill，每個都附 stars / license / 適合誰。下表保留的是「**寫自己 MCP server 時的 reference**」性質的官方 server / SDK。
 
-
-#### [modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers) ⭐ 官方
-
-| 欄位 | 內容 |
-|---|---|
-| 語言 | TypeScript / Python |
-| Stars | ★ 85k+ |
-| License | MIT |
-| 推薦度 | ⭐⭐⭐⭐⭐ |
-
-**教什麼**：20+ 個參考用 MCP server（filesystem、git、github、sqlite、time、fetch、memory、sequential thinking）。寫自己的 server 時最標準的範例。
-
-**適合誰**：練習 1 以及之後當參考用。讀 `everything` server 跟 `filesystem` server 的原始碼，理解協定怎麼運作。
-
-**怎麼跑**：
-```bash
-npx -y @modelcontextprotocol/server-filesystem /path/to/dir
-# 或用 Python servers：
-pip install mcp-server-fetch
-```
-
----
-
-#### [modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk)
-
-| 欄位 | 內容 |
-|---|---|
-| 語言 | Python |
-| License | MIT |
-| 推薦度 | ⭐⭐⭐⭐⭐ |
-
-**教什麼**：寫 MCP server 的官方 Python SDK。練習 2 用這個。
-
-**怎麼跑**：
-```bash
-pip install mcp
-# 然後跟著 https://github.com/modelcontextprotocol/python-sdk#quickstart 做
-```
-
----
-
-#### [modelcontextprotocol/typescript-sdk](https://github.com/modelcontextprotocol/typescript-sdk)
-
-| 欄位 | 內容 |
-|---|---|
-| 語言 | TypeScript |
-| License | MIT |
-| 推薦度 | ⭐⭐⭐⭐ |
-
-**教什麼**：Python SDK 的 TypeScript 版本。喜歡 TS 的人選這個。
-
----
-
-#### [wong2/awesome-mcp-servers](https://github.com/wong2/awesome-mcp-servers) ⭐ 目錄
-
-| 欄位 | 內容 |
-|---|---|
-| 形式 | 精選清單 |
-| 推薦度 | ⭐⭐⭐⭐⭐ |
-
-**教什麼**：150+ 個社群 MCP server 的目錄，按類別分類——search、code、cloud、communication、finance。
-
-**適合誰**：在自己寫之前，先看看是不是已經有現成的。有特定 tool 需求時來逛這個。
-
-**備註**：投稿要走他們網站（mcpservers.org）。
-
----
-
-#### [punkpeye/awesome-mcp-servers](https://github.com/punkpeye/awesome-mcp-servers)
-
-| 欄位 | 內容 |
-|---|---|
-| 推薦度 | ⭐⭐⭐⭐ |
-
-**教什麼**：另一份 MCP server 目錄，組織方式不同（通常更新比較即時）。
-
-**適合誰**：跟 wong2 的清單交叉比對。不同策展人會挖出不同的 project。
-
----
-
-#### [github/github-mcp-server](https://github.com/github/github-mcp-server)
-
-| 欄位 | 內容 |
-|---|---|
-| 推薦度 | ⭐⭐⭐⭐ |
-
-**教什麼**：真正在 production 跑的 MCP server 長什麼樣子。GitHub 官方維護。
-
-**適合誰**：把原始碼當作 production 等級 MCP server 的參考實作來讀。
-
----
-
-#### [21st-dev/magic-mcp](https://github.com/21st-dev/magic-mcp)
-
-| 欄位 | 內容 |
-|---|---|
-| Stars | ★ 4.8k+ |
-| License | NOASSERTION |
-| 推薦度 | ⭐⭐⭐ |
-
-**教什麼**：一個非平凡的 MCP server，會生成 UI 元件。讓你看到 MCP 不只能做資料抓取。
-
-**適合誰**：做完 練習 2 之後找靈感——MCP server 還能做出什麼有創意的東西。
+| Project | ⭐ | 適合誰 | 為什麼推薦 / 備註 |
+|---|---|---|---|
+| [modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers) ⭐ 官方 | ⭐⭐⭐⭐⭐ | 練習 1 接 server、之後當參考 | 20+ 官方 MCP server（filesystem / git / github / sqlite / time / fetch / memory / sequential-thinking），★ 85k+、MIT、TS+Python。**讀 `everything` 跟 `filesystem` source 理解協定運作**。安裝：`npx -y @modelcontextprotocol/server-filesystem /path` 或 `pip install mcp-server-fetch` |
+| [modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | ⭐⭐⭐⭐⭐ | 練習 2 寫自己 MCP server | 官方 Python SDK、`pip install mcp` 即裝、MIT。跟著官方 quickstart 跑 |
+| [modelcontextprotocol/typescript-sdk](https://github.com/modelcontextprotocol/typescript-sdk) | ⭐⭐⭐⭐ | 喜歡 TS 的人 | Python SDK 的 TypeScript 版、MIT |
+| [wong2/awesome-mcp-servers](https://github.com/wong2/awesome-mcp-servers) ⭐ 目錄 | ⭐⭐⭐⭐⭐ | 自己寫前先找有沒有現成的 | 150+ 社群 MCP server 目錄，按 search / code / cloud / communication / finance 分類。投稿走 mcpservers.org |
+| [punkpeye/awesome-mcp-servers](https://github.com/punkpeye/awesome-mcp-servers) | ⭐⭐⭐⭐ | 跟 wong2 交叉比對 | 另一份 MCP server 目錄、組織方式不同、通常更新更即時 |
+| [github/github-mcp-server](https://github.com/github/github-mcp-server) | ⭐⭐⭐⭐ | 想看 production-grade MCP server source | GitHub 官方維護、真正 production 在跑的範例 |
+| [21st-dev/magic-mcp](https://github.com/21st-dev/magic-mcp) | ⭐⭐⭐ | 做完練習 2 找靈感 | 會生成 UI 元件的非平凡 MCP server、★ 4.8k+、NOASSERTION。**看 MCP 不只能做資料抓取** |
 
 ---
 
@@ -291,6 +220,24 @@ Skill = **一個 markdown 檔**（`.claude/skills/<name>/SKILL.md`），告訴 C
 ---
 
 ## 5.4 — Plugins 與 Marketplaces
+
+### Plugin 是什麼（先定位）
+
+**Plugin = MCP + Skills + slash commands + hooks 的組合包**——把前面 5.2 / 5.3 學到的零件 **打包成一個單位、可以 `/plugin install` 一次裝進去**。
+
+```
+Plugin
+├── .mcp.json                 ← 5.2 學的 MCP server config（提供 tool / data）
+├── skills/<name>/SKILL.md    ← 5.3 學的 skill（行為包）
+├── commands/<name>.md        ← slash command（5.1 學的、自訂 prompt 入口）
+├── hooks/                    ← 觸發點 hook（譬如 PreToolUse、SessionStart）
+├── agents/<name>.md          ← 5.5 學的 subagent（如果有）
+└── .claude-plugin/plugin.json ← 打包元資料
+```
+
+**為什麼要 plugin**：你寫了好用的 skill 想 share → 一行 `git clone` 太麻煩、設定也容易裝錯。包成 plugin、push 到 marketplace、team 其他人 `/plugin install foo@your-marketplace` 一次到位。
+
+**Plugin 跟 marketplace 差在哪**：plugin 是**單一打包單位**、marketplace 是**多個 plugin 的目錄**（譬如 anthropics/claude-plugins-official 是 marketplace、裡面 35 個 plugin）。
 
 ### 學習目標
 - `plugin.json` schema（name、version、skills array、configuration）
