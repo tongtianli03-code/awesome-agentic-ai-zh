@@ -119,6 +119,33 @@ Chunking 進階思考：
 - chunk size、overlap、top-k、reranker 會互相影響，不要只單看其中一個參數。
 - 想想看，如果今天要 RAG 的資料有含圖片的 PDF、會議字幕檔，要如何切割比較好？
 
+## 🧠 Memory 設計三種 pattern（什麼時候用什麼）⭐ Track B 必看
+
+**不是所有 agent 都需要 RAG。Memory 架構選錯會花十倍 token 達同樣效果。**
+
+這是進練習前要建立的 mental model——下面練習 1-5 跑的是「pattern 3 vector store」，但 production 你可能不需要這麼複雜。
+
+| Pattern | 適合場景 | 怎麼跑 | 成本 |
+|---|---|---|---|
+| **1. Naive buffer**<br>（全塞 context） | 短對話、≤ 10 turn、agent 不需要記跨 session 的東西 | 整段 history 每次都送進 prompt | 線性增長、token 燒得快 |
+| **2. Summary + recent**<br>（摘要遠的 + 保留近 N 輪） | 中長對話、~ 50 turn、想壓縮但別丟太多 | 每 N 輪叫 LLM 把舊 history 摘成 1 段；prompt = `summary + last N turns` | 中等、有 LLM 摘要成本 |
+| **3. Vector store + retrieval**<br>（外部 store + 每次 semantic search） | 跨 session、知識庫場景、agent 要「想起」久遠的事 | embed 過去 message → 存 vector DB → 每回合 query 相關片段拼進 prompt | 高（向量計算 + 儲存），但 token 用量穩定 |
+
+**怎麼選**：
+
+- 對話 chatbot 沒跨 session → **pattern 1**
+- agent + 長對話、要記今天聊過什麼 → **pattern 2**
+- agent + 跨 session + 知識庫（本 stage 練習場景）→ **pattern 3**
+- production 大型 agent → 通常**混用**：近期 pattern 1/2、長期 pattern 3
+
+**📚 深度資源**：
+- [**mem0ai/mem0**](https://github.com/mem0ai/mem0) ⭐ — production memory layer，自動分流近期 / 長期 / vector
+- [**Letta（前身 MemGPT）**](https://github.com/letta-ai/letta) — OS-style paging memory（把 context window 當 RAM、vector store 當 disk）
+- [**LangChain — Memory types**](https://python.langchain.com/docs/concepts/memory/) — framework 內各 memory class 對比表
+- [**Anthropic — Memory Tool (memory in agents)**](https://docs.anthropic.com/en/docs/build-with-claude/tool-use) — Anthropic 官方 tool-based memory 寫法
+
+> 💡 **Track B 重點**：你 Stage 7 寫 multi-agent 時，每個 agent 都會有「自己的 memory」+「shared memory」雙層——需要的 pattern 通常是 **2 + 3 混用**。先在本 stage 把 3 種 pattern 跑透，到 Stage 7 才不會被 multi-agent memory 設計卡住。
+
 ## 🛠 動手練習（基礎 illustrative 練習）
 
 ### 練習 1：Embeddings

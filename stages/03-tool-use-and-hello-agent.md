@@ -340,6 +340,57 @@ messages.append({"role": "tool", "tool_call_id": tc.id,
 
 → **基礎 starter 範本** → [`examples/stage-3/06-schema-design/`](../examples/stage-3/06-schema-design/)（含 bad schema vs good schema 兩個版本對照；illustrative，**不是 chapter-length 完整教程**——深度章節見 stage 開頭 📚 hello-agents callout）
 
+### 練習 7：反思迴圈（Reflexion 模式）⭐ Track B 必看
+
+**前置概念**：練習 5 的 error handling 是「LLM 出錯 → 你（外部）catch + retry」；**反思**是「LLM 觀察自己出錯 → 自己改」。差別是 agency 在哪一邊——這是 production agent（Cursor / Cline / Claude Code）每天都在跑的迴圈。
+
+**為什麼這在 Stage 3**：你已經會 ReAct（練習 3）。反思就是 ReAct 的 sibling pattern——同樣是 LLM 自我引導的多輪迴圈，只是「下一輪要做什麼」從「呼叫 tool」換成「批改自己」。
+
+**題目**：寫一個雙 LLM call loop —
+
+1. **Actor call**：拿 user prompt 產生答案（system prompt = 「你是 X，回答這個問題」）
+2. **Critic call**：拿 Actor 上一回合答案 + 原 prompt，回 JSON `{"ok": bool, "feedback": str}`（system prompt = 「你是嚴格的審稿人，找出答案的問題；沒問題就回 ok=true、有問題就回 ok=false 加具體 feedback」）
+3. **Loop**：若 `ok=false` → Actor 拿 critic feedback 作為新 context 再答一次（最多 3 輪），直到 `ok=true` 或達上限
+
+**Success criteria**：
+- Actor 第一次刻意給「3 + 4 = 6」這種錯答（用 prompt 誘導），3 輪內被改正到 7
+- Critic feedback 是有意義的 text，不是「ok」「good」這種敷衍
+- Loop 在 `ok=true` 時提早結束，不是硬跑 3 輪
+
+<details>
+<summary>👉 點開看核心 loop pseudo-code（Path A Ollama + Path B Anthropic 共用結構）</summary>
+
+```python
+def reflexion_loop(user_prompt, max_rounds=3):
+    answer = actor_call(user_prompt, feedback=None)
+    for i in range(max_rounds):
+        critique = critic_call(user_prompt, answer)
+        if critique["ok"]:
+            return answer  # critic 通過、提早收斂
+        answer = actor_call(user_prompt, feedback=critique["feedback"])
+    return answer  # 跑滿上限、回最後一版
+
+# actor_call / critic_call：用練習 1-3 同一個 client、改 system prompt 而已
+# critic_call 要求 JSON 輸出 → 用練習 6 學到的 schema 設計
+```
+
+**4 個地方會踩**：
+1. Critic 過嚴 → 永遠 `ok=false`、永遠跑滿 3 輪。對策：critic system prompt 加上「only flag substantive errors」
+2. Critic 過鬆 → 第一輪就 `ok=true`、沒在反思。對策：用練習 6 的 schema 強制 `feedback` 至少 20 字
+3. Actor 不看 feedback → 死循環同樣錯答。對策：feedback 用 user role 餵進去、不要塞在 system
+4. JSON parse fail → 練習 5 的 error handling 派上用場
+</details>
+
+→ **基礎 starter 範本**：本練習**無 examples folder**——是「組合練習 1+3+5+6 的 capstone」，建議自己寫。illustrative concept exercise，深度教學見下方 📚 資源。
+
+**📚 深度資源**：
+- [**Reflexion (Shinn et al. 2023)**](https://arxiv.org/abs/2303.11366) ⭐ — 原 paper，定義「verbal reinforcement learning」
+- [**Self-Refine (Madaan et al. 2023)**](https://arxiv.org/abs/2303.17651) — single-agent self-critique，更接近本練習設定
+- [**LangChain — Reflection Agents**](https://blog.langchain.dev/reflection-agents/) — framework 實作參考
+- [**hello-agents**](https://github.com/datawhalechina/hello-agents) — 對應章節（自我反思 / Self-Refine 段落）
+
+> 💡 **為什麼 Track B 學習者一定要做這題**：你後面 Stage 7 學 multi-agent 時，「reviewer / critic agent」就是這個 pattern 放大版（多了多個 actor）。Stage 5.6 解剖 Claude Code 內部時也會看到變種反思——agent 跑完 tool call 後自我評估 patch、有問題回頭改。**這是現代 production agent 的核心 building block 之一**。
+
 ## 🎯 精選 Projects
 
 按用途分 4 類。**先看分類表挑入口、再點下面 detail block 看適合誰 / 教什麼**：
