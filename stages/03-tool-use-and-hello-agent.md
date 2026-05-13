@@ -131,7 +131,7 @@ AI (Artificial Intelligence、人工智慧)
 
 > 🦙 **本 stage 默認用 Ollama qwen2.5:3b**（成本考量、tool-use 支援穩定）。Stage 3 進到 tool calling / ReAct loop、`gemma4:e4b` 不夠、改用 `qwen2.5:3b`（1.9 GB、`ollama pull qwen2.5:3b` 即裝）。每個練習都有 Path A（Ollama、默認）+ Path B（Anthropic、選擇性、想看 cloud 高品質 tool-use 時用）。
 >
-> 💰 **Stage 3 預算估算**（全 6 練習、tool use 較重）：**全本機 = $0**、**全 haiku ≈ $0.50**、**全 sonnet ≈ $1.50**。ReAct loop 練習單次 4-6 tool calls × 5 練習 × 5 reps ≈ $0.80 haiku。完整預算見 [`examples/README.md#推薦-llm-清單`](../examples/README.md#推薦-llm-清單本機--clouduser-視角)。
+> 💰 **Stage 3 預算估算**（全 6 練習、tool use 較重）：**全本機 = $0**、**全 haiku ≈ $0.50**、**全 sonnet ≈ $1.50**。ReAct loop 練習單次 4-6 tool calls × 5 練習 × 5 reps ≈ $0.80 haiku。完整預算見 [`examples/README.md#推薦-llm-清單`](../examples/README.md#推薦-llm-清單)。
 >
 > 完整 3 路 trade-off 見 [`examples/README.md`](../examples/README.md#三條路徑--默認用-ollama成本考量)。
 >
