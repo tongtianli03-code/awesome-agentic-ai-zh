@@ -37,17 +37,68 @@
 
 ## 🤔 什麼是 multi-agent framework？
 
-> **位置說明**：本段是 pre-exercise concept block——必修閱讀載入了「framework 概念」，但動手練習前還缺一層「為什麼需要 framework」+「framework 替你處理掉什麼」的 mental model，這段就是補這個。
+### Single-agent vs multi-agent — 一張對照表先看清楚差異
 
-**單一 agent**（你 Stage 3 寫過了）= 一個 LLM + 一個 ReAct loop + 若干工具，從頭跑到尾。
+| 維度 | **Single-agent**（你 Stage 3 寫過了） | **Multi-agent system** |
+|---|---|---|
+| **架構** | 一個 LLM + ReAct loop + 若干 tools | 2+ LLM、各有角色（researcher / writer / critic ...）、orchestrator 協調 |
+| **怎麼決策** | 同一個 LLM 從頭想到尾 | 角色拆分 + handoff、不同 LLM instance 看不同視角 |
+| **State 管理** | 線性 message history | shared state / message passing / checkpoint |
+| **適合場景** | 邏輯線性、tool < 20-30 個、單一目標 | 任務可分解、需要 perspective diversity、長 workflow、平行化 |
+| **Debug 成本** | 低（單一 loop 可以一路 trace） | 高（cross-agent 互動、error propagation 難定位） |
+| **Token 成本** | 1x | 通常 **3-10x**（每個 sub-agent 都有自己的 prompt + thinking + tool call）|
+| **Latency** | 低 | 高（除非 sub-agent 平行跑） |
 
-**多 agent system** = 兩個以上 LLM、各有角色（researcher / writer / critic / 等等）、用 messages 或 shared state 互傳、有 orchestrator 決定誰先誰後、誰看誰的結果。
+### 什麼時候**真的**需要 multi-agent（不要硬上）
 
-**Framework 的工作**：把上面那個 orchestration boilerplate（roles、handoff、state、retry、checkpoint、HITL pause）抽出來、讓你只寫角色定義跟任務描述。一句話：**framework 是 multi-agent 的腳手架，不是必需品**——簡單情境你自己寫個 dict 跟 for loop 也行（Stage 7 練習 1 就是這樣）。
+**Multi-agent 不是 default、是 last resort**。Anthropic 在「Building Effective Agents」直接講過：**90% 場景 single agent + 好 prompt + tool use 就夠**。需要 multi-agent 通常是這 4 個信號之一：
 
-> 📚 **想要 chapter-length 深入版**：[`datawhalechina/hello-agents`](https://github.com/datawhalechina/hello-agents)（**16 production 能力含 multi-agent collaboration / role-based / sub-agents**）+ [Anthropic — Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents)（什麼任務該 multi-agent、什麼任務一個 agent 就夠）。
+| 信號 | 描述 | 對應 pattern |
+|---|---|---|
+| **1. 任務天然分解** | debate / peer review / planner-executor — 不同視角看同一個問題 | Debate、Planner-Executor |
+| **2. Token explosion** | single agent prompt 塞不下所有 tool description / context | Supervisor-Worker（分流給 sub-agent）|
+| **3. 角色衝突** | 同一個 LLM 既當 writer 又當 critic 會 self-justify | Debate / Peer review |
+| **4. 平行加速** | 3 個 research 子任務同時跑、wall-clock 1/3 | Swarm / Map-Reduce 變種 |
+
+**4 個信號都不在？** → single agent + 好 prompt + tool use 就夠。**硬上 multi-agent 會付 3-10x token、debug 痛苦、其實不會比較準**。
+
+### Multi-agent 5 個經典 pattern
+
+| Pattern | 什麼樣 | 經典場景 | 代表 framework / paper |
+|---|---|---|---|
+| **Supervisor-Worker**<br>（hub-spoke） | 1 主 agent + N worker、主分配 + 整合 | 任務拆解、報告整合 | LangGraph、AutoGen GroupChat |
+| **Swarm / Handoff** | agent 之間 1:1 handoff、無中央 orchestrator | customer support routing、context switch | [OpenAI Swarm](https://github.com/openai/swarm)、[OpenAI Agents SDK](https://github.com/openai/openai-agents-python) |
+| **Debate / Peer review** | 2+ agent 互相 critique、收斂答案 | research、judgment task、code review | AutoGen GroupChat、CrewAI |
+| **Planner-Executor** | planner 規劃多步驟 + executor 執行 | 多步驟自動化、code generation | LangGraph、[ChatDev paper](https://arxiv.org/abs/2307.07924) |
+| **Role-play / Society** | 多 agent 各持角色互動、模擬社會 | simulation、社會行為研究 | [CAMEL paper](https://arxiv.org/abs/2303.17760)、[Generative Agents paper](https://arxiv.org/abs/2304.03442) |
+
+### Framework 的工作
+
+Framework 把上面這 5 個 pattern 的 orchestration boilerplate（roles、handoff、state、retry、checkpoint、HITL pause）抽出來、讓你只寫角色定義跟任務描述。一句話：**framework 是 multi-agent 的腳手架，不是必需品**——簡單情境你自己寫個 dict 跟 for loop 也行（Stage 7 練習 1 就是這樣）。
+
+### 📚 想系統化深入？
+
+**🇺🇸 學術 paper（影響後續所有 framework 設計）**：
+1. [**Anthropic — "Building Effective Agents"**](https://www.anthropic.com/research/building-effective-agents) ⭐⭐⭐ — 何時用 workflow 何時用 agent、5 個經典 orchestration pattern。**英文圈 multi-agent 設計入門必讀**
+2. [**AutoGen paper (Wu et al. 2023)**](https://arxiv.org/abs/2308.08155) — Microsoft 多 agent 對話框架原 paper
+3. [**CAMEL paper (Li et al. 2023)**](https://arxiv.org/abs/2303.17760) — multi-agent role-play 開山之作
+4. [**ChatDev paper (Qian et al. 2023)**](https://arxiv.org/abs/2307.07924) — multi-agent software dev、planner-executor canonical
+5. [**Generative Agents paper (Park et al. 2023)**](https://arxiv.org/abs/2304.03442) — 25 個 agent 在 The Sims 互動、社會 simulation
+
+**🀄 中文系統教材**：
+1. [**hello-agents Ch4「智能體經典範式構建」**](https://github.com/datawhalechina/hello-agents) ⭐ — 中文圈最完整 multi-agent paradigm 章節（單 agent / multi-agent / role-based / sub-agents 都涵蓋）
+2. [**李宏毅 — 生成式 AI 導論**](https://speech.ee.ntu.edu.tw/~hylee/genai/2024-spring.php) — 中後段有 AI agent / multi-agent 相關集數
+
+**Framework 官方 multi-agent docs**：
+- [**LangGraph — Multi-Agent Systems**](https://langchain-ai.github.io/langgraph/concepts/multi_agent/) — supervisor / swarm / hierarchical 三種架構官方教學
+- [**Anthropic Cookbook — `customer_service_agent.ipynb`**](https://github.com/anthropics/anthropic-cookbook/tree/main/tool_use) — multi-agent orchestration canonical 範例（routing + handoff）
+- [**Microsoft AutoGen — Examples**](https://microsoft.github.io/autogen/) — group-chat / debate / peer review pattern 完整範例
+
+> 💡 **建議框架學習流程**：先讀 Anthropic Building Effective Agents 建立 mental model（30 分鐘）→ 跑 LangGraph multi-agent quickstart 感受 supervisor pattern → 跑 CrewAI 感受 role-based handoff → 對照看 Anthropic Cookbook 的 customer_service_agent → 想深入學術側再翻 AutoGen / CAMEL paper。**不必把 5 個 paper 全讀完**、挑跟你場景最近的 1-2 個。
+
+> 📚 **想要 chapter-length 深入版（中文）**：[`datawhalechina/hello-agents`](https://github.com/datawhalechina/hello-agents)（**16 production 能力含 multi-agent collaboration / role-based / sub-agents**）。
 >
-> 🌳 **Claude 生態有另一條路**：[Claude Code 原生 subagent 機制](05-claude-code-ecosystem.md#55--subagentsclaude-code-原生-multi-agent-機制)（`.claude/agents/` + Task tool）**不需要 framework**——直接寫一個 `.md` 檔就是一個 subagent。本 Stage 講 framework path、Stage 5.5 講 Claude path。兩條路徑用途不同：framework 適合**跨 LLM provider** 的 production system；Claude subagent 適合**已經 commit Claude Code** 的工程團隊。
+> 🌳 **Claude 生態有另一條路**：[Claude Code 原生 subagent 機制](05-claude-code-ecosystem.md#55--subagentsclaude-code-原生-multi-agent-機制)（`.claude/agents/` + Task tool）**不需要 framework**——直接寫一個 `.md` 檔就是一個 subagent。本 stage 講 framework path、Stage 5.5 講 Claude path。兩條路徑用途不同：framework 適合**跨 LLM provider** 的 production system；Claude subagent 適合**已經 commit Claude Code** 的工程團隊。
 
 ## 🛠 進階 tool patterns（framework 替你處理掉的東西）⭐ Track B 必看
 
