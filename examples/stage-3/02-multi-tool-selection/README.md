@@ -2,33 +2,90 @@
 
 # 練習 2：多工具選擇
 
-這個練習讓 Claude 在同一輪回應裡面面對三個工具：`web_search`、`calculator`、`calendar_lookup`。重點不是工具本身有多厲害，而是看見 schema 的 `name`、`description`、`input_schema` 如何影響模型判斷「這題該呼叫哪一個工具」。
+對應 [Stage 3 — Tool Use & Agent 入門](../../../stages/03-tool-use-and-hello-agent.md) 練習 2。
 
-## 執行方式
+## 為什麼這題重要
+
+這個練習讓 LLM 在同一輪面對三個工具：`web_search`、`calculator`、`calendar_lookup`。重點不是工具本身強不強，而是觀察 schema 的 `name` / `description` / `parameters` 如何決定模型挑哪一個。寫清楚 schema、是 Stage 3 最值得花時間的子題。
+
+## 怎麼跑 — 兩條路徑
+
+### Path A（默認、本機免費）
+
+```bash
+pip install -r requirements.txt
+ollama pull qwen2.5:3b
+ollama serve
+python starter.py
+```
+
+預算：**$0**。qwen2.5:3b 單輪 tool call ≈ 1-5 秒（CPU 慢、GPU 快）。
+
+### Path B（Anthropic、想看 cloud 高品質）
 
 ```bash
 pip install -r requirements.txt
 export ANTHROPIC_API_KEY=sk-ant-...
-python starter.py
-python test.py
+python starter_anthropic.py
 ```
 
-`starter.py` 使用 Anthropic SDK 0.40+ 的 `client.messages.create(model=, tools=, messages=...)` 介面。問題送進 Claude 後，程式會讀取第一個 `tool_use` block，依照工具名稱查表執行本地函式，再印出工具名稱、輸入參數與 observation。
+預算：每次 ≈ **$0.0005**（claude-haiku-4-5）。
 
-## 測試重點
+預期看到（Path A、本機）：
 
-`test.py` 不需要 API key。它用 `unittest.mock.MagicMock` 與 `types.SimpleNamespace` 模擬 Anthropic 回傳，固定讓模型分別選擇計算機、行事曆與搜尋工具。測試會檢查三件事：工具清單完整、Claude 選到的工具名稱正確、工具輸入能轉成對應 observation。
+```
+❓ 問題：What is (19 * 42) - 8? Use the best available tool.（using Ollama qwen2.5:3b）
+   tool: calculator
+   tool_input: {'expression': '(19 * 42) - 8'}
+   observation: 790
+✅ 練習 2 通過 — 你已用本機 qwen2.5:3b 跑通 multi-tool selection、$0/run
+```
+
+## 不花錢驗證程式邏輯（mock-based）
+
+```bash
+python test.py            # 驗 Path A (Ollama) starter.py 邏輯
+python test_anthropic.py  # 驗 Path B (Anthropic) starter_anthropic.py 邏輯
+```
+
+兩條 test 都用 `unittest.mock`、不打真 API、$0/run。Path A 用 OpenAI-compat response shape、Path B 用 Anthropic content blocks。
+
+## 兩條 path 的 SDK 差異
+
+三個關鍵差異（其他完全一樣）：
+
+| 部分 | Anthropic（Path B） | OpenAI-compat / Ollama（Path A） |
+|---|---|---|
+| Schema 包法 | `tools=[{name, description, input_schema}, ...]` | `tools=[{"type": "function", "function": {name, description, parameters}}, ...]` |
+| 抓 tool call | `resp.content[i].type == "tool_use"` | `resp.choices[0].message.tool_calls[i]` |
+| input 格式 | `call.input` 是 dict（自動 parse） | `call.function.arguments` 是 JSON string、要 `json.loads(...)` |
+
+Tool selection **邏輯本身**跨 backend——schema 寫好、qwen2.5:3b 也會挑對 tool。這題很適合拿來對照 Claude vs qwen2.5「在哪幾題會挑錯」，是觀察小 model 邊界的好實驗。
 
 ## 容易踩坑
 
-多工具選擇最常見的錯誤是 description 寫得太像一般說明文件，而不是給模型做決策的判斷規則。`calendar_lookup` 應該明確描述日期與事件查詢；`web_search` 則適合外部或近期資訊；`calculator` 只處理算式。三者邊界越清楚，模型越少把「最新消息」誤丟給行事曆，或把「明天會議」誤丟給搜尋。
+多工具選擇最常見的錯誤是 description 寫得太像「一般說明文件」，而不是「給模型做決策的判斷規則」：
 
-## 🦙 Path B — 本機 Ollama（qwen2.5:3b）
+- `calendar_lookup` 描述只說「行事曆」就會跟 `web_search` 邊界模糊；明寫「查特定日期事件」才好
+- `web_search` 適合「外部 / 近期 / 不確定資訊」、`calculator` 只處理算式；邊界寫越清楚、模型越少誤判
+- 小 model（qwen2.5:3b）對 description 質量比 Claude **更敏感**——同一份 schema、Claude 可能還能猜對、qwen 直接挑錯
 
-完整 pattern 看 [`../03-react-from-scratch/starter.py`](../03-react-from-scratch/starter.py)。三個 SDK 差異要點：
+## 想看更聰明的答案？
 
-1. **Schema wrap**：Anthropic 直接 `tools=[{name, description, input_schema}, ...]`；OpenAI-compat（Ollama）要包一層 `tools=[{"type": "function", "function": {name, description, parameters}}, ...]`
-2. **Response 抓 tool call**：Anthropic 從 `resp.content[i].type == "tool_use"`；OpenAI-compat 從 `resp.choices[0].message.tool_calls[i].function.name`
-3. **input 格式**：Anthropic 是 dict（自動 parse）；OpenAI-compat 是 JSON string（自己 `json.loads(tc.function.arguments)`）
+預設用 `claude-haiku-4-5`（最便宜）。改成 sonnet：
 
-Tool selection 邏輯**完全跨 backend**——schema 寫好、qwen2.5:3b 一樣會挑對 tool。可以拿這題對照 Claude vs qwen2.5 「在哪幾題會挑錯」、是觀察小 model 邊界的好實驗。
+```bash
+MODEL=claude-sonnet-4-5 python starter_anthropic.py
+```
+
+或在 Ollama path 換 `qwen2.5:7b`（更大、更穩、但慢）：
+
+```bash
+MODEL=qwen2.5:7b python starter.py
+```
+
+## 延伸
+
+- **加更多 tool**：在 `TOOLS_SPEC` + `TOOL_IMPL` 補一個 entry 即可
+- **改成多輪 ReAct**：把單輪 call 包進 while loop，看 [`../03-react-from-scratch/`](../03-react-from-scratch/)
+- **schema 細節**：看 [`../06-schema-design/`](../06-schema-design/) 比較 bad / good schema 對選擇正確率的影響
