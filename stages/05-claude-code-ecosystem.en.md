@@ -78,7 +78,7 @@ After completing this section, you will be able to:
 4. [**Anthropic — Settings**](https://docs.claude.com/en/docs/claude-code/settings) — Full `settings.json` schema + env vars
 5. [**KimYx0207/Claude-Code-x-OpenClaw-Guide-Zh**](https://github.com/KimYx0207/Claude-Code-x-OpenClaw-Guide-Zh) — A beginner's guide in Simplified Chinese
 
-> 🛠️ **Writing a good CLAUDE.md?** See [Stage 7.5 § Applying these 5 principles to Skills + CLAUDE.md design](07.5-advanced-agentic-concepts.en.md#️-applying-these-5-principles-to-skills--claudemd-design-stage-5-connection) — the 5 Harness Engineering principles map directly onto practical questions like "how long?", "how to split?", "use `@-import` or inline content?".
+> 🛠️ **Writing a good CLAUDE.md?** See [Stage 7.5 § 5 ready-to-use prompts for Skills + CLAUDE.md design](07.5-advanced-agentic-concepts.en.md#-5-ready-to-use-prompts-apply-these-to-skills--claudemd-design) — the 5 Harness Engineering principles map directly onto practical questions like "how long?", "how to split?", "use `@-import` or inline content?".
 
 ### Common Slash Commands (10 to learn)
 
@@ -204,7 +204,7 @@ For a complete list, see the official [Slash Commands documentation](https://doc
 
 A Skill = **a markdown file** (`.claude/skills/<name>/SKILL.md`) that tells Claude "**when you encounter a certain situation → follow a certain process**." Before each inference, Claude scans the `description` frontmatter of all available skills, checks if they match the current situation, and if there's a match, **automatically loads the SKILL.md into the context**.
 
-> 🛠️ **Writing a good SKILL.md?** See [Stage 7.5 § Applying these 5 principles to Skills + CLAUDE.md design](07.5-advanced-agentic-concepts.en.md#️-applying-these-5-principles-to-skills--claudemd-design-stage-5-connection) — the 5 Harness Engineering principles (Legibility / Progressive Disclosure / System of Record / Taste Invariants / Throughput) map directly onto "how long should the SKILL.md be? / how do I use `references/`? / how do I write the description?".
+> 🛠️ **Writing a good SKILL.md?** See [Stage 7.5 § 5 ready-to-use prompts for Skills + CLAUDE.md design](07.5-advanced-agentic-concepts.en.md#-5-ready-to-use-prompts-apply-these-to-skills--claudemd-design) — the 5 Harness Engineering principles (Legibility / Progressive Disclosure / System of Record / Taste Invariants / Throughput) map directly onto "how long should the SKILL.md be? / how do I use `references/`? / how do I write the description?".
 
 **Core mental model**: If you find yourself "**typing the same prompt every time to teach Claude how to do something**" → write it as a skill, and you won't have to next time. In the Claude Code ecosystem, **skills are the dividing line between power users and regular users**—those proficient in writing skills can compress an hour of work into 5 minutes.
 

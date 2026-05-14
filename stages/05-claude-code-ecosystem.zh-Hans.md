@@ -78,7 +78,7 @@
 4. [**Anthropic — Settings**](https://docs.claude.com/en/docs/claude-code/settings) — `settings.json` 完整 schema + env var
 5. [**KimYx0207/Claude-Code-x-OpenClaw-Guide-Zh**](https://github.com/KimYx0207/Claude-Code-x-OpenClaw-Guide-Zh) — 简中入门指南
 
-> 🛠️ **要写好 CLAUDE.md？** 看 [Stage 7.5 § Skills + CLAUDE.md 设计 checklist](07.5-advanced-agentic-concepts.zh-Hans.md#️-把这-5-原则套到-skills--claudemd-设计stage-5-实作对照)——5 个 Harness Engineering 原则直接套到「该多长 / 怎么分 / 用 @-import 还是写死」这些具体问题。
+> 🛠️ **要写好 CLAUDE.md？** 看 [Stage 7.5 § 5 个 Prompt 直接套到 Skills + CLAUDE.md 设计](07.5-advanced-agentic-concepts.zh-Hans.md#-直接复制用的-5-个-prompt套到-skills--claudemd-设计)——5 个 Harness Engineering 原则直接套到「该多长 / 怎么分 / 用 @-import 还是写死」这些具体问题。
 
 ### 常用 slash commands（10 个必学）
 
@@ -204,7 +204,7 @@
 
 Skill = **一个 markdown 文件**（`.claude/skills/<name>/SKILL.md`），告诉 Claude“**遇到某情境 → 走某流程**”。Claude 每次 inference 前扫所有可用 skill 的 `description` frontmatter、看是否匹配当前情境、**匹配就把 SKILL.md 自动加载到 context**。
 
-> 🛠️ **要写好 SKILL.md？** 看 [Stage 7.5 § Skills + CLAUDE.md 设计 checklist](07.5-advanced-agentic-concepts.zh-Hans.md#️-把这-5-原则套到-skills--claudemd-设计stage-5-实作对照)——5 个 Harness Engineering 原则（Legibility / Progressive Disclosure / System of Record / Taste Invariants / Throughput）直接套到「SKILL.md 该多长 / `references/` 怎么用 / description 怎么写」这些具体问题。
+> 🛠️ **要写好 SKILL.md？** 看 [Stage 7.5 § 5 个 Prompt 直接套到 Skills + CLAUDE.md 设计](07.5-advanced-agentic-concepts.zh-Hans.md#-直接复制用的-5-个-prompt套到-skills--claudemd-设计)——5 个 Harness Engineering 原则（Legibility / Progressive Disclosure / System of Record / Taste Invariants / Throughput）直接套到「SKILL.md 该多长 / `references/` 怎么用 / description 怎么写」这些具体问题。
 
 **核心 mental model**：你发现自己“**每次都要打同样的 prompt 教 Claude 怎么做某件事**”→ 把它写成 skill、下次就不用了。Claude Code 生态里 **skill 是 power user 跟普通用户的分水岭**——熟练 skill 写作的人能把 1 个小时的工作压到 5 分钟。
 
