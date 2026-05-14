@@ -271,7 +271,7 @@ LLM 知道你的私有 / 領域資料、有 3 種主要做法。**本 stage 教 
 - 你只有一個 prompt、不需要 optimization
 - 第一次學 LLM、還沒摸過 prompting
 
-**代表 repo**：[**stanfordnlp/dspy**](https://github.com/stanfordnlp/dspy) ★ **34.4k** MIT、Stanford NLP group 官方、active 維護（pushed 今天）。
+**代表 repo**：[**stanfordnlp/dspy**](https://github.com/stanfordnlp/dspy) ★ **34.4k** MIT、Stanford NLP group 官方、active 維護中。
 
 **怎麼放進 RAG**：DSPy 跟本 stage 講的 RAG 技巧**不衝突**——你可以把 GraphRAG / Hybrid Search / Reranking 都當成 DSPy 的 module 來組、然後 compile。是 RAG 構築方式的「上層」typing 系統。
 
@@ -287,7 +287,7 @@ LLM 知道你的私有 / 領域資料、有 3 種主要做法。**本 stage 教 
 
 另外 **2 個值得追的方向**：
 - **🛡 RAG 安全** — corpus poisoning / prompt injection 進入 production 考量。代表：[RAGPart / RAGMask](https://arxiv.org/abs/2512.24268)。
-- **🔧 不再手寫 prompt** — 系統自動 search 出最佳 prompt + retriever 組合。代表：[**DSPy**](https://github.com/stanfordnlp/dspy)（Stanford「programming not prompting」典範、下一節有獨立段落）。
+- **🔧 不再手寫 prompt** — 系統自動 search 出最佳 prompt + retriever 組合。代表：[**DSPy**](https://github.com/stanfordnlp/dspy)（Stanford「programming not prompting」典範、見上方 §DSPy 段落）。
 
 **5 個值得深挖的代表作**（速查）：
 
@@ -671,7 +671,7 @@ OpenAI **o1**（2024-09）開啟、DeepSeek **R1**（2025-01）開源化、**Dee
 
 ## 🎯 精選 Projects（範本 / spec / 範例 collection）
 
-按用途分類、13 個項目一張表搞定。**挑入口看「適合誰」、想深入點連結看 repo**。
+按用途分類、17 個項目一張表搞定。**挑入口看「適合誰」、想深入點連結看 repo**。
 
 | 分類 | Project | ⭐ | 適合誰 | 為什麼推薦 / 備註 |
 |---|---|---|---|---|

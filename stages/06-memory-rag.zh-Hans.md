@@ -70,7 +70,7 @@ LLM 了解你的私有 / 领域数据有 3 种主要做法。**本阶段教授 R
 4.  [**Anthropic — Contextual Retrieval**](https://www.anthropic.com/news/contextual-retrieval) — Anthropic 结合 prompt caching 的 RAG 写法。
 5.  [**LangChain — Text Splitters**](https://docs.langchain.com/oss/python/integrations/splitters/index) — Chunking 策略入门。
 
-> 🙏 **Memory 章节特别推荐 [`datawhalechina/hello-agents`](https://github.com/datawhalechina/hello-agents`)**: 本阶段探讨 memory 的概念和初步实现，需要 **chapter-length 的深入版本**请参考 hello-agents 的对应章节——short-term / long-term memory 的差异、context engineering 的动态组装、session 持久化、forgetting strategy 都讲得最完整。本阶段是路线图，那边是深度教材。
+> 🙏 **Memory 章节特别推荐 [`datawhalechina/hello-agents`](https://github.com/datawhalechina/hello-agents)**: 本阶段探讨 memory 的概念和初步实现，需要 **chapter-length 的深入版本**请参考 hello-agents 的对应章节——short-term / long-term memory 的差异、context engineering 的动态组装、session 持久化、forgetting strategy 都讲得最完整。本阶段是路线图，那边是深度教材。
 
 ## 🧭 单元指引（渐进式流程）
 
@@ -271,7 +271,7 @@ LLM 了解你的私有 / 领域数据有 3 种主要做法。**本阶段教授 R
 -   你只有一个 prompt，不需要优化。
 -   你是 LLM 新手，还没摸过 prompting。
 
-**代表性仓库**: [**stanfordnlp/dspy**](https://github.com/stanfordnlp/dspy) ★ **34.4k** MIT，Stanford NLP group 官方，积极维护（今天已更新）。
+**代表性仓库**: [**stanfordnlp/dspy**](https://github.com/stanfordnlp/dspy) ★ **34.4k** MIT，Stanford NLP group 官方，积极维护中。
 
 **如何集成到 RAG**: DSPy 与本阶段讨论的 RAG 技巧**并不冲突**——你可以将 GraphRAG / Hybrid Search / Reranking 都当作 DSPy 的模块来组装，然后进行编译。它是一个更高层级的 RAG 构建类型系统。
 
@@ -287,7 +287,7 @@ LLM 了解你的私有 / 领域数据有 3 种主要做法。**本阶段教授 R
 
 **另外 2 个值得关注的方向**:
 -   **🛡 RAG 安全** — Corpus poisoning / prompt injection 已成为 production 考量重点。代表：[RAGPart / RAGMask](https://arxiv.org/abs/2512.24268)。
--   **🔧 不再手动编写 Prompt** — 系统自动搜索最佳 prompt + retriever 组合。代表：[**DSPy**](https://github.com/stanfordnlp/dspy)（Stanford 的“programming not prompting”范式，将在下一节独立介绍）。
+-   **🔧 不再手动编写 Prompt** — 系统自动搜索最佳 prompt + retriever 组合。代表：[**DSPy**](https://github.com/stanfordnlp/dspy)（Stanford 的"programming not prompting"范式，见上方 §DSPy 段落）。
 
 **5 个值得深入研究的代表作**（快速参考）：
 
@@ -662,10 +662,6 @@ OpenAI 的 **o1**（2024-09）开启了这一趋势，随后是开源的 DeepSee
 | **进阶：Contextual Retrieval** | [Anthropic Cookbook](https://platform.claude.com/cookbook/capabilities-contextual-embeddings-guide) | Claude 结合 prompt caching 的 contextual chunking（**详见上方 §进阶 RAG 技巧**）。 |
 | **进阶：Knowledge Graph 推理** | [LightRAG](https://github.com/HKUDS/LightRAG) / [Microsoft GraphRAG](https://github.com/microsoft/graphrag) | Knowledge Graph + RAG，实现实体-关系推理（**详见上方 §进阶 RAG 技巧**）。 |
 | **教程合集** | [ai-engineering-hub](https://github.com/patchy631/ai-engineering-hub) | RAG + agent 教程合集，Jupyter notebook 形式。 |
-| **Production AI Assistant**<br>（学习部署 RAG 的参考）| [onyx](https://github.com/onyx-dot-app/onyx)（原 Danswer）| ⭐⭐⭐⭐⭐ | 想了解“如何将 RAG 驱动的 AI Assistant 部署到 production” | 开源的企业级 AI Assistant，支持跨 LLM，包含完整的 ingest / retrieval / chat / admin 功能。★ 29.4k，积极维护。 |
-| **RAG Cookbook**<br>（30+ 技巧范例）| [NirDiamant/RAG_Techniques](https://github.com/NirDiamant/RAG_Techniques) | ⭐⭐⭐⭐⭐ | 跑完基础 RAG 后，想探索各种变体 | 大型 RAG 技巧 Cookbook，包含 Self-RAG / HyDE / Multi-Query / Adaptive 等 30+ 个 Jupyter notebook 示例。 |
-| **DSPy**<br>（编程而非 Prompt）| [stanfordnlp/dspy](https://github.com/stanfordnlp/dspy) | ⭐⭐⭐⭐⭐ | 使用 LLM 一段时间后，想自动优化 prompt + chain | Stanford NLP group 开发，★ 34.4k MIT，Path 3 范式（详见 §DSPy）。 |
-| **RAG / Memory Eval**<br>（必备）| [explodinggradients/ragas](https://github.com/explodinggradients/ragas) | ⭐⭐⭐⭐⭐ | 完成练习 4（完整 RAG Pipeline）后，想衡量检索精度 | RAG 评估标准工具，8+ 指标，支持 reference-free + reference-based。★ 13.9k Apache-2.0。 |
 
 **推荐入手顺序**:
 1.  首先安装：**Chroma + LlamaIndex**（用于 Stage 6 练习）。
@@ -675,7 +671,7 @@ OpenAI 的 **o1**（2024-09）开启了这一趋势，随后是开源的 DeepSee
 
 ## 🎯 精选 Projects（模板 / 规范 / 示例合集）
 
-按用途分类，13 个项目一表搞定。**根据你的场景（“入口”）进行选择，深入了解请点击链接查看 repo**。
+按用途分类，17 个项目一表搞定。**根据你的场景（"入口"）进行选择，深入了解请点击链接查看 repo**。
 
 | 分类 | Project | ⭐ | 适用人群 | 推荐理由 / 备注 |
 |---|---|---|---|---|

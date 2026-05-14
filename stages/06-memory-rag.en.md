@@ -70,7 +70,7 @@ If not, refer back to [Stage 3](03-tool-use-and-hello-agent.md) or [Stage 0 §Se
 4.  [**Anthropic — Contextual Retrieval**](https://www.anthropic.com/news/contextual-retrieval) — Anthropic's approach to RAG with prompt caching.
 5.  [**LangChain — Text Splitters**](https://docs.langchain.com/oss/python/integrations/splitters/index) — Introduction to chunking strategies.
 
-> 🙏 **Special Recommendation for the Memory Chapter**: Refer to [`datawhalechina/hello-agents`](https://github.com/datawhalechina/hello-agents`) — This stage covers the concepts and basic implementations of memory. For a **chapter-length in-depth guide**, consult the corresponding chapter in hello-agents, which provides the most comprehensive explanation of short-term vs. long-term memory differences, dynamic prompt assembly with context engineering, session persistence, and forgetting strategies. This stage serves as a roadmap, while that is a deep dive textbook.
+> 🙏 **Special Recommendation for the Memory Chapter**: Refer to [`datawhalechina/hello-agents`](https://github.com/datawhalechina/hello-agents) — This stage covers the concepts and basic implementations of memory. For a **chapter-length in-depth guide**, consult the corresponding chapter in hello-agents, which provides the most comprehensive explanation of short-term vs. long-term memory differences, dynamic prompt assembly with context engineering, session persistence, and forgetting strategies. This stage serves as a roadmap, while that is a deep dive textbook.
 
 ## 🧭 Unit Guide (Progressive Flow)
 
@@ -271,7 +271,7 @@ The following six subsections represent common production RAG enhancements from 
 -   You only have one prompt and don't need optimization.
 -   You are new to LLMs and haven't explored prompting yet.
 
-**Representative Repo**: [**stanfordnlp/dspy**](https://github.com/stanfordnlp/dspy) ★ **34.4k** MIT, official Stanford NLP group, actively maintained (pushed today).
+**Representative Repo**: [**stanfordnlp/dspy**](https://github.com/stanfordnlp/dspy) ★ **34.4k** MIT, official Stanford NLP group, actively maintained.
 
 **How it Integrates with RAG**: DSPy is **compatible with all RAG techniques** discussed—you can use GraphRAG / Hybrid Search / Reranking as DSPy modules and compile them. It's an overarching typing system for RAG construction.
 
@@ -287,7 +287,7 @@ Advanced RAG research in 2024-2025 is converging on **3 main themes**:
 
 **2 Other Areas Worth Exploring**:
 -   **🛡 RAG Security** — Corpus poisoning / prompt injection become critical in production considerations. Representatives: [RAGPart / RAGMask](https://arxiv.org/abs/2512.24268).
--   **🔧 Prompting is Dead** — Systems automatically search for optimal prompt + retriever combinations. Representatives: [**DSPy**](https://github.com/stanfordnlp/dspy) (Stanford's "programming not prompting" paradigm, detailed in a separate section on §DSPy).
+-   **🔧 Prompting is Dead** — Systems automatically search for optimal prompt + retriever combinations. Representatives: [**DSPy**](https://github.com/stanfordnlp/dspy) (Stanford's "programming not prompting" paradigm, see §DSPy subsection above).
 
 **5 Representative Works for Deep Dive** (quick reference):
 
@@ -658,10 +658,6 @@ Unsure where to start with tool selection? Here are commonly used combinations i
 | **Advanced: Contextual Retrieval** | [Anthropic Cookbook](https://platform.claude.com/cookbook/capabilities-contextual-embeddings-guide) | Claude with prompt caching for contextual chunking (**See §Advanced RAG Techniques**). |
 | **Advanced: Knowledge Graph Reasoning** | [LightRAG](https://github.com/HKUDS/LightRAG) / [Microsoft GraphRAG](https://github.com/microsoft/graphrag) | Knowledge graph + RAG, entity-relation reasoning (See §Advanced RAG Techniques). |
 | **Tutorial Collection** | [ai-engineering-hub](https://github.com/patchy631/ai-engineering-hub) | RAG + agent tutorial collection, Jupyter notebook format. |
-| **Production AI Assistant**<br>(Learn to Ship RAG) | [onyx](https://github.com/onyx-dot-app/onyx) (formerly Danswer) | ⭐⭐⭐⭐⭐ | Want to see "how RAG-driven AI assistants are productionized" | Open-source enterprise AI assistant, cross-LLM support, full ingest/retrieval/chat/admin. ★ 29.4k, active maintenance. |
-| **RAG Cookbook**<br>(30+ Techniques) | [NirDiamant/RAG_Techniques](https://github.com/NirDiamant/RAG_Techniques) | ⭐⭐⭐⭐⭐ | After basic RAG, want to explore various implementations | Large RAG techniques cookbook, includes Self-RAG / HyDE / Multi-Query / Adaptive and 30+ Jupyter notebook examples. |
-| **DSPy**<br>(Programming not Prompting) | [stanfordnlp/dspy](https://github.com/stanfordnlp/dspy) | ⭐⭐⭐⭐⭐ | Used LLMs for a while, want to auto-optimize prompts + chains | Stanford NLP group, ★ 34.4k MIT, Path 3 paradigm (See §DSPy in §Advanced RAG Techniques) |
-| **RAG / Memory Eval**<br>(Must-Have) | [explodinggradients/ragas](https://github.com/explodinggradients/ragas) | ⭐⭐⭐⭐⭐ | After completing Exercise 4 (Full RAG Pipeline), want to measure retrieval accuracy | Standard RAG evaluation tool, 8+ metrics, reference-free + reference-based. ★ 13.9k Apache-2.0 |
 
 **Recommended Entry Sequence**:
 1.  First essential installation: **Chroma + LlamaIndex** (for Stage 6 exercises).
