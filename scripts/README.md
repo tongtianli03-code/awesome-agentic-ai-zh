@@ -36,10 +36,50 @@ python scripts/refresh-stars.py --check
 
 依賴：`pip install requests` + `gh` CLI（`gh auth login`）
 
+## `check-catalog-staleness.py` — 找出 dormant / archived 的 catalog entry
+
+`refresh-stars.py` 把星數刷新但不會告訴你哪些 repo 是「殭屍 entry」——一年沒 push、或被
+upstream archived。本 script 對 catalog 內每個 GitHub repo 查 `pushed_at` + `archived`、
+flag 超過門檻或已 archived 的 entry。**Report-only、不改 markdown**（鏡像
+`weekly-catalog-refresh` 「broken link → 開 issue 不自動修」的做法、留人工 judgment）。
+
+```bash
+# 預設門檻 12 個月、輸出 plain text
+python scripts/check-catalog-staleness.py
+
+# 調門檻（譬如 18 個月以上才算 stale）
+python scripts/check-catalog-staleness.py --months 18
+
+# 只看已 archived 的（最 actionable、最該優先處理）
+python scripts/check-catalog-staleness.py --include-archived-only
+
+# Markdown 輸出，直接 `gh issue create --body-file -` 開 issue
+python scripts/check-catalog-staleness.py --format markdown | gh issue create \
+  --title "Catalog staleness report — $(date +%F)" --body-file -
+
+# JSON 輸出（給後續 tooling / dashboard 用）
+python scripts/check-catalog-staleness.py --format json
+
+# CI 模式（找到 stale 就 exit 1）
+python scripts/check-catalog-staleness.py --check
+```
+
+每個 stale entry 報告：repo / archived 或月數 / 最後 push 日期 / star / 出現位置。Maintainer
+依下面 4 種行動決策：
+
+1. **Archived 但教學價值還在** → 保留、note 加 `⚠️ Archived (YYYY-MM)`。
+2. **沉睡但有 fork / rename 接手** → 改 URL、可選註原本。
+3. **沉睡且有替代品** → 換掉、或留作 "historical reference"。
+4. **沉睡但無可取代** → 留著、不必註記。
+
+依賴：`gh` CLI（`gh auth login`）
+
 ## 建議的維護節奏
 
 - **每月**：跑一次 `check-links.py --fast` 看 GitHub repo 連結有沒有 404
+- **每月**：跑一次 `check-catalog-staleness.py --include-archived-only` 揪剛 archived 的 entry
 - **每季**：跑一次 `refresh-stars.py` 看大幅成長 / 衰退的 repo
+- **每季**：跑一次 `check-catalog-staleness.py` 全量 dormant 盤點
 - **每半年**：跑一次完整 `check-links.py`（包含非 GitHub 連結）
 
 可以接到 GitHub Actions 自動跑（見未來 Phase 6 的 CI 設定）。
