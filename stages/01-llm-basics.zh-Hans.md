@@ -18,7 +18,7 @@
 
 → 这 3 个词贯穿后续所有 stage。Stage 1 的目标就是让你亲手调用 API、直接感受它们怎么影响输出。
 
-## 学习目标
+## 📌 学习目标
 
 完成本阶段后，你将能够：
 - 解释 LLM、token、context window 等核心概念。
@@ -105,7 +105,7 @@
 - ⚠️ **“强项”是 relative、不是 absolute**——所有 frontier model 都能完成基本任务、差别在边际情境
 - ⚠️ **中文场景看 [SuperCLUE](https://www.superclueai.com/)**——一般国际 benchmark（如 MMLU）以英文为主、中文表现可能跟英文不一致
 
-## 前置要求
+## 🚪 进入条件
 
 你需要具备以下基础：
 - 编写 Python 脚本。
@@ -114,7 +114,7 @@
 
 如果没有，请先完成 Stage 0。
 
-## 推荐阅读
+## 📚 必修阅读
 
 1. [**Anthropic - Claude 模型概览**](https://docs.claude.com/en/about-claude/models/overview) - 官方模型总览，包含 2026 最新 Opus 4.7 / Sonnet 4.6 / Haiku 4.5。
 2. [**anthropics/courses — Anthropic API Fundamentals**](https://github.com/anthropics/courses) ⭐⭐⭐⭐⭐ ★ 21k+ — Anthropic 官方 5 course umbrella、**module 1“Anthropic API Fundamentals”对应本 stage**。Jupyter notebook、用 Claude 3 Haiku（最便宜）跑、跟着做就能拿到 API 基本功。
@@ -122,7 +122,7 @@
 4. [**A Visual Guide to LLM Tokenizers**](https://huggingface.co/learn/llm-course/chapter6/1) - Hugging Face 的图文并茂指南。
 5. [**Anthropic API Pricing**](https://www.anthropic.com/pricing#anthropic-api) - 了解并比较模型成本（例如，1k input + 1k output 的价格）。
 
-## “动手”小练习（在本地运行这些代码）
+## 🛠 动手练习（基础 illustrative 练习）
 
 > 🦙 **本 stage 默认用 Ollama**（成本考量、本机 `gemma4:e4b` 跑得动、$0/run）。每个练习都有 Path A（Ollama、默认）+ Path B（Anthropic、选择性、想看 cloud 高质量时用）。完整 3 路 trade-off 见 [`examples/README.zh-Hans.md`](../examples/README.zh-Hans.md#三条路径--默认用-ollama成本考量)。
 >
@@ -433,298 +433,33 @@ print(f"💡 跑这次完全没花钱（除了你的电力）")
 
 </details>
 
-## 开源项目学习
-
-### [Anthropic Cookbook](https://github.com/anthropics/anthropic-cookbook)      
-
-| 属性 | 值 |
-|---|---|
-| 语言 | Python |
-| Stars | 42k+ |
-| License | MIT |
-| 推荐指数 | ★★★★★ |
-
-**一句话总结**：官方 Claude API 示例，覆盖了从 chat、tools、citations、multi-modal 到 prompt caching 的所有核心功能。
-
-**适合谁**：所有希望使用 Claude 的开发者。这是最权威的 Notebook 示例，可以帮你快速上手任何一个 API 功能（如果你不喜欢阅读官方文档）。
-
-**怎么用**：把它当成一个可以随时翻阅和复制粘贴的代码片段库。★★★☆☆，内容组织比较零散，查找特定功能需要一些时间。
-
-**快速开始**：
-```bash
-git clone https://github.com/anthropics/anthropic-cookbook
-cd anthropic-cookbook/skills/classification
-pip install -r requirements.txt
-jupyter notebook guide.ipynb
-```
-
----
-
-### [Anthropic Courses](https://github.com/anthropics/courses)
-
-| 属性 | 值 |
-|---|---|
-| 语言 | Python / Jupyter |
-| Stars | 21k+ |
-| License | NOASSERTION（非标准 SPDX 标识符，但包含 LICENSE 文件）|
-| 推荐指数 | ★★★★★ |
-
-**一句话总结**：Anthropic 官方出品的免费课程，系统性地介绍了从 API 基础、prompt evaluation、real-world prompting、tool use 到 Claude with Excel 的核心主题，全部以 Jupyter notebook 形式提供，交互性极强。
-
-**适合谁**：希望系统学习 Claude API 的开发者。比 Cookbook 更系统，Cookbook 提供了“how”，而 Courses 解释了“why”，更适合初学者，提供了从零到一的清晰路径。
-
-**怎么用**：强烈建议完成 `anthropic_api_fundamentals` 和 `prompt_engineering_interactive_tutorial`。
-
----
-
-### [OpenAI Cookbook](https://github.com/openai/openai-cookbook)
-
-| 属性 | 值 |
-|---|---|
-| 语言 | Python / Jupyter |
-| Stars | 73k+ |
-| License | MIT |
-| 推荐指数 | ★★★★★ |
-
-**一句话总结**：与 Anthropic Cookbook 类似，但专注于 GPT 模型，包含了大量关于 structured output、tool use、embedding 的 recipe。
-
-**适合谁**：需要使用 OpenAI API 的开发者，特别是对 structured output 和 function calling 功能感兴趣的。
-
-**怎么用**：如果你在 Anthropic 的 cookbook 中找不到答案，可以来这里看看。两个项目的组织方式和风格都很相似。
-
----
-
-### [LangChain Academy](https://academy.langchain.com/)
-
-| 属性 | 值 |
-|---|---|
-| 形式 | 在线视频课程 |
-| 推荐指数 | ★★★★☆ |
-
-**一句话总结**：从 LLM 基础、embedding、RAG 到 agent，系统介绍 LangChain 生态的核心概念。LangChain 的作者亲自讲解。
-
-**适合谁**：未来打算以 LangChain 为主要框架的开发者。
-
-**怎么用**：作为入门，选择性观看。如果你没有 LangChain 背景，直接进入后面阶段可能会感到困惑。
-
----
-
-### [datawhalechina/happy-llm](https://github.com/datawhalechina/happy-llm)     
-
-| 属性 | 值 |
-|---|---|
-| 语言 | 中文（zh-Hans）|
-| Stars | 29k+ |
-| License | Custom |
-| 推荐指数 | ★★★★★ |
-
-**一句话总结**：一个面向初学者的中文 LLM 学习项目，以 Karpathy 的 Zero to Hero 系列为蓝本，用中文详细拆解了 1-4 章的内容，让你从零开始构建一个 LLM（如果你对理论和代码实现都感兴趣）。
-
-**适合谁**：希望深入理解 LLM 底层原理的学习者，或者不想啃英文视频，可以把它当作 Hugging Face 的 LLM Course 的替代品。
-
----
-
-### [datawhalechina/llm-universe](https://github.com/datawhalechina/llm-universe)
-
-| 属性 | 值 |
-|---|---|
-| 语言 | 中文（zh-Hans）|
-| Stars | 12k+ |
-| License | NOASSERTION |
-| 推荐指数 | ★★★★☆ |
-
-**一句话总结**：另一个系统性的中文教程，覆盖了从“模型”、“微调”、“提示”到“应用”的全链路知识，包括 API 基础、LangChain、RAG、Agent 等。
-
-**适合谁**：想找一个 LLM *中文学习路线图* 的人，可以把它作为一个大纲，按图索骥。
-
----
-
-### [jingyaogong/minimind](https://github.com/jingyaogong/minimind)
-
-| 属性 | 值 |
-|---|---|
-| 语言 | 中文 + Python |
-| Stars | 48k+ |
-| License | Apache-2.0 |
-| 推荐指数 | ★★★★★ |
-
-**一句话总结**：一个小时内，从头构建一个 64M 参数的 LLM。这个项目不仅带你阅读和理解代码，还把构建 LLM 的整个 project（pretrain + SFT + LoRA + DPO + RLHF）都放到了这个 repo 里。
-
-**适合谁**：看完了 Karpathy 的视频，想快速将理论付诸实践，并体验完整 LLM 训练流程的人。这是一个很好的“动手”项目。
-
----
-
-### [datawhalechina/llm-cookbook](https://github.com/datawhalechina/llm-cookbook)
-
-| 属性 | 值 |
-|---|---|
-| 语言 | 中文（zh-Hans）|
-| Stars | 23k+ |
-| 最后更新 | 注意，项目已归档，最后更新于 2025 年 6 月 1 日 |
-| License | Custom (CC BY-NC-SA) |
-| 推荐指数 | ★★★★☆ |
-
-**一句话总结**：吴恩达（Andrew Ng）的 prompt engineering / building systems / fine-tuning 三门课程的中文笔记，可以作为快速回顾和查漏补缺的材料，所有内容都以 notebook 形式提供。
-
-**适合谁**：如果你没时间看视频，想快速了解 LLM 应用开发的基础。
-
-**怎么用**：浏览一遍 zh-Hans（Datawhale 的系列）项目，你会发现大部分内容是重复的，选一个你喜欢的风格，然后深入进去，不要贪多。
-
----
-
-### [Hugging Face - Large Language Model Course](https://huggingface.co/learn/llm-course)
-
-| 属性 | 值 |
-|---|---|
-| 形式 | 在线视频课程 + notebook |
-| License | Apache 2.0 |
-| 推荐指数 | ★★★★☆ |
-
-**一句话总结**：系统学习 LLM 核心理论（Tokenization、Transformer、Fine-tuning），全部基于 Hugging Face 生态。
-
-**适合谁**：希望深入了解理论、从零开始构建模型的学习者，而不是停留在 API 调用层面。
-
----
-
-### 关于在众多项目中如何选择 LLM（以及是否需要 API）
-
-到目前为止，我们已经接触了 4 个“在本地从头构建 LLM”的项目。*对于初学者，我们强烈建议你先忽略它们*，专注于 API 调用，完成练习 1-5，并阅读后面的 Stages 2-7。当你对 agentic AI 应用开发有了全局认知后，再回过头来看这些项目，你会更有方向感。
-
----
-
-### [ollama/ollama](https://github.com/ollama/ollama)
-
-| 属性 | 值 |
-|---|---|
-| 语言 | Go |
-| Stars | 170k+ |
-| License | MIT |
-| 推荐指数 | ★★★★★ |
-
-**一句话总结**：在本地运行开源 LLM 的最佳工具。`ollama pull qwen2.5:3b` 一行命令即可下载并运行一个本地模型，并提供 OpenAI 兼容的 API（`http://localhost:11434/v1`），让你可以直接用 OpenAI SDK 进行交互。
-
-**适合谁**：任何需要在本地运行 LLM 的开发者，或者希望在 agent 应用中加入 fallback 机制（例如，当 Claude 成本太高时，降级到 Ollama）。
-
-**快速开始**：
-```bash
-# 从 https://ollama.com 安装
-ollama pull qwen2.5:3b   # 中文支持最好的小模型（约 2GB）
-ollama run qwen2.5:3b    # 直接 chat
-ollama serve             # 暴露 API server
-```
-
----
-
-### [ggml-org/llama.cpp](https://github.com/ggml-org/llama.cpp)
-
-| 属性 | 值 |
-|---|---|
-| 语言 | C++ |
-| Stars | 108k+ |
-| License | MIT |
-| 推荐指数 | ★★★★☆ |
-
-**一句话总结**：Llama 系列模型的 C++ 推理引擎，专注于性能和量化（quantization），如 GGUF 格式、Q4_K_M / Q5_K_S 等不同的量化水平，以及 KV cache、CPU/GPU offloading 等高级功能。
-
-**适合谁**：希望在低资源设备（例如，树莓派或 8GB RAM 的旧电脑）上运行 7B 模型的学习者，或者对 Llama 的内部实现感兴趣，需要进行 fine-grained 控制和优化的开发者。
-
----
-
-### [mudler/LocalAI](https://github.com/mudler/LocalAI)
-
-| 属性 | 值 |
-|---|---|
-| 语言 | Go |
-| Stars | 46k+ |
-| License | MIT |
-| 推荐指数 | ★★★★☆ |
-
-**一句话总结**：OpenAI API 的 drop-in 替代品，让你可以在本地使用 OpenAI SDK，只需将 `base_url` 指向 LocalAI，即可在本地运行 LLM、embedding、image generation、TTS、STT。
-
-**适合谁**：应用/项目已经深度绑定了 OpenAI 生态，但希望在本地进行测试，或者完全 offline 运行。比 Ollama 更强大，但配置也更复杂。
-
----
-
-### [ml-explore/mlx](https://github.com/ml-explore/mlx)
-
-| 属性 | 值 |
-|---|---|
-| 语言 | C++ / Python |
-| Stars | 25k+ |
-| License | MIT |
-| 推荐指数 | ★★★☆☆ |
-
-**一句话总结**：Apple 为 Apple Silicon（M1/M2/M3/M4）芯片设计的机器学习 framework，可以让你在 Mac 上高效运行本地 LLM。可以看作是苹果版的 llama.cpp。
-
-**适合谁**：在 MacBook 上工作的开发者，希望充分利用 Apple Silicon 的性能。不支持 Linux / Windows。
-
-**怎么用**：安装 `mlx-lm` package，开箱即用。
-
-**怎么用**：它的 cookbook 项目有很多不错的本地 inference 示例。
-
----
-
-### [karpathy/LLM101n](https://github.com/karpathy/LLM101n)
-
-| 属性 | 值 |
-|---|---|
-| 状态 | 注意，项目已归档，最后更新于 2024 年 8 月 |
-| 推荐指数 | ★★★☆☆ |
-
-**一句话总结**：另一个 Karpathy 的项目，目标是训练一个“Storyteller AI LLM”。
-
-**适合谁**：如果你已经看完了 Karpathy 的 "Let's build GPT from scratch" YouTube 视频，并想继续深入，这是一个很好的后续。
-
-**怎么用**：这个 repo 的价值在于它的 `storyteller` 目录，代码非常精简，值得学习。
-
----
-
-### [Anthropic - Claude API Quickstart](https://docs.anthropic.com/en/docs/get-started)
-
-| 属性 | 值 |
-|---|---|
-| 形式 | 文档 |
-| 推荐指数 | ★★★★★ |
-
-**一句话总结**：Claude API 的官方快速入门文档。
-
-**适合谁**：任何不想看视频，只想快速复制代码片段的人。
-
----
-
-### [karpathy - Let's build GPT from scratch](https://www.youtube.com/watch?v=kCc8FmEb1nY)
-
-| 属性 | 值 |
-|---|---|
-| 形式 | YouTube 视频，约 2 小时 |
-| 推荐指数 | ★★★★★ |
-
-**一句话总结**：使用 PyTorch 从零开始构建一个 transformer-based GPT。这是理解 LLM 内部工作原理的最佳入门视频。
-
-**适合谁**：希望深入理解 LLM 基础概念的开发者，或者对底层代码实现感兴趣的人。
-
-**怎么用**：2 小时视频，可以开 1.5 倍速观看，配合字幕，很容易跟上。
-
----
-
-### [rasbt/LLMs-from-scratch](https://github.com/rasbt/LLMs-from-scratch)       
-
-| 属性 | 值 |
-|---|---|
-| 语言 | Python / Jupyter |
-| Stars | 91k+ |
-| License | Apache-2.0 |
-| 推荐指数 | ★★★★★ |
-
-**一句话总结**：使用 PyTorch 从头构建一个 GPT-style LLM，覆盖了 tokenizer、attention、pretraining、finetuning，作者是 Sebastian Raschka，提供了详细的 notebook + code，以及一本配套的实体书。
-
-**适合谁**：希望系统学习如何从零构建 token、attention、weights 等概念的人。如果 Karpathy 的视频对你来说太像“fly-by”（一飞而过），这本书提供了更深入、更结构化的内容。
-
-**怎么用**：书是 Apache-2.0 协议，可以免费 fork 阅读。
-
----
-
-## 进入 Stage 2 前的检查点
+## 🎯 精选 Projects
+
+按用途分 5 类、17 个项目一张表搞定。**挑入口看“适合谁”、想深入点连结看 repo / 课程网站**。
+
+| 分类 | Project | ⭐ | 适合谁 | 为什么推荐 / 备注 |
+|---|---|---|---|---|
+| **官方 cookbook / 入门** | [Anthropic Cookbook](https://github.com/anthropics/claude-cookbooks) | ⭐⭐⭐⭐⭐ | 开始用 Claude API、当参考书查 | Claude API 全功能 notebook（tool use / batch / prompt cache），★ 42k+、MIT |
+| | [Anthropic Courses](https://github.com/anthropics/courses) | ⭐⭐⭐⭐⭐ | 系统性从零学一遍 Claude | Anthropic 自家完整 5 门课（API 基础 / prompt eval / real-world prompting / tool use），★ 21k+。先跑 `anthropic_api_fundamentals` |
+| | [OpenAI Cookbook](https://github.com/openai/openai-cookbook) | ⭐⭐⭐⭐⭐ | 用 OpenAI API + structured output / function calling | 跟 Anthropic Cookbook 对照、★ 73k+、MIT。比 Anthropic 大很多、用搜索 |
+| | [Anthropic Claude API Quickstart](https://docs.anthropic.com/en/docs/get-started) | ⭐⭐⭐⭐ | 5 分钟上手 | 官方文件、加 bookmark 用 |
+| **中文教材**<br>（章节式） | [datawhalechina/happy-llm](https://github.com/datawhalechina/happy-llm) | ⭐⭐⭐⭐⭐ | 中文读者想彻底搞懂 LLM 原理 | 对应 Karpathy“Zero to Hero”中文版，★ 29k+。等同 HF LLM Course 中文版 |
+| | [datawhalechina/llm-universe](https://github.com/datawhalechina/llm-universe) | ⭐⭐⭐⭐⭐ | 中文新手想用 LLM 做东西 | API 基础 / 知识库 / RAG / 进阶技巧，★ 12k+ |
+| | [datawhalechina/llm-cookbook](https://github.com/datawhalechina/llm-cookbook) | ⭐⭐⭐⭐ | 想要完整中文 LLM 学习路线 | Andrew Ng 课程中文翻译改编（⚠️ 2025-06 后更新放缓、CC BY-NC-SA）|
+| | [jingyaogong/minimind](https://github.com/jingyaogong/minimind) | ⭐⭐⭐⭐ | 看完 Karpathy 视频想实际跑训练 | 2hr 从零训 64M LLM、Pretrain + SFT + LoRA + DPO + RLHF 全包，★ 48k+、Apache-2.0 |
+| **英文 course**<br>（系统式） | [HuggingFace — LLM Course](https://huggingface.co/learn/llm-course) | ⭐⭐⭐⭐⭐ | 想搞懂 transformer 内部 + HF 生态 | 含 transformer 原理 + 应用、Apache 2.0 |
+| | [LangChain Academy](https://academy.langchain.com/) | ⭐⭐⭐⭐ | 喜欢视频教学的视觉型学习者 | LangChain 官方免费课、含 RAG / agent。**忽略 LangChain 行销段落** |
+| **本地端执行**<br>（不付 API 费）| [ollama/ollama](https://github.com/ollama/ollama) | ⭐⭐⭐⭐⭐ | 第一次跑本地 LLM | 本 repo Path A 预设、OpenAI-compat API、★ 170k+ |
+| | [ggml-org/llama.cpp](https://github.com/ggml-org/llama.cpp) | ⭐⭐⭐⭐⭐ | 想搞懂 quantization / 为什么 7B 能塞 8GB RAM | Ollama 底层 inference engine，★ 108k+、MIT |
+| | [mudler/LocalAI](https://github.com/mudler/LocalAI) | ⭐⭐⭐⭐ | 团队合规、要 self-host 全套 OpenAI 替代 | drop-in OpenAI API 替代品（chat / embedding / image / TTS / STT），★ 46k+ |
+| | [ml-explore/mlx](https://github.com/ml-explore/mlx) | ⭐⭐⭐⭐ | Mac 开发、想榨干 Apple Silicon | Apple 为 M1+ 量身打造的 ML framework，★ 25k+。搭 `mlx-lm` 用最方便 |
+| **从零打造**<br>（理解原理）| [karpathy — Let's build GPT from scratch](https://www.youtube.com/watch?v=kCc8FmEb1nY) | ⭐⭐⭐⭐⭐ | 想搞懂 LLM 内部、不只会调用 | 2hr 高密度视频、用 PyTorch 从零打造 GPT。**暂停跟着写 code 不要被动看** |
+| | [rasbt/LLMs-from-scratch](https://github.com/rasbt/LLMs-from-scratch) | ⭐⭐⭐⭐⭐ | 想用整本书速度慢慢读完 | Karpathy 视频的书本版：tokenizer → attention → pretraining → finetuning，★ 91k+、Apache-2.0 |
+| | [karpathy/LLM101n](https://github.com/karpathy/LLM101n) | ⭐⭐ | 历史纪录 | ⚠️ 已封存（2024-08）、只有大纲、课程没做完。**直接看上面的“Build GPT from scratch”视频即可** |
+
+> 💡 **建议阅读路径**：API 入手就 Anthropic / OpenAI Cookbook → 中文系统路线就 happy-llm + llm-universe → 想深入内部就 Karpathy 视频 + rasbt 书搭 code → 想跑本地就 Ollama 起步、进阶再读 llama.cpp。
+
+## ✅ 进 Stage 2 前的自我检查
 
 你需要完成以下任务：
 - [ ] 写一个 5 行的 Python 脚本调用 Claude API。

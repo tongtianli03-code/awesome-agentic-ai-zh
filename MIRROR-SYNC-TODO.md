@@ -31,26 +31,31 @@
 ### ~~🟢 LOW — Anchor cleanup + strict mode~~ ✅ COMPLETED (commit 706d257, Codex)
 ### ~~🟡 MEDIUM — Stage 1 pricing sync~~ ✅ COMPLETED (commit fe989bd, Codex)
 
-### 🟢 LOW — Stage 1 / Stage 2 mirror "extra content" trim (deferred, benign)
+### ~~🟢 LOW — Stage 1 / Stage 2 mirror "extra content" trim~~ ✅ RESOLVED 2026-05-25
 
-Stage 1 mirrors: 652/651 lines vs zh-TW 443 (+209/+208 BIGGER)
-Stage 2 mirrors: 531/546 lines vs zh-TW 465 (+66/+81 BIGGER)
+**Root cause (re-investigated 2026-05-25)**: drift was concentrated entirely in `## 🎯 Curated Projects` H2 — Stage 1 mirrors had +265 lines, Stage 2 mirrors had +93 lines, but **all other H2 sections matched canonical**. Not "extra content" — **stale schema**. Mirrors held the OLD H3-card-per-project format (one ### per project, sub-table for Stars/License, bullet lists), canonical migrated to the new compact-table format during the 2026-05-13 Stage 3-8 restructure but Stage 1/2 missed the pass.
 
-This is the **opposite drift pattern** from Stage 3-8 (where zh-TW grew during refactors).
-Stage 1/2 mirrors were extended at an earlier point with content that doesn't exist in
-canonical. Full resync would LOSE that extra translated content; targeted trim might
-remove things readers find useful.
+Same project list (17 in Stage 1, 9 in Stage 2) verified by link-diff. Only difference: one stale `anthropic-cookbook` URL (renamed to `claude-cookbooks`) + outdated star counts (★ 60k+ instead of ★ 74k+ for dair-ai).
 
-**Decision**: defer. Anchor validator strict mode passes ('✓ All internal anchors valid').
-Mirror discrepancy is benign (extra content, not missing content). Future session can
-audit which extra content is valuable and which is stale.
+**Fix applied**: regenerated the 4 mirrors' 🎯 Projects sections from canonical (en hand-translated, zh-Hans via `opencc tw2s` + `zh-hans-localize` vocab + 影片→视频 / 搜寻→搜索 verified against repo convention). Also normalized Stage 1 .zh-Hans H2 titles (📌 / 🚪 / 📚 / 🛠 / ✅ + canonical wording) which had drifted to non-emoji forms.
 
-### Final mirror parity status (2026-05-13 end of session)
+### 🟢 LOW — Stage 1/2 mirror reverse drift (mirrors SMALLER than canonical, deferred)
+
+After the 🎯 Projects fix, Stage 1/2 mirrors are now **slightly smaller** than canonical:
+
+| Stage | zh-TW | en | zh-Hans | net drift (after 2026-05-25 fix) |
+|---|---|---|---|---|
+| 01 | 533 | 477 (-56) | 476 (-57) | mirrors lost ~5 lines 必修閱讀 + ~49 lines 動手練習 expansion that canonical gained later |
+| 02 | 475 | 455 (-20) | 468 (-7) | small expansions in canonical 動手練習 not yet mirrored |
+
+This drift is in the *reverse* direction from the 2026-05-13 finding — canonical has slightly more exercise / required-reading content than mirrors. Not blocking; gates green; deferred to a separate session.
+
+### Final mirror parity status (2026-05-25 end of session)
 
 | Stage | zh-TW | en | zh-Hans | Status |
 |---|---|---|---|---|
-| 01 | 443 | 652 (+209) | 651 (+208) | ⚠ benign drift (older +content) |
-| 02 | 465 | 531 (+66) | 546 (+81) | ⚠ benign drift (older +content) |
+| 01 | 533 | 477 (-56) | 476 (-57) | ⚠ reverse drift (canonical +content in 必修閱讀 / 動手練習) |
+| 02 | 475 | 455 (-20) | 468 (-7) | ⚠ reverse drift (small canonical expansions in 動手練習) |
 | 03 | 500 | 499 (-1) | 500 (0) | ✅ parity |
 | 04 | 227 | 227 (0) | 227 (0) | ✅ parity |
 | 05 | 570 | 570 (0) | 570 (0) | ✅ parity |
@@ -58,7 +63,7 @@ audit which extra content is valuable and which is stale.
 | 07 | 298 | 298 (0) | 298 (0) | ✅ parity |
 | 08 | 546 | 545 (-1) | 545 (-1) | ✅ parity |
 
-**6 of 8 stages now in 3-locale parity** via this session's Gemini delegations.
+**Forward-schema drift eliminated across all 8 stages.** Remaining drift is reverse-direction in Stage 1/2 only (-7 to -57 lines per file).
 
 ### 🔴 HIGH — Stage 6 catch-up
 

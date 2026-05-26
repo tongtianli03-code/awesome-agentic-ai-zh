@@ -410,118 +410,23 @@ text = msg.content[0].text
 
 **进阶做法**：把这 5 轮输出全存进 csv、Stage 7 练习 2 会教怎么把这变成 eval harness 量化“prompt 改善了多少”。
 
-## 🎯 精选项目
+## 🎯 精选 Projects
 
-### [dair-ai/Prompt-Engineering-Guide](https://github.com/dair-ai/Prompt-Engineering-Guide)
+按用途分 4 类、9 个项目一张表搞定。**挑入口看“适合谁”、想深入点连结看 repo / 网站**。
 
-| 字段 | 内容 |
-|---|---|
-| Stars | ★ 60k+ |
-| License | MIT |
-| 推荐度 | ⭐⭐⭐⭐⭐ |
+| 分类 | Project | ⭐ | 适合谁 | 为什么推荐 / 备注 |
+|---|---|---|---|---|
+| **学术 / 教学风 guide**<br>（先看这个） | [dair-ai/Prompt-Engineering-Guide](https://github.com/dair-ai/Prompt-Engineering-Guide) | ⭐⭐⭐⭐⭐ | 当参考书、需要某技巧再来查 | 从基础到进阶（CoT / ToT / ReAct / RAG）端到端，★ 74k+、MIT |
+| | [PromptingGuide.ai](https://www.promptingguide.ai/) | ⭐⭐⭐⭐ | 手机阅读、想要可跑范例 | 跟 dair-ai GitHub 同样内容、做成网站 + 可跑范例 |
+| | [NirDiamant/Prompt_Engineering](https://github.com/NirDiamant/Prompt_Engineering) | ⭐⭐⭐⭐ | 偏好“边跑边学” | 22 种技巧（zero-shot → CoT → ReAct → constitutional）独立 notebook，★ 7k+。比 dair-ai 更动手（⚠️ NOASSERTION 自订条款、研究/非商用为主）|
+| **官方 cookbook** | [Anthropic Cookbook — Prompt patterns](https://github.com/anthropics/claude-cookbooks) | ⭐⭐⭐⭐⭐ | Claude 进阶 prompting（含 prompt caching / multimodal）| Stage 1 已介绍、本 stage 重点看 `misc/prompt_caching.ipynb` 跟 `multimodal/` |
+| | [GoogleCloudPlatform/generative-ai](https://github.com/GoogleCloudPlatform/generative-ai) | ⭐⭐⭐ | 用 Google 技术栈（PaLM / Gemini）| Google Cloud 的 prompting cookbook、跨厂商观点 |
+| **灵感 collection**<br>（找模式、不要照抄）| [f/awesome-chatgpt-prompts](https://github.com/f/awesome-chatgpt-prompts) | ⭐⭐⭐ | 卡关时找灵感 | 上百个“Act as a [角色]...”prompt，★ 162k+、CC0。**把模式拿出来改写、不要照抄** |
+| **Production 管理**<br>（规模化）| [microsoft/prompt-engine](https://github.com/microsoft/prompt-engine) | ⭐⭐⭐ | production 要管很多 prompt 时 | TypeScript library、管理样板 + 对话历史 |
+| | [microsoft/promptflow](https://github.com/microsoft/promptflow) | ⭐⭐⭐ | 团队型应用、需要 eval | 视觉化 prompt 设计 + 评估工具，★ 11k+ |
+| | [stanfordnlp/dspy](https://github.com/stanfordnlp/dspy) ⭐ **Stage 2 → 3 桥** | ⭐⭐⭐⭐⭐ | 跑完 dair-ai 想规模化 prompt | 把 prompt 当 code 写——define signature / module、用 compiler 自动最佳化，★ 34k+、MIT。**framework 非 tutorial、门槛较高、搭配 dspy.ai 官方 tutorial 读** |
 
-**教什么**：从基础到进阶（CoT、ToT、ReAct、RAG）的端到端 prompt engineering。学术风但实用。
-
-**适合谁**：当参考用。先大致扫过一次，需要某个技巧时再回来查。
-
----
-
-### [f/awesome-chatgpt-prompts](https://github.com/f/awesome-chatgpt-prompts)
-
-| 字段 | 内容 |
-|---|---|
-| Stars | ★ 130k+ |
-| License | CC0 |
-| 推荐度 | ⭐⭐⭐ |
-
-**教什么**：上百个角色型 prompt。"Act as a [角色]..."的模式。
-
-**适合谁**：卡关时找灵感。不要照抄——把模式拿出来改写。
-
----
-
-### [PromptingGuide.ai](https://www.promptingguide.ai/)
-
-**教什么**：跟 dair-ai GitHub 同样的内容，但做成网站、有可以跑的示例。
-
-**适合谁**：手机阅读。
-
----
-
-### [microsoft/prompt-engine](https://github.com/microsoft/prompt-engine)
-
-| 字段 | 内容 |
-|---|---|
-| 推荐度 | ⭐⭐⭐ |
-
-**教什么**：管理大量 prompt 的 TypeScript library（模板、对话历史）。
-
-**适合谁**：开始要在 production 管很多 prompt 时。
-
----
-
-### [microsoft/promptflow](https://github.com/microsoft/promptflow)
-
-| 字段 | 内容 |
-|---|---|
-| Stars | ★ 10k+ |
-| 推荐度 | ⭐⭐⭐ |
-
-**教什么**：可视化 prompt 设计 + 评估工具。
-
-**适合谁**：以 prompt 为主、需要 eval 的团队型应用。
-
----
-
-### [GoogleCloudPlatform/generative-ai](https://github.com/GoogleCloudPlatform/generative-ai)
-
-| 字段 | 内容 |
-|---|---|
-| 推荐度 | ⭐⭐⭐ |
-
-**教什么**：Google Cloud 的 prompting cookbook（notebook，PaLM/Gemini 为主）。
-
-**适合谁**：用 Google 技术栈时的跨厂商观点。
-
----
-
-### [Anthropic Cookbook — Prompt patterns](https://github.com/anthropics/anthropic-cookbook)
-
-Stage 1 已经提过。这里特别推 `misc/prompt_caching.ipynb` 跟 `multimodal/` 系列 notebook，会教进阶 prompting 模式。
-
----
-
-### [stanfordnlp/dspy](https://github.com/stanfordnlp/dspy)
-
-| 字段 | 内容 |
-|---|---|
-| 语言 | Python |
-| Stars | ★ 34k+ |
-| License | MIT |
-| 推荐度 | ⭐⭐⭐⭐⭐ |
-
-**教什么**：把 prompt 当 code 写——定义 signature 跟 module、用 compiler / teleprompter 自动优化 prompt，不用手刻 f-string。Stanford NLP 出品，是 Stage 2 → Stage 3 的桥。
-
-**适合谁**：跑完 dair-ai 的指南、开始问“我要怎么把 prompt 规模化（不是再多 hard-code）”的人。
-
-**备注**：是 framework 不是 tutorial，学习门槛比 prompt-engineering-guide 高。建议搭配官方 tutorial 网站 dspy.ai 一起读。
-
----
-
-### [NirDiamant/Prompt_Engineering](https://github.com/NirDiamant/Prompt_Engineering)
-
-| 字段 | 内容 |
-|---|---|
-| 语言 | Python / Jupyter |
-| Stars | ★ 7k+ |
-| License | NOASSERTION（自定义条款，研究 / 非商用为主，使用前读条款） |
-| 推荐度 | ⭐⭐⭐⭐ |
-
-**教什么**：22 种 prompt engineering 技巧的可执行 Jupyter notebook（zero-shot → CoT → ReAct → constitutional），2025 年的更新内容，比 dair-ai 更动手。
-
-**适合谁**：偏好“边跑边学”的人。每个技巧都有独立 notebook，挑感兴趣的看。
-
----
+> 💡 **建议阅读路径**：dair-ai guide 入手（理论） → Anthropic Cookbook 看 Claude 实作 → NirDiamant 边跑边学 → 进 production 时读 dspy。
 
 ## 🔭 进阶：prompt → context → harness 三层 engineering
 

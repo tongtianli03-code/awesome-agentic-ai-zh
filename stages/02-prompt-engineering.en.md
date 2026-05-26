@@ -399,114 +399,21 @@ for label, prompt in PROMPTS.items():
 
 ## 🎯 Curated Projects
 
-### [dair-ai/Prompt-Engineering-Guide](https://github.com/dair-ai/Prompt-Engineering-Guide)
+4 categories, 9 projects in one table. **Pick by "Best for"; click through for depth on the repo / site.**
 
-| Field | Value |
-|---|---|
-| Stars | ★ 60k+ |
-| License | MIT |
-| Recommendation | ⭐⭐⭐⭐⭐ |
+| Category | Project | ⭐ | Best for | Why / Notes |
+|---|---|---|---|---|
+| **Academic / teaching-style guide**<br>(start here) | [dair-ai/Prompt-Engineering-Guide](https://github.com/dair-ai/Prompt-Engineering-Guide) | ⭐⭐⭐⭐⭐ | Reference book; look up a specific technique | Basics to advanced (CoT / ToT / ReAct / RAG) end to end, ★ 74k+, MIT |
+| | [PromptingGuide.ai](https://www.promptingguide.ai/) | ⭐⭐⭐⭐ | Phone reading; want runnable examples | Same content as dair-ai GitHub in website form + runnable examples |
+| | [NirDiamant/Prompt_Engineering](https://github.com/NirDiamant/Prompt_Engineering) | ⭐⭐⭐⭐ | Learn-by-running | 22 techniques (zero-shot → CoT → ReAct → constitutional), each in its own notebook, ★ 7k+. More hands-on than dair-ai (⚠️ NOASSERTION custom terms, research / non-commercial leaning) |
+| **Official cookbook** | [Anthropic Cookbook — Prompt patterns](https://github.com/anthropics/claude-cookbooks) | ⭐⭐⭐⭐⭐ | Advanced Claude prompting (prompt caching / multimodal) | Introduced in Stage 1; for this stage focus on `misc/prompt_caching.ipynb` and `multimodal/` |
+| | [GoogleCloudPlatform/generative-ai](https://github.com/GoogleCloudPlatform/generative-ai) | ⭐⭐⭐ | Google stack (PaLM / Gemini) users | Google Cloud's prompting cookbook; cross-vendor perspective |
+| **Inspiration collection**<br>(steal patterns, don't copy)| [f/awesome-chatgpt-prompts](https://github.com/f/awesome-chatgpt-prompts) | ⭐⭐⭐ | When you're stuck for ideas | Hundreds of "Act as a [role]..." prompts, ★ 162k+, CC0. **Take the pattern, rewrite — don't copy verbatim** |
+| **Production management**<br>(scale up)| [microsoft/prompt-engine](https://github.com/microsoft/prompt-engine) | ⭐⭐⭐ | Managing many prompts in production | TypeScript library, template + dialogue history management |
+| | [microsoft/promptflow](https://github.com/microsoft/promptflow) | ⭐⭐⭐ | Team apps needing eval | Visual prompt design + eval tooling, ★ 11k+ |
+| | [stanfordnlp/dspy](https://github.com/stanfordnlp/dspy) ⭐ **Stage 2 → 3 bridge** | ⭐⭐⭐⭐⭐ | After dair-ai, want to scale prompts | Treat prompts as code — define signature / module, compiler auto-optimizes, ★ 34k+, MIT. **A framework, not a tutorial; higher entry barrier; pair with dspy.ai official tutorial** |
 
-**What it teaches**: End-to-end prompt engineering from basics to advanced (CoT, ToT, ReAct, RAG). Academic-flavored but practical.
-
-**Best for**: Reference. Skim once, return when you need a specific technique.
-
----
-
-### [f/awesome-chatgpt-prompts](https://github.com/f/awesome-chatgpt-prompts)
-
-| Field | Value |
-|---|---|
-| Stars | ★ 130k+ |
-| License | CC0 |
-| Recommendation | ⭐⭐⭐ |
-
-**What it teaches**: Hundreds of role-based prompts. "Act as a [role]..." patterns.
-
-**Best for**: Inspiration when stuck. Don't copy verbatim — adapt the patterns.
-
----
-
-### [PromptingGuide.ai](https://www.promptingguide.ai/)
-
-**What it teaches**: Same content as dair-ai's GitHub but in website format with live examples.
-
-**Best for**: Mobile reading.
-
----
-
-### [microsoft/prompt-engine](https://github.com/microsoft/prompt-engine)
-
-| Recommendation | ⭐⭐⭐ |
-|---|---|
-
-**What it teaches**: TypeScript library for managing prompts at scale (templating, conversation history).
-
-**Best for**: When you start managing many prompts in production.
-
----
-
-### [microsoft/promptflow](https://github.com/microsoft/promptflow)
-
-| Field | Value |
-|---|---|
-| Stars | ★ 10k+ |
-| Recommendation | ⭐⭐⭐ |
-
-**What it teaches**: Visual prompt design + evaluation tooling.
-
-**Best for**: Teams building prompt-heavy apps with eval needs.
-
----
-
-### [GoogleCloudPlatform/generative-ai](https://github.com/GoogleCloudPlatform/generative-ai)
-
-| Recommendation | ⭐⭐⭐ |
-|---|---|
-
-**What it teaches**: Google Cloud's prompting cookbook (notebooks, PaLM/Gemini focus).
-
-**Best for**: Cross-vendor perspective if you use Google's stack.
-
----
-
-### [Anthropic Cookbook — Prompt patterns](https://github.com/anthropics/anthropic-cookbook)
-
-Already cited in Stage 1. Specifically the `misc/prompt_caching.ipynb` and `multimodal/` notebooks teach advanced prompting patterns.
-
----
-
-### [stanfordnlp/dspy](https://github.com/stanfordnlp/dspy)
-
-| Field | Value |
-|---|---|
-| Language | Python |
-| Stars | ★ 34k+ |
-| License | MIT |
-| Recommendation | ⭐⭐⭐⭐⭐ |
-
-**What it teaches**: Prompt-as-code — define signatures + modules, optimize prompts via compilers / teleprompters instead of hand-tuning f-strings. The natural Stage 2 → Stage 3 bridge. From Stanford NLP.
-
-**Best for**: Readers who finished dair-ai's guide and ask "how do I scale prompts beyond hard-coded strings?"
-
-**Notes**: It's a framework, not a tutorial — higher learning bar than prompt-engineering-guide. Pair with the official tutorial site dspy.ai.
-
----
-
-### [NirDiamant/Prompt_Engineering](https://github.com/NirDiamant/Prompt_Engineering)
-
-| Field | Value |
-|---|---|
-| Language | Python / Jupyter |
-| Stars | ★ 7k+ |
-| License | NOASSERTION (custom terms, research/non-commercial — read before use) |
-| Recommendation | ⭐⭐⭐⭐ |
-
-**What it teaches**: 22 prompt-engineering techniques as runnable Jupyter notebooks (zero-shot → CoT → ReAct → constitutional). 2025 vintage, more hands-on than dair-ai.
-
-**Best for**: Learners who prefer "run-and-learn." Each technique is a standalone notebook — pick whatever interests you.
-
----
+> 💡 **Suggested reading order**: dair-ai guide for theory → Anthropic Cookbook for Claude implementation → NirDiamant for hands-on → dspy when going to production.
 
 ## 🔭 Advanced: The Three Layers of Prompt → Context → Harness Engineering
 
