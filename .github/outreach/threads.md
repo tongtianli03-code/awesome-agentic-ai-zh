@@ -76,7 +76,7 @@ github.com/WenyuChiou/awesome-agentic-ai-zh
 ✓ 不用我一個人追 catalog 過時 entry
 ✓ 多一層 review 把關品質
 
-工具都做好了（link rot 月跑 CI；star refresh 手動跑 refresh-stars.py）、你做 judgement call 就行。
+工具都做好了（link rot + star refresh 每週 CI 自動跑）、你做 judgement call 就行。
 
 最缺：📊 for-knowledge-worker、🎓 for-teacher、Stage 6 RAG。
 
@@ -105,7 +105,7 @@ If post A or B generates interest, post this as a reply for those clicking throu
 - 不要求最低 commit 量
 
 機制都做好了：
-- scripts/refresh-stars.py 比對標註星數跟實際（手動跑、找過時 entry）
+- scripts/refresh-stars.py 每週 CI 自動刷新星數、揪過時 entry
 - 4 個 CI gate 把關 PR 格式（anchor / mirror sync / lint / stage template）
 
 完整 stage / branch list + 自薦範本：CONTRIBUTORS.md

@@ -39,7 +39,7 @@
 - 🟢 **學習者進度層** — `PROGRESS.md` 自我打勾範本 + 每個 stage 結尾「自我檢核 / Exit check」(規劃中)。
 - 🔵 **可瀏覽文件站** — 把 stages/tracks/branches 渲染成有導覽 + 搜尋 + 語言切換的網站(GitHub Pages,評估中)。
 - 🟢 **三語鏡像 parity** — `mirror-sync-reminder` + `check-mirror-sync.py` 已在 PR 時把關,持續清 legacy drift。
-- 🟢 **品質 gate** — link-rot / banned-word / anchor / zh-Hans 在地化 CI 已上線並維護中。
+- 🟢 **品質 gate** — link-rot / star-drift / banned-word / anchor / zh-Hans 在地化 CI 已上線並維護中。
 
 ---
 

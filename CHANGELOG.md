@@ -8,7 +8,7 @@ Format: `YYYY-MM-DD · category · 1-line summary (commit-sha)`.
 
 ## 2026-05-31
 
-- **tooling** · pruned the vanity / ops-metric automation surface (strategic-review action #1, "freeze + prune automation"): removed `scripts/snapshot-traffic.py`, `scripts/refresh-outreach-status.py`, `scripts/check-catalog-staleness.py`, the `docs/traffic/` snapshot dir, the `weekly-catalog-refresh.yml` auto-PR/auto-merge workflow, and `lint.yml`'s `star-drift` job. All reader-facing correctness + trilingual-parity guards kept (anchor / link-rot / mirror-sync / stage-template / banned-words / overclaim / zh-Hans-localize). `refresh-stars.py` kept as the manual contributor stale-entry tool (documented in CONTRIBUTING / ROADMAP). Link-rot coverage preserved by `lint.yml`'s monthly check (it was duplicated in the removed workflow).
+- **tooling** · pruned the ops-metric scripts that don't touch stars or URL validity (strategic-review action #1, scoped down per maintainer): removed `scripts/snapshot-traffic.py` (GitHub traffic snapshots), `scripts/refresh-outreach-status.py` (outreach-matrix drift), `scripts/check-catalog-staleness.py` (dormant-entry pinger), and the `docs/traffic/` snapshot dir. **KEPT** the weekly stars + URL auto-update (`weekly-catalog-refresh.yml` + `lint.yml`'s `star-drift` job) — the maintainer values the weekly cadence for star-count refresh and link-rot checking. All correctness + trilingual-parity guards intact (anchor / link-rot / mirror-sync / stage-template / banned-words / overclaim / zh-Hans-localize).
 
 ---
 

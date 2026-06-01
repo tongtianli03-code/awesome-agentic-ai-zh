@@ -29,6 +29,6 @@ resources/diagrams/stage5-stack*.svg
 
 # CI workflow scratch files (mirror sync reminder generates this temporarily)
 .mirror-sync-comment.md
-# refresh-stars.py / check-links.py local run logs — not for commit
+# weekly-catalog-refresh.yml diagnostic logs — must NOT leak into the auto-PR
 star-refresh.log
 link-report.txt

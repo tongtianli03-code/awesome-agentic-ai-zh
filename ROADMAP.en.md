@@ -39,7 +39,7 @@ A few small 2026 wording / model-reference updates have not been synced to mirro
 - 🟢 **Learner progress layer** — `PROGRESS.md` self-check template + “Self check / Exit check” at the end of each stage (planned).
 - 🔵 **Browsable docs site** — Render stages/tracks/branches into a website with navigation + search + language switching (GitHub Pages, under evaluation).
 - 🟢 **Trilingual mirror parity** — `mirror-sync-reminder` + `check-mirror-sync.py` already guard PRs, and legacy drift is being cleaned continuously.
-- 🟢 **Quality gates** — link-rot / banned-word / anchor / zh-Hans localization CI is online and maintained.
+- 🟢 **Quality gates** — link-rot / star-drift / banned-word / anchor / zh-Hans localization CI is online and maintained.
 
 ---
 

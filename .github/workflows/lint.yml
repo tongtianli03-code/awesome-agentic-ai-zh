@@ -7,7 +7,7 @@ on:
       - 'scripts/**'
       - 'resources/**'
   schedule:
-    # 每月 1 號 UTC 03:00 跑完整檢查（catch link rot）
+    # 每月 1 號 UTC 03:00 跑完整檢查（catch link rot + star drift）
     - cron: '0 3 1 * *'
   workflow_dispatch:
 
@@ -166,3 +166,29 @@ jobs:
 
       - name: Run link-check (--fast = GitHub URLs only)
         run: python scripts/check-links.py --fast --quiet
+
+  star-drift:
+    name: Star drift detection
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Install requests
+        run: pip install requests
+
+      - name: Run refresh-stars (warn only, don't fail CI)
+        # gh CLI 已內建在 ubuntu-latest runner，GH_TOKEN 自動 set
+        # 高門檻 (50%) 才警告，避免每月誤報
+        run: |
+          # 用 --check 才會在 drift 時退 1；用 || 接 ::warning:: 退 0
+          if ! python scripts/refresh-stars.py --threshold 50 --check; then
+            echo "::warning::Star drift detected (>=50%). 跑 'python scripts/refresh-stars.py' 看哪些 entry 要更新。"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

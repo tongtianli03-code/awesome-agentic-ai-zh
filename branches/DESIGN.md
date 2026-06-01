@@ -133,7 +133,7 @@ audience 切太細會：
 社群 repo 的維護是「能做就做」、不是排程義務。下面是大致方向：
 
 ### Review 頻率
-- 沒有強制節奏。CI 已設定每月自動跑 link rot（被動的）。
+- 沒有強制節奏。CI 已設定每月自動跑 link rot + star drift（被動的）。
 - 有空想動的人 → 跑 `python scripts/refresh-stars.py` 看哪些 entry 過時、`python scripts/check-links.py --fast` 看哪些連結壞掉。
 
 ### Entry 加入 / 移除節奏
