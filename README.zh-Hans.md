@@ -183,6 +183,7 @@ cd awesome-agentic-ai-zh
 | 你的状况 | 去哪 | 内容 |
 |---|---|---|
 | 想搞懂 agent 为什么有的在 terminal、有的在 Telegram、有的在 Jetson | [`resources/agent-paradigms.zh-Hans.md`](resources/agent-paradigms.zh-Hans.md) | 5 种 agent 型态 mental model + Hermes / OpenClaw 例子 |
+| 想找带证书的线上 AI agent 课（英文 + 中文） | [`resources/courses.zh-Hans.md`](resources/courses.zh-Hans.md) | 10 门 credible、会发证书的课，分 tier；并诚实标注完成证书不是学历 |
 
 ### 🛠 动手实作
 

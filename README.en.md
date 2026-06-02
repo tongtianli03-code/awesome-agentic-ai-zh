@@ -204,6 +204,7 @@ Common quick links, grouped by **scenario**:
 | Don't know a term (LLM / agent / RAG / token / MCP / Skill / vector DB…) | [`resources/glossary.en.md`](resources/glossary.en.md) | 30+ terms, 30-80 words each + which stage covers it |
 | Why some agents live in terminal vs Telegram vs Jetson | [`resources/agent-paradigms.en.md`](resources/agent-paradigms.en.md) | 5 paradigms mental model + Hermes Agent / OpenClaw examples |
 | MCP / Skills / Plugins glossary mapping | [`RESOURCES.en.md` three core terms](RESOURCES.en.md#three-core-terms-mcp--skills--plugins) | 1-page lookup |
+| Certificate-granting online AI agent courses (EN + ZH) | [`resources/courses.en.md`](resources/courses.en.md) | 10 credible cert-granting courses, tiered; with an honest "completion cert ≠ a degree" caveat |
 
 ### 🛠 Hands-on
 

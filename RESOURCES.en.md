@@ -88,6 +88,10 @@ This repo **doesn't replace** flat awesome lists. When you already know which to
 - [**WangRongsheng/awesome-LLM-resources**](https://github.com/WangRongsheng/awesome-LLM-resources) — comprehensive zh-Hans LLM resources (8k+ stars)
 - [**AiHubCN/Awesome-Chinese-LLM**](https://github.com/AiHubCN/Awesome-Chinese-LLM) — open-source Chinese LLM catalog
 
+### Online courses / MOOCs (certificate comparison)
+
+- [**resources/courses.en.md**](resources/courses.en.md) — 10 credible, certificate-granting online AI agent courses (EN + ZH), tiered; with an honest "completion certificate ≠ a degree" caveat
+
 ---
 
 ## What else?

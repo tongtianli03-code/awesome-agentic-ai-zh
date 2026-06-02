@@ -90,6 +90,10 @@
 - [**WangRongsheng/awesome-LLM-resources**](https://github.com/WangRongsheng/awesome-LLM-resources) — 完整的中文 LLM 資源整理（8k+ stars）
 - [**AiHubCN/Awesome-Chinese-LLM**](https://github.com/AiHubCN/Awesome-Chinese-LLM) — 中文開源大模型整理
 
+### 線上課程 / MOOC（帶證書對照）
+
+- [**resources/courses.md**](resources/courses.md) — 10 門 credible、會發證書的線上 AI agent 課（英文 + 中文），分 tier；含「完成證書 ≠ 學歷」的誠實 caveat
+
 ---
 
 ## 還有什麼？

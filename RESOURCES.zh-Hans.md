@@ -88,6 +88,10 @@
 - [**WangRongsheng/awesome-LLM-resources**](https://github.com/WangRongsheng/awesome-LLM-resources) — ***完整***的中文 LLM 资源***整理***（8k+ stars）
 - [**AiHubCN/Awesome-Chinese-LLM**](https://github.com/AiHubCN/Awesome-Chinese-LLM) — 中文***开源***大模型***整理***
 
+### 线上课程 / MOOC（带证书对照）
+
+- [**resources/courses.zh-Hans.md**](resources/courses.zh-Hans.md) — 10 门 credible、会发证书的线上 AI agent 课（英文 + 中文），分 tier；并诚实标注完成证书不是学历
+
 ---
 
 ## 还有什么？
