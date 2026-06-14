@@ -1,0 +1,2 @@
+Stage 0 CLI practice started
+I can run Python from terminal

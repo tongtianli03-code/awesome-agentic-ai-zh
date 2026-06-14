@@ -1,0 +1,6 @@
+{
+  "app_name": "agent-learning",
+  "debug": true,
+  "max_retries": 5,
+  "provider": "deepseek"
+}
