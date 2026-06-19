@@ -385,6 +385,144 @@ COURSE_STAGES = [
 ]
 
 
+STAGE_LESSONS = {
+    "0": [
+        "Stage 0 不是让你变成程序员，而是让你以后不会被最小的环境问题卡住。后面所有 Agent 练习都会反复用到文件路径、终端命令、环境变量、API 返回结果和配置文件；这些东西如果没有直觉，错误提示会像一堵墙。",
+        "Python 在这里的角色很朴素：它是让电脑照步骤做事的说明书。函数就是把一段步骤起名字，类就是把一组数据和动作放在一个盒子里，async/await 可以先理解为“等外部服务回复时，不要把整条流程堵死”。零基础阶段不用追求精通，只要能看懂脚本从上到下做了什么。",
+        "Git 也不是程序员炫技工具，它是学习过程的时间机器。每一次 commit 都是在说：我现在完成了一个能运行的小阶段。以后练 Agent 时，模型可能会改文件，Git 能帮你看清它到底改了什么。",
+        "API 是软件世界的服务窗口。你把请求按规则递进去，对方给你 JSON 结果。YAML/JSON 则像机器能读懂的表格。学完这一关，你至少要能解释：我在哪个文件夹、跑了哪个脚本、请求了哪个 API、返回结果里我要哪一个字段。",
+    ],
+    "1": [
+        "Stage 1 把你从“网页里和 AI 聊天”带到“用程序调用模型”。这一步很重要，因为真正的 Agent 不是一直开着网页聊天，而是由程序把任务、上下文、工具结果一次次传给模型。",
+        "模型家族、供应商、开源模型看起来很多，但零基础先抓 4 个问题：这个模型会不会中文，价格能不能接受，速度够不够，能不能通过 OpenAI-compatible API 调用。DeepSeek、OpenAI、Anthropic、Ollama 在学习阶段都只是不同的“模型入口”。",
+        "Token 是费用和容量的核心。你给模型越多材料，它看得越多，也越贵；上下文窗口决定它一次能看多长；temperature 控制答案是稳一点还是发散一点。后面做 RAG、多 Agent、长文档总结时，这些都会变成实际成本和效果问题。",
+        "这一关不要急着背所有 benchmark。你真正要学会的是：准备 API key、发出一次请求、拿到回答、看懂错误码、知道 key 不能泄露。只要你能稳定跑通 hello world，就能进入 Prompt 和 Tool Use。",
+    ],
+    "2": [
+        "Prompt 设计不是玄学。它是把你脑子里的模糊要求，翻译成模型能执行的任务说明。零基础读者常见问题是直接问“帮我写得好一点”，但没有说明给谁看、输出几段、风格是什么、哪些信息必须保留。",
+        "System prompt 像岗位说明书，告诉模型它扮演什么角色；few-shot 像给样板间，让模型照着例子装修；CoT 或分步思考像让它先列思路再交答案；iterative refinement 则是把一次回答变成多轮打磨。",
+        "你不需要追求一条万能 prompt。更可靠的方式是固定结构：目标、背景、输入材料、输出格式、限制、例子、验收标准。每次模型跑偏时，优先补这些信息，而不是换一个更玄的词。",
+        "Stage 2 的产出应该是可复用任务单。后面 Agent 调工具、写报告、派子任务，都需要清楚的任务说明。Prompt 是 Agent 的方向盘，方向盘不清楚，工具越多越容易乱。",
+    ],
+    "3": [
+        "Stage 3 是分水岭：模型从“会说”变成“会办事”。Agent 的最小核心不是神秘智能，而是三件事：有目标、能选择工具、能看结果再决定下一步。",
+        "Tool calling 可以理解为 AI 填一张工具申请单。工具名说明它能做什么，schema 规定它要填哪些参数，程序拿到这张申请单后真正去执行。模型不是直接改世界，它通常是通过这些受控工具间接行动。",
+        "ReAct 循环就是：先想、再行动、观察结果、决定继续还是停止。这个循环看起来简单，但是真实问题都藏在细节里：工具描述太模糊就不会调用，参数字段太宽就会填错，失败结果写得太抽象就无法恢复。",
+        "这一关要建立一个关键判断：Agent 不是模型越强越好，而是“模型 + 工具 + 控制流程”配合得越清楚越好。你能从日志里指出每一步发生了什么，就真正开始理解 Agent 了。",
+    ],
+    "4": [
+        "Stage 4 解决的是复杂度管理。一个小 Agent 可以手写循环；但当任务有多个步骤、多个角色、条件分支、人工确认、状态保存时，手写就会很快失控。",
+        "框架可以理解为施工脚手架。LangGraph 更像把流程画成节点和连线，适合状态和分支明确的工作流；CrewAI 更强调角色和任务分工；Pydantic AI 强调结构化输入输出；CodeAct 则代表让模型用代码表达动作的路线。",
+        "这一章最重要的不是追热门框架，而是区分 workflow 和 agent。Workflow 是你提前规定步骤；Agent 是模型在过程中做选择。很多业务并不需要多 Agent，只需要一个清楚的流程加少量模型判断。",
+        "学完 Stage 4，你应该能看懂同一个任务为什么可以有手写版、框架版、多角色版。也要知道什么时候不要上框架：如果任务只有两三步、状态很少、失败成本低，简单代码往往更可靠。",
+    ],
+    "5": [
+        "Stage 5 很长，因为它把 Claude Code 生态当作一个真实 Agent 产品来拆。零基础先抓办公室类比：CLAUDE.md 是公司制度，MCP 是外部系统接口，Skill 是标准作业流程，Plugin 是打包能力，Subagent 是临时派出去处理子任务的人。",
+        "MCP 的价值是统一连接外部工具。以前每个工具都要单独接线，现在它像通用插头，让 Agent 能用文件、数据库、浏览器、笔记、表格等系统。你不需要一开始会写 MCP server，但要理解它解决的是“接工具”的问题。",
+        "Skill 解决的是重复流程沉淀。比如每次做代码审查、写报告、查资料都有固定步骤，就可以写成 Skill。Subagent 解决的是任务分派：主 Agent 不必把所有细节塞在一个对话里，可以把一块独立工作派出去，再整合结果。",
+        "这一章后半部分讲架构、SDK、source reference、production 用法。对 Track A 用户，重点是怎么用；对 Track B 学习者，重点是 Claude Code 为什么这样设计。不要被名词吓到，始终问：这是规则、工具、流程，还是派人？",
+    ],
+    "6": [
+        "Stage 6 解决模型的两大弱点：不知道你的私有资料，记不住长期经验。RAG 是让模型先查资料再回答；Memory 是让系统把值得保留的信息存起来，未来继续用。",
+        "Embedding 可以先理解成把文字变成语义坐标。意思相近的句子在坐标空间里更近，向量数据库就是用这种方式找相关资料。Chunking 是把长文档切成段，切得太碎会丢上下文，切得太大又会带入噪音。",
+        "RAG pipeline 的经典顺序是：准备资料、切块、生成 embedding、存入向量库、检索相关片段、把片段放进 prompt、让模型回答。出错时不要只改 prompt，要先看检索出来的资料到底对不对。",
+        "Memory 和普通聊天记录不一样。聊天记录是流水账，Memory 应该是筛选后的长期事实、偏好、经验或失败教训。真正的 Agent 系统通常会同时有短期上下文、检索资料和长期记忆。",
+    ],
+    "7": [
+        "Stage 7 从学习 Demo 进入生产化。能在本地跑一次，不代表能给别人长期使用。真实系统需要评估、日志、错误处理、成本控制、延迟控制、权限和部署。",
+        "多 Agent 不是越多越高级。只有当任务天然需要不同视角、不同权限、并行处理或互相审查时，多 Agent 才有意义。否则角色越多，沟通成本和不可控性越高。",
+        "Eval 是给 Agent 做考试。你需要一组固定题目、期望结果、评分方法和回归检查，才能知道改 prompt、换模型、加工具后到底变好了还是变坏了。Observability 则是让你看见系统内部：花了多久、用了多少 token、调用了哪些工具、哪里出错。",
+        "部署和成本是把技术变成产品的门槛。FastAPI、Docker、streaming、prompt caching、status code、trace 这些词听起来工程化，但背后都在回答同一个问题：别人用的时候，它稳不稳、贵不贵、坏了能不能查。",
+    ],
+    "7.5": [
+        "Stage 7.5 是判断力训练。前面你学了很多技术，这一章问的是：Agent 到底应该负责什么，什么时候必须让人确认，系统以哪里为事实来源，失败后怎么恢复。",
+        "Work boundary 是主轴。比如 Agent 可以帮你草拟邮件，但是否自动发送要看风险；可以整理订单，但是否退款要看权限；可以修改代码，但是否部署要看验收。边界不清楚，Agent 越强越危险。",
+        "System of record 是事实源。一个系统里可能有聊天记录、数据库、文档、网页、用户输入，但最终以哪里为准必须清楚。否则 Agent 会把临时猜测当事实，把旧信息覆盖新信息。",
+        "Progressive disclosure 是不要一次把所有复杂度扔给用户。好的 Agent 产品会先给简单入口，需要时再展开高级选项。对学习者也一样：先会跑、再会查、再会评估、最后再谈自动化和自治。",
+    ],
+    "8": [
+        "Stage 8 讲 Agent 如何操作真实世界。Computer Use 像看屏幕和点鼠标，Browser Use 像专门操作网页，Code Sandbox 像把代码放进隔离实验箱里跑。",
+        "这三类能力很强，也很危险。因为一旦 Agent 能点按钮、提交表单、运行代码，它就可能误删文件、误发消息、误付款、误读网页。因此 Stage 8 的核心不是炫技，而是安全边界。",
+        "选择界面时先问任务类型：如果网页结构清楚，Browser Use 通常更可靠；如果必须操作桌面软件，Computer Use 才有意义；如果要生成和运行代码，Sandbox 可以隔离风险。",
+        "真实产品里常见做法是 human-in-the-loop：低风险动作自动做，高风险动作先停下来让人确认。你学完这一关，应该能设计一个最小安全规则清单，而不是只说“让 AI 自动操作”。",
+    ],
+}
+
+
+CURRICULUM_MANUAL = [
+    {
+        "title": "这份路线到底在教什么",
+        "body": [
+            "它不是一份编程语言课程，也不是一份工具清单。它的核心目标是让你理解并掌握 Agentic AI 的完整链路：从一次模型调用，到 prompt 控制，到工具调用，到框架组织，到记忆和 RAG，到多 Agent、部署、界面和安全。",
+            "如果你是零基础，最重要的不是把所有资源一次读完，而是知道每个阶段解决什么问题。Stage 0-2 建立基础，Stage 3-4 让你理解 Agent 怎么工作，Stage 5-8 让你理解真实工具生态和生产系统。",
+            "这份 HTML 会把原仓库拆成两层：前面是重新讲过的小白课程，后面是完整原文资料库。你学习时先读课程层，遇到要动手或深挖，再点原文深读。",
+        ],
+        "checks": ["先读课程层，不要一开始钻进 68 篇原文", "每阶段只要求完成一个可见小结果", "所有 API key、token、密钥都只放本机环境变量"],
+        "refs": ["README.zh-Hans.md", "PROGRESS.zh-Hans.md", "docs/HOW_TO_USE.md"],
+    },
+    {
+        "title": "Track A：先成为 CLI Agent 高级用户",
+        "body": [
+            "Track A 适合你现在最想“会用 AI 做事”，但还不急着自己造 Agent 系统。路线是 Stage 0-2 打底，然后 A1 选 CLI Agent，A2 建立可重复工作流，A3 接入真实生产工具，再补 Stage 5 和 Stage 8 的使用视角。",
+            "这条路的核心不是写很多代码，而是学会给 CLI Agent 清晰规则、固定流程和验收标准。比如 CLAUDE.md 规定项目习惯，slash command 固化常用操作，MCP 接入外部工具，cost tracking 防止费用失控。",
+            "对日常学习来说，Track A 更快见效。你会更早感受到 Agent 能读文件、跑命令、改项目、写总结、查资料。但也要记住：它能动文件，所以 Git 存档和权限边界必须先学。",
+        ],
+        "checks": ["能安装并运行一个 CLI Agent", "能写项目规则文件", "能把一个重复任务做成固定流程", "能解释哪些动作需要人工确认"],
+        "refs": ["tracks/cli/A1-cli-intro.zh-Hans.md", "tracks/cli/A2-cli-workflow.zh-Hans.md", "tracks/cli/A3-cli-production.zh-Hans.md"],
+    },
+    {
+        "title": "Track B：从零构建自己的 Agent",
+        "body": [
+            "Track B 适合你想理解 Agent 内部原理，未来能自己搭系统。它不会停在“会用工具”，而是要求你理解 function calling、ReAct、框架、RAG、memory、multi-agent、eval、deploy 和 interface。",
+            "这条路更慢，但能力更底层。你会知道为什么模型需要 schema，为什么 tool description 会影响调用，为什么 RAG 要先看检索结果，为什么多 Agent 经常不是第一选择。",
+            "Track B 的学习节奏应该是“先做最小可运行，再补概念”。每一阶段都要留下一个能跑的小练习，而不是只收藏文章。最后用 Capstone 把它们串成一个完整项目。",
+        ],
+        "checks": ["能解释 Agent 的目标、工具、观察循环", "能做一个最小 RAG 或 memory demo", "能用 eval 判断改动是否变好", "能说明上线后的日志、成本和失败处理"],
+        "refs": ["stages/03-tool-use-and-hello-agent.zh-Hans.md", "stages/07-multi-agent-production.zh-Hans.md", "CAPSTONE.zh-Hans.md"],
+    },
+    {
+        "title": "五类身份分支怎么选",
+        "body": [
+            "主线学完后，不同人要用 Agent 解决的问题不一样。开发者关心代码审查、仓库修改、CI、调试；研究者关心文献、写作、证据链；教师关心备课、课堂辅助和学生隐私；知识工作者关心文档、会议、表格和流程；日常用户关心生活管理和低门槛工具。",
+            "分支不是新手必须马上读的内容。它更像学习后的落地菜单：当你已经知道 Agent 能做什么，再回来看自己身份最常用的工作流。",
+            "如果你现在完全零代码，优先看日常用户分支和 setup guide；如果你已经在做项目，再看开发者分支；如果你要处理资料和写作，再看知识工作者或研究者分支。",
+        ],
+        "checks": ["按真实需求选分支，不按技术名词选", "每个分支只挑 1 个工作流先做", "涉及隐私、学生、客户资料时先考虑安全边界"],
+        "refs": ["branches/for-everyday-users.zh-Hans.md", "branches/for-developer.zh-Hans.md", "branches/for-researcher.zh-Hans.md", "branches/for-teacher.zh-Hans.md", "branches/for-knowledge-worker.zh-Hans.md"],
+    },
+    {
+        "title": "练习库怎么用才不会劝退",
+        "body": [
+            "examples 不是让你按文件夹一次刷完。它是一组可跑的观察实验：Stage 1 观察 API 和错误处理，Stage 3 观察工具选择和 ReAct，Stage 4 比较框架，Stage 6 观察 embedding/RAG/memory，Stage 7 观察 eval、日志、部署。",
+            "每个练习都优先看四件事：为什么重要、怎么跑、不花钱如何 mock、观察重点是什么。对零基础来说，mock-based 验证特别重要，因为你可以先确认程序逻辑，不必每一步都花 API 调用费用。",
+            "跑练习时不要只盯着最终答案。真正有价值的是日志和中间过程：模型有没有选对工具，参数有没有填对，RAG 检索有没有找对资料，eval 有没有抓出退步。",
+        ],
+        "checks": ["一次只跑一个练习", "先跑 mock 或本地免费路径", "记录成功输出和错误输出", "把卡住点写成下一次要修的清单"],
+        "refs": ["examples/README.zh-Hans.md", "examples/stage-3/03-react-from-scratch/README.zh-Hans.md", "examples/stage-6/04-full-rag-pipeline/README.zh-Hans.md", "examples/stage-7/02-eval/README.zh-Hans.md"],
+    },
+    {
+        "title": "资源库怎么查，而不是怎么背",
+        "body": [
+            "resources 里有词典、cookbook、MCP/Skills 目录、schema cheatsheet、CLI agent 比较、课程清单和 subagent cookbook。它们不是线性教材，而是工具书。",
+            "遇到名词不懂，查 glossary；不知道用哪类 Agent，查 agent paradigms；工具 schema 不稳定，查 schema cheatsheet；想接 Notion、Excel、Postgres 等工具，查 MCP/Skills catalog；想把概念变成步骤，查 cookbook。",
+            "资源库最大的价值是帮你在真实问题里快速定位。不要从第一页读到最后一页，而是带着问题进去：我要选工具、我要接系统、我要写 skill、我要 debug tool call。",
+        ],
+        "checks": ["把资源库当字典，不当课本", "每次只带一个问题去查", "查完要回到练习里验证"],
+        "refs": ["resources/glossary.zh-Hans.md", "resources/cookbook.zh-Hans.md", "resources/mcp-skills-catalog.zh-Hans.md", "resources/schema-design-cheatsheet.zh-Hans.md"],
+    },
+    {
+        "title": "Capstone：怎样证明你真的学完",
+        "body": [
+            "Capstone 不是毕业论文，而是把前面能力串成一个可展示的小系统。Track A 的 Capstone 更偏 CLI 工作流：能自动化一个真实任务，有规则、有记录、有成本意识。Track B 的 Capstone 更偏构建系统：有工具、RAG 或 memory、有评测、有部署或可运行接口。",
+            "选题要小，不要一开始做万能助手。更好的题目是：论文总结助手、会议纪要助手、代码审查助手、资料问答助手、课程备课助手、个人知识库助手。",
+            "展示时不要只展示最终答案。要展示输入、处理流程、工具调用、失败处理、评测结果和你设置的安全边界。这样才说明你不是只会调模型，而是真的理解 Agent 系统。",
+        ],
+        "checks": ["题目必须真实、具体、可演示", "必须有成功和失败样例", "必须说明成本、权限和安全边界"],
+        "refs": ["CAPSTONE.zh-Hans.md", "walkthroughs/build-first-agent-in-7-steps.zh-Hans.md"],
+    },
+]
+
+
 def all_source_files() -> list[str]:
     files = []
     seen = set()
@@ -548,6 +686,7 @@ def render_track_selector() -> str:
 def render_course_nav() -> str:
     items = [
         ("课程开场", "#story"),
+        ("完整讲义", "#manual"),
         ("学习路线", "#course"),
         ("路径选择", "#tracks"),
         ("术语表", "#glossary"),
@@ -592,6 +731,11 @@ def render_deep_links(deep_links: list[str], doc_ids: dict[str, str]) -> str:
     return "\n".join(links)
 
 
+def render_lesson_paragraphs(stage_number: str) -> str:
+    paragraphs = STAGE_LESSONS.get(stage_number, [])
+    return "\n".join(f"<p>{html_escape(paragraph)}</p>" for paragraph in paragraphs)
+
+
 def render_course_stages(doc_ids: dict[str, str]) -> str:
     cards = []
     for stage in COURSE_STAGES:
@@ -632,6 +776,10 @@ def render_course_stages(doc_ids: dict[str, str]) -> str:
                   <div><strong>能不能跳过：</strong>{html_escape(stage['skip'])}</div>
                 </section>
               </div>
+              <section class="lesson-card">
+                <h4>完整讲解：这一关到底在学什么</h4>
+                {render_lesson_paragraphs(stage['number'])}
+              </section>
               <footer class="deep-links">
                 <strong>原文深读：</strong>
                 {render_deep_links(stage['deep'], doc_ids)}
@@ -640,6 +788,164 @@ def render_course_stages(doc_ids: dict[str, str]) -> str:
             """
         )
     return "\n".join(cards)
+
+
+def render_curriculum_manual(doc_ids: dict[str, str]) -> str:
+    blocks = []
+    for idx, block in enumerate(CURRICULUM_MANUAL, 1):
+        refs = render_deep_links(block["refs"], doc_ids)
+        body = "\n".join(f"<p>{html_escape(paragraph)}</p>" for paragraph in block["body"])
+        checks = "\n".join(f"<li>{html_escape(item)}</li>" for item in block["checks"])
+        blocks.append(
+            f"""
+            <article class="manual-block">
+              <div class="manual-number">{idx:02d}</div>
+              <div class="manual-content">
+                <h3>{html_escape(block['title'])}</h3>
+                {body}
+                <div class="manual-checks">
+                  <strong>读完你应该能做到：</strong>
+                  <ul>{checks}</ul>
+                </div>
+                <footer class="manual-refs">
+                  <strong>对应原文：</strong>
+                  {refs}
+                </footer>
+              </div>
+            </article>
+            """
+        )
+    return "\n".join(blocks)
+
+
+def source_title_and_heads(markdown_text: str, fallback: str) -> tuple[str, list[str]]:
+    title = title_for(markdown_text, fallback)
+    heads = [h.strip() for h in re.findall(r"^#{2,3}\s+(.+)$", markdown_text, re.MULTILINE)]
+    return title, heads
+
+
+def reading_strategy(rel: str, title: str) -> tuple[str, list[str], str]:
+    if rel == "README.zh-Hans.md":
+        return (
+            "这篇是全项目入口。先看它理解两条路线、阶段顺序和整体目标，不要一开始点开每个资源链接。",
+            ["学习地图", "Track A / Track B", "快速开始", "你会收获什么"],
+            "读完后先决定你是先走 Track A 还是 Track B，再回到主线课程。",
+        )
+    if rel == "PROGRESS.zh-Hans.md":
+        return (
+            "这篇是学习进度表。它不是新知识，而是用来防止你学到一半不知道自己在哪。",
+            ["共用基础", "Track A", "Track B", "Capstone"],
+            "每完成一个阶段后回来打勾，确认下一步。",
+        )
+    if rel == "docs/HOW_TO_USE.md":
+        return (
+            "这篇告诉你仓库怎么用。零基础只需要先理解：先读路线，再做练习，最后用资源库查问题。",
+            ["阅读顺序", "本地预览", "资料组织"],
+            "如果页面或图片显示异常，优先回来看这里。",
+        )
+    if rel.startswith("stages/"):
+        stage_name = title.replace("Stage ", "Stage ")
+        return (
+            f"这是主线章节：{stage_name}。读的时候先抓学习目标、进入条件和动手练习，再看资源链接。",
+            ["学习目标", "进入条件", "必修阅读", "动手练习", "自我检查"],
+            "不要逐字背资源列表；先完成本阶段最小练习。",
+        )
+    if rel.startswith("tracks/cli/"):
+        return (
+            "这是 Track A 的 CLI Agent 路线。重点不是造 Agent，而是把 CLI Agent 用成稳定工作流。",
+            ["学习目标", "必修阅读", "动手练习", "工作流模式"],
+            "用一个真实小任务验证：让 CLI Agent 读文件、改文件、跑检查、给总结。",
+        )
+    if rel.startswith("branches/"):
+        return (
+            "这是按身份落地的分支。它回答的是：同样的 Agent 能力，在你的工作或生活里怎么用。",
+            ["使用场景", "精选 Projects", "推荐工具", "工作流 recipe", "常见踩坑"],
+            "只挑一个与你最近需求相关的 workflow 做，不要把整篇当考试范围。",
+        )
+    if rel.startswith("examples/"):
+        return (
+            "这是可跑练习。读法是先看为什么重要，再看怎么跑，最后看观察重点和常见坑。",
+            ["为什么重要", "怎么跑", "Path A", "Path B", "不花钱验证", "常见坑"],
+            "先跑本地或 mock 路径，确认逻辑后再接真实 API。",
+        )
+    if rel.startswith("resources/glossary"):
+        return (
+            "这是词典，不是课程。遇到术语不懂时查，不需要从头背到尾。",
+            ["基本概念", "Agent", "RAG", "MCP", "Sandbox"],
+            "把看不懂的词复制到这里查，再回到当前阶段继续学。",
+        )
+    if rel.startswith("resources/mcp-skills"):
+        return (
+            "这是工具目录。它回答“我想让 Agent 接某个系统，有什么现成连接方式”。",
+            ["笔记/知识库", "办公文件", "数据库", "浏览器", "开发协作"],
+            "带着具体目标查，比如接 Notion、Excel、Postgres，而不是从头浏览。",
+        )
+    if rel.startswith("resources/cookbook"):
+        return (
+            "这是 recipe 手册。它把概念变成可复制的步骤，适合你开始写 Skill、MCP 或自动化流程时查。",
+            ["第一个 Skill", "MCP server", "工具连接", "常见模式"],
+            "先复制一个最小 recipe 跑通，再按自己的场景改。",
+        )
+    if rel.startswith("resources/"):
+        return (
+            "这是参考资源。它通常不是按学习顺序写的，而是当你遇到具体选择或设计问题时查。",
+            ["什么时候看", "对照表", "推荐工具", "常见坑"],
+            "用问题驱动阅读：我要选工具、写 schema、找课程，还是查 subagent 方案？",
+        )
+    if rel.startswith("walkthroughs/"):
+        return (
+            "这是跨阶段走查。它把多个阶段串成一个完整 Agent 项目，适合学完 Stage 3 后回来看。",
+            ["全程概览", "环境准备", "调用 LLM", "Tool use", "Framework", "Skill"],
+            "不要第一次学习就硬啃，先完成 Stage 0-3 再跟着做。",
+        )
+    if rel == "CAPSTONE.zh-Hans.md":
+        return (
+            "这是结业项目说明。它用来证明你不是只会看教程，而是真的能做一个可展示的 Agent 工作流或系统。",
+            ["Track A Capstone", "Track B Capstone", "评分 rubric", "怎么展示"],
+            "选一个小而真实的题目，展示流程、失败处理和评估结果。",
+        )
+    if rel in {"CONTRIBUTING.zh-Hans.md", "CODE_OF_CONDUCT.zh-Hans.md", "SECURITY.zh-Hans.md", "ROADMAP.zh-Hans.md", "RESOURCES.zh-Hans.md"}:
+        return (
+            "这是项目维护和资源补充材料。学习主线时可以先略读，等你要贡献、查资源或了解后续规划时再细看。",
+            ["贡献方式", "安全政策", "路线规划", "资源补充"],
+            "主线学习不必卡在这里；有实际需求时再回来看。",
+        )
+    return (
+        "这篇是补充资料。先看标题和小节，判断它解决的是路线、练习、资源还是项目维护问题。",
+        ["标题", "小节", "练习", "资源"],
+        "只抓与你当前阶段相关的部分。",
+    )
+
+
+def render_doc_reader_guide(rel: str, markdown_text: str) -> str:
+    title, heads = source_title_and_heads(markdown_text, rel)
+    intro, focus, action = reading_strategy(rel, title)
+    head_chips = heads[:10] or focus
+    focus_html = "\n".join(f"<li>{html_escape(item)}</li>" for item in focus)
+    chips_html = "\n".join(f"<span>{html_escape(item)}</span>" for item in head_chips)
+    code_blocks = markdown_text.count("```") // 2
+    table_lines = sum(1 for line in markdown_text.splitlines() if line.startswith("|"))
+    return f"""
+      <aside class="doc-reader-guide">
+        <h3>这篇怎么读，才不像看技术文档</h3>
+        <p>{html_escape(intro)}</p>
+        <div class="doc-guide-grid">
+          <section>
+            <strong>先抓这些</strong>
+            <ul>{focus_html}</ul>
+          </section>
+          <section>
+            <strong>读完做什么</strong>
+            <p>{html_escape(action)}</p>
+          </section>
+          <section>
+            <strong>文档密度</strong>
+            <p>{code_blocks} 个代码块 · {table_lines} 行表格。代码和表格先看作用，不要第一遍逐行啃。</p>
+          </section>
+        </div>
+        <div class="heading-chips">{chips_html}</div>
+      </aside>
+    """
 
 
 def render_css_diagrams() -> str:
@@ -710,6 +1016,7 @@ def render_documents(files: list[str]) -> tuple[str, str]:
               <div class="doc-kicker">{idx:02d} · {html_escape(group)} · <code>{html_escape(rel)}</code></div>
               <h2>{html_escape(title)}</h2>
               {note_html}
+              {render_doc_reader_guide(rel, markdown_text)}
               <div class="markdown-body">
                 {rewrite_local_paths(convert_markdown(markdown_text), rel)}
               </div>
@@ -1121,6 +1428,85 @@ def build() -> str:
       text-decoration: none;
       font-weight: 700;
     }}
+    .manual-wrap {{
+      display: grid;
+      gap: 18px;
+      margin-top: 28px;
+    }}
+    .manual-block {{
+      display: grid;
+      grid-template-columns: 76px minmax(0, 1fr);
+      gap: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,250,240,.94);
+      box-shadow: 0 12px 34px rgba(25,32,38,.08);
+      padding: 22px;
+    }}
+    .manual-number {{
+      display: grid;
+      place-items: center;
+      height: 76px;
+      border-radius: var(--radius);
+      background: var(--dark);
+      color: #f4c166;
+      font-size: 24px;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+    }}
+    .manual-content h3 {{
+      margin: 0 0 12px;
+      font-size: clamp(24px, 3vw, 36px);
+      line-height: 1.12;
+    }}
+    .manual-content p {{
+      margin: 0 0 12px;
+      font-size: 17px;
+    }}
+    .manual-checks {{
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: var(--radius);
+      background: #edf7f0;
+      border: 1px solid #b9d7c8;
+    }}
+    .manual-checks ul {{
+      margin: 8px 0 0;
+      padding-left: 20px;
+    }}
+    .manual-refs {{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-top: 14px;
+    }}
+    .manual-refs a {{
+      display: inline-flex;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #f0eadc;
+      text-decoration: none;
+      font-weight: 700;
+    }}
+    .lesson-card {{
+      margin: 0 20px 20px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-left: 7px solid var(--green);
+      border-radius: var(--radius);
+      background: #fffdf6;
+    }}
+    .lesson-card h4 {{
+      margin: 0 0 12px;
+      font-size: 22px;
+    }}
+    .lesson-card p {{
+      margin: 0 0 13px;
+      font-size: 17px;
+    }}
+    .lesson-card p:last-child {{ margin-bottom: 0; }}
     .term-grid {{
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1306,6 +1692,7 @@ def build() -> str:
       background: rgba(255,250,240,.88);
       border-radius: var(--radius);
       box-shadow: 0 12px 38px rgba(25,32,38,.09);
+      scroll-margin-top: 20px;
     }}
     .doc-kicker {{
       color: var(--muted);
@@ -1334,6 +1721,56 @@ def build() -> str:
       margin-bottom: 6px;
     }}
     .beginner-note p {{ margin: 0; }}
+    .doc-reader-guide {{
+      border: 1px solid #d8bd83;
+      border-left: 7px solid var(--amber);
+      background: #fff7df;
+      border-radius: var(--radius);
+      padding: 16px;
+      margin: 18px 0 28px;
+    }}
+    .doc-reader-guide h3 {{
+      margin: 0 0 8px;
+      font-size: 21px;
+    }}
+    .doc-reader-guide p {{ margin: 0 0 12px; }}
+    .doc-guide-grid {{
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }}
+    .doc-guide-grid section {{
+      padding: 12px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.7);
+      border: 1px solid rgba(186,122,22,.28);
+    }}
+    .doc-guide-grid strong {{
+      display: block;
+      margin-bottom: 6px;
+      color: var(--amber);
+    }}
+    .doc-guide-grid ul {{
+      margin: 0;
+      padding-left: 18px;
+    }}
+    .heading-chips {{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }}
+    .heading-chips span {{
+      display: inline-flex;
+      padding: 6px 9px;
+      border-radius: var(--radius);
+      background: #f0eadc;
+      border: 1px solid var(--line);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+    }}
     .markdown-body h1 {{ font-size: 30px; margin-top: 28px; }}
     .markdown-body h2 {{ font-size: 25px; border-top: 1px solid var(--line); padding-top: 24px; margin-top: 30px; }}
     .markdown-body h3 {{ font-size: 21px; margin-top: 24px; }}
@@ -1432,7 +1869,7 @@ def build() -> str:
       .sidebar {{ position: relative; height: auto; }}
       .source-nav {{ max-height: 380px; overflow: auto; }}
       .source-nav a {{ grid-template-columns: 40px minmax(0, 1fr); }}
-      .intro-grid, .term-grid, .visual-grid, .diagram-grid, .stage-map, .track-selector, .story-split, .course-stage-grid {{ grid-template-columns: 1fr; }}
+      .intro-grid, .term-grid, .visual-grid, .diagram-grid, .stage-map, .track-selector, .story-split, .course-stage-grid, .manual-block, .doc-guide-grid {{ grid-template-columns: 1fr; }}
       .hero {{ min-height: 78vh; padding: 28px 18px; }}
       .section-band {{ padding: 30px 18px; }}
       .source-doc {{
@@ -1535,9 +1972,17 @@ def build() -> str:
         </div>
       </section>
 
+      <section class="section-band" id="manual">
+        <h2>完整小白讲义：先把整条路讲明白</h2>
+        <p>这一部分不是目录，而是把原仓库路线重新讲成一套能连续读下去的课程说明。你先读这里，再决定要不要展开后面的原文资料库。</p>
+        <div class="manual-wrap">
+          {render_curriculum_manual(doc_ids)}
+        </div>
+      </section>
+
       <section class="section-band" id="course">
         <h2>主线课程：十关逐步走</h2>
-        <p>这一部分是重新写给非程序员的主阅读区。每一关都先讲“为什么要学”，再给流程图、概念翻译、30 分钟任务和原文深读入口。</p>
+        <p>这一部分是重新写给非程序员的主阅读区。每一关都先讲“为什么要学”，再给完整讲解、流程图、概念翻译、30 分钟任务和原文深读入口。</p>
         <div class="course-wrap">
           {render_course_stages(doc_ids)}
         </div>
@@ -1603,6 +2048,16 @@ def build() -> str:
         if (link.getAttribute('href')?.startsWith('#doc-')) openSourceLibrary();
       }});
     }});
+    const openCurrentHash = () => {{
+      if (location.hash && location.hash.startsWith('#doc-')) {{
+        openSourceLibrary();
+        requestAnimationFrame(() => {{
+          document.querySelector(location.hash)?.scrollIntoView({{ block: 'start' }});
+        }});
+      }}
+    }};
+    window.addEventListener('hashchange', openCurrentHash);
+    openCurrentHash();
     buttons.forEach((button) => {{
       button.addEventListener('click', () => {{
         const filter = button.dataset.filter;
